@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+}
+
+.wapper,
+h1 {
+    color: black;
+    font-weight: 600;
+
+}
+h2 {
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+
+}
+
+body {
+    background: url(images/BG1.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.wrapper {
+    color: rgb(255, 255, 255);
+    border-radius: 25px;
+    width: 500px;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid blanchedalmond;
+    backdrop-filter: blur(15px);
+    font-family: 'Times New Roman', Times, serif;
+    padding: 20px 50px;
+}
+
+.wrapper .remember-me {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.wrapper .submit {
+    border-radius: 15px;
+    width: 35%;
+    height: 40px;
+    font-weight: 400;
+    font-size: medium;
+    margin: 15px;
+    background-color: #d4d4d4;
+}
+
+.wrapper .submit:hover{
+    background-color: rgb(163, 163, 190);
+    font-weight: 700;
+    width: 37% ;
+    height: 40.5 px;
+    border: 2px solid rgb(0, 0, 0);
+}
+.wrapper .input-box{
+    margin: 30px 0;
+    height: 50px;
+}
+.input-box input {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    font-size: large;
+    color: aliceblue;
+    padding-left: 50px;
+    border: 2px solid white;
+}
+
+.wrapper .input-box input::placeholder{
+    color: rgb(27, 27, 27);
+    font-weight: 600;
+}
