@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2024 at 03:47 AM
+-- Generation Time: Sep 07, 2024 at 04:54 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,7 +31,8 @@ CREATE TABLE `cancellation` (
   `cancel_id` int(11) NOT NULL,
   `cancel_date` date DEFAULT NULL,
   `cancel_reason` text DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL
+  `fk_order_id` int(11) DEFAULT NULL,
+  `fk_staff_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -43,8 +44,8 @@ CREATE TABLE `cancellation` (
 CREATE TABLE `cart_item` (
   `cart_id` int(11) NOT NULL,
   `item_qty` int(11) DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL,
+  `fk_item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -56,6 +57,20 @@ CREATE TABLE `cart_item` (
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cost_parameter`
+--
+
+CREATE TABLE `cost_parameter` (
+  `para_id` int(11) NOT NULL,
+  `para name` varchar(200) NOT NULL,
+  `para_type` varchar(200) NOT NULL,
+  `para_cost` decimal(10,2) NOT NULL,
+  `fk_staff_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -93,17 +108,20 @@ CREATE TABLE `customization` (
   `fabric` varchar(50) DEFAULT NULL,
   `color` varchar(50) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
-  `other_image` varchar(255) DEFAULT NULL,
+  `sample_design` varchar(255) DEFAULT NULL,
   `cust_qty` int(11) DEFAULT NULL,
   `customization_date` date DEFAULT NULL,
-  `customization_details` text DEFAULT NULL,
-  `flexible_cust` decimal(10,2) DEFAULT NULL,
+  `customization_text` text DEFAULT NULL,
+  `manufacture_cost` decimal(10,2) DEFAULT NULL,
+  `design_cost` decimal(10,2) DEFAULT NULL,
   `total_price` decimal(10,2) DEFAULT NULL,
   `advance_pay_amount` decimal(10,2) DEFAULT NULL,
+  `dimo_image` varchar(255) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   `pickup_date` date DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL,
+  `fk_staff_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -116,7 +134,7 @@ CREATE TABLE `delivery_area` (
   `deliver_area_id` int(11) NOT NULL,
   `deliver_area_name` date DEFAULT NULL,
   `delivery_status` varchar(100) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
+  `fk_staff_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -130,7 +148,7 @@ CREATE TABLE `discount` (
   `req_point` int(11) DEFAULT NULL,
   `disc_presentage` decimal(10,2) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
+  `fk_staff_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -144,9 +162,9 @@ CREATE TABLE `feedback` (
   `feedback_date` date DEFAULT NULL,
   `feedback_msg` text DEFAULT NULL,
   `feedback_status` varchar(100) DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL,
+  `fk_staff_id` int(11) DEFAULT NULL,
+  `fk_item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -161,8 +179,8 @@ CREATE TABLE `inquiry` (
   `inquiry_msg` text DEFAULT NULL,
   `inquiry_reply` text DEFAULT NULL,
   `inquiry_reply_date` date DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL,
+  `fk_staff_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -183,7 +201,7 @@ CREATE TABLE `item` (
   `item_stock_qty` int(11) DEFAULT NULL,
   `item_discount` decimal(5,2) DEFAULT NULL,
   `item_date_added` date DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL
+  `fk_category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -196,10 +214,11 @@ CREATE TABLE `order` (
   `order_id` int(11) NOT NULL,
   `order_date` date DEFAULT NULL,
   `order_total` decimal(10,2) DEFAULT NULL,
+  `order_address` varchar(200) DEFAULT NULL,
   `order_status` varchar(100) DEFAULT NULL,
   `order_deliver_option` varchar(100) DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL,
-  `deliver_area_id` int(11) DEFAULT NULL
+  `order_deliver_date` date DEFAULT NULL,
+  `fk_cust_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -212,8 +231,8 @@ CREATE TABLE `order_item` (
   `order_item_id` int(11) NOT NULL,
   `item_qty` int(11) DEFAULT NULL,
   `order_item_price` decimal(10,2) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL
+  `fk_order_id` int(11) DEFAULT NULL,
+  `fk_item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -228,8 +247,8 @@ CREATE TABLE `payment` (
   `payment_amount` decimal(10,2) DEFAULT NULL,
   `payment_method` varchar(100) DEFAULT NULL,
   `payment_status` varchar(100) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `customization_id` int(11) DEFAULT NULL
+  `fk_order_id` int(11) DEFAULT NULL,
+  `fk_customization_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -242,7 +261,10 @@ CREATE TABLE `rating` (
   `rating_id` int(11) NOT NULL,
   `rating_date` date DEFAULT NULL,
   `rating_value` int(11) DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL,
+  `fk_staff_id` int(11) DEFAULT NULL,
+  `fk_order_id` int(11) DEFAULT NULL,
+  `fk_item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -255,7 +277,7 @@ CREATE TABLE `report` (
   `report_id` int(11) NOT NULL,
   `report_type` varchar(100) DEFAULT NULL,
   `report_date` date DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
+  `fk_staff_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -277,7 +299,7 @@ CREATE TABLE `staff` (
   `staff_add_line2` varchar(255) DEFAULT NULL,
   `staff_add_line3` varchar(255) DEFAULT NULL,
   `staff_add_line4` varchar(255) DEFAULT NULL,
-  `staff_type_id` int(11) DEFAULT NULL
+  `fk_staff_type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -302,7 +324,7 @@ CREATE TABLE `user_loyalty` (
   `points` int(11) DEFAULT NULL,
   `loyalty_tier` varchar(100) DEFAULT NULL,
   `user_type` int(11) DEFAULT NULL,
-  `cust_id` int(11) DEFAULT NULL
+  `fk_cust_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -314,21 +336,29 @@ CREATE TABLE `user_loyalty` (
 --
 ALTER TABLE `cancellation`
   ADD PRIMARY KEY (`cancel_id`),
-  ADD KEY `order_id` (`order_id`);
+  ADD KEY `fk_order_id` (`fk_order_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `cart_item`
 --
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`cart_id`),
-  ADD UNIQUE KEY `item_id` (`item_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`);
 
 --
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `cost_parameter`
+--
+ALTER TABLE `cost_parameter`
+  ADD PRIMARY KEY (`para_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `customer`
@@ -341,89 +371,93 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `customization`
   ADD PRIMARY KEY (`customization_id`),
-  ADD UNIQUE KEY `staff_id` (`staff_id`),
-  ADD KEY `order_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `delivery_area`
 --
 ALTER TABLE `delivery_area`
   ADD PRIMARY KEY (`deliver_area_id`),
-  ADD KEY `order_id` (`staff_id`);
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `discount`
 --
 ALTER TABLE `discount`
   ADD PRIMARY KEY (`disc_id`),
-  ADD UNIQUE KEY `staff_id` (`staff_id`);
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_id`),
-  ADD UNIQUE KEY `staff_id` (`staff_id`,`item_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`);
 
 --
 -- Indexes for table `inquiry`
 --
 ALTER TABLE `inquiry`
   ADD PRIMARY KEY (`inquiry_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_staff_id` (`fk_staff_id`),
+  ADD KEY `fk_cust_id` (`fk_cust_id`);
 
 --
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `fk_category_id` (`fk_category_id`);
 
 --
 -- Indexes for table `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`order_id`),
-  ADD UNIQUE KEY `deliver_area_id` (`deliver_area_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`);
 
 --
 -- Indexes for table `order_item`
 --
 ALTER TABLE `order_item`
   ADD PRIMARY KEY (`order_item_id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `item_id` (`item_id`);
+  ADD KEY `fk_order_id` (`fk_order_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD UNIQUE KEY `customization_id` (`customization_id`),
-  ADD KEY `order_id` (`order_id`);
+  ADD KEY `fk_order_id` (`fk_order_id`),
+  ADD KEY `fk_customization_id` (`fk_customization_id`);
 
 --
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`rating_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`),
+  ADD KEY `fk_order_id` (`fk_order_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`);
 
 --
 -- Indexes for table `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`report_id`),
-  ADD KEY `staff_id` (`staff_id`);
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`staff_id`),
-  ADD KEY `staff_type_id` (`staff_type_id`);
+  ADD KEY `fk_staff_type_id` (`fk_staff_type_id`);
 
 --
 -- Indexes for table `staff_type`
@@ -436,7 +470,7 @@ ALTER TABLE `staff_type`
 --
 ALTER TABLE `user_loyalty`
   ADD PRIMARY KEY (`loyalty_id`),
-  ADD KEY `cust_id` (`cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`);
 
 --
 -- Constraints for dumped tables
@@ -446,86 +480,108 @@ ALTER TABLE `user_loyalty`
 -- Constraints for table `cancellation`
 --
 ALTER TABLE `cancellation`
-  ADD CONSTRAINT `cancellation_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
+  ADD CONSTRAINT `cancellation_ibfk_1` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cancellation_ibfk_2` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `cost_parameter`
+--
+ALTER TABLE `cost_parameter`
+  ADD CONSTRAINT `cost_parameter_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customization`
 --
 ALTER TABLE `customization`
-  ADD CONSTRAINT `customization_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `order` (`order_id`);
+  ADD CONSTRAINT `customization_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `customization_ibfk_2` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `delivery_area`
 --
 ALTER TABLE `delivery_area`
-  ADD CONSTRAINT `delivery_area_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `order` (`order_id`);
+  ADD CONSTRAINT `delivery_area_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `discount`
+--
+ALTER TABLE `discount`
+  ADD CONSTRAINT `discount_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feedback_ibfk_3` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `inquiry`
 --
 ALTER TABLE `inquiry`
-  ADD CONSTRAINT `inquiry_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `inquiry_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inquiry_ibfk_2` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `item`
 --
 ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`fk_category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_item`
 --
 ALTER TABLE `order_item`
-  ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
-  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`);
+  ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`);
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_customization_id`) REFERENCES `customization` (`customization_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rating`
 --
 ALTER TABLE `rating`
-  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_3` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_4` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `report`
 --
 ALTER TABLE `report`
-  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `staff`
 --
 ALTER TABLE `staff`
-  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`staff_type_id`) REFERENCES `staff_type` (`staff_type_id`);
+  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`fk_staff_type_id`) REFERENCES `staff_type` (`staff_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_loyalty`
 --
 ALTER TABLE `user_loyalty`
-  ADD CONSTRAINT `user_loyalty_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+  ADD CONSTRAINT `user_loyalty_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
