@@ -14,45 +14,9 @@
 
 <body>
     <!-- navigation bar start -->
-    <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top">
-        <div class="container-fluid">
-            <!-- navigaion item un-extend -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <DIV class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item ms-5 ">
-                        <a class="nav-link " href="Index.html">Home</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#"> Categorys </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#">Customize</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#">About us</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#">Contact us</a>
-                    </li>
-                </ul>
-
-                <!-- right  nav bar -->
-                <ul class="navbar-nav ms-auto ">
-                    <li class="nav-item ">
-                        <a class="nav-link " href="#">Sign up</a>
-                    </li>
-                    <li class="nav-item me-5 ">
-                        <a class="nav-link " href="login.html">Login</a>
-                    </li>
-                </ul>
-            </DIV>
-        </div>
-    </nav>
+    <?php
+    include('includes/navbar.php');
+    ?>
     <!-- navigaton bar  end -->
 
 

@@ -13,39 +13,9 @@
 
 <body >
     <!-- navigation bar start -->
-    <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top">
-        <DIV class="navbar-collapse ">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item ms-5 ">
-                    <a class="nav-link " href="Index.html">Home</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link " href="#"> Categorys </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link " href="#">Customize</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link " href="#">About us</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link " href="#">Contact us</a>
-                </li>
-            </ul>
-
-            <!-- right  nav bar -->
-            <ul class="navbar-nav ms-auto ">
-                <li class="nav-item ">
-                    <a class="nav-link " href="#">Sign up</a>
-                </li>
-                <li class="nav-item me-5 ">
-                    <a class="nav-link " href="login.html">Login</a>
-                </li>
-            </ul>
-        </DIV>
-
-
-    </nav>
+<?php
+include('includes/navbar.php');
+?>
     <!-- navigaton bar  end -->
 
 <div class="bg-light pt-1 pb-4 ">
