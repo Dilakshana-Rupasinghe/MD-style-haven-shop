@@ -12,7 +12,7 @@
                     <div class="col-2 mx-2 ">
                         <h4 class="mx-3 ">Quick Links</h4>
                         <ul class="footer-links">
-                            <li><a href="Index.html">Home</a></li>
+                            <li><a href="Index.php">Home</a></li>
                             <li><a href="#">FAQ</a></li>
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Contact Us</a></li>
