@@ -140,7 +140,7 @@ include('includes/navbar.php');
 
     <!-- footer section -->
      <?php 
-        include('includes/footer.php')
+        include('includes/footer.php');
      ?>
     <!-- footer end -->
 </body>

@@ -39,8 +39,11 @@ body {
 .container table {
     background-color: #0077ff;
 }
+.all-product{
+    text-align: center;
+}
 
-.aall-product, .all-novels {
+.all-product, .all-novels {
     text-align: center;
 }
 .all-product, h2{
