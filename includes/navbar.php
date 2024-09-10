@@ -34,10 +34,10 @@
                     <a class="nav-link " href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link position-relative pe-0" href="#"><img src="icons/cart-2-line.svg" style="width: 32px;">
+                    <a class="position-relative me-1" href="#"><img src="icons/cart-2-line.svg" style="width: 32px;">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link position-relative pb-2 me-2" href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>
+                    <a  class="nav-link "  href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>
                 </li>
             </ul>
         </DIV>

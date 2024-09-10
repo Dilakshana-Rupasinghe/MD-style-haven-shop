@@ -34,6 +34,7 @@ include('includes/navbar.php');
         </form>
 
     </div>
+    <!-- cearch item end -->
 
 </div>
 
@@ -41,7 +42,7 @@ include('includes/navbar.php');
     <!-- <div class="carousel slide ">
         <div class="carousel-inner ">
             <div class="cover-image carousel-item active ">
-                <img src="images/BG1.jpg" class="rounded d-block w-100 " alt="...">
+                <img src="images/log4.jpg" class="rounded d-block w-100 " alt="...">
             </div>
         </div>
     </div> -->

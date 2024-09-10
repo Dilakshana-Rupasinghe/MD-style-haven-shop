@@ -19,11 +19,8 @@
 }
 
 .nav-link:hover {
-    color: rgb(54, 54, 136);
-    font-weight: 650;
-    margin-left: 6px;
-    margin-right: 6px;
-
+        transform: scale(1.1);
+        color: black;
 }
 
 /* --------------------------------------
