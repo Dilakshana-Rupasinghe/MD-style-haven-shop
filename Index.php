@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="css/home.css">
     <title>MD-Style Haven shop/online shoping-Home page</title>
 </head>
 
@@ -53,7 +53,7 @@ include('includes/navbar.php');
         <div class="all-product my-3 ">
             <h2> NEW ARRIVALS  </h2>
             <hr>
-            <table class="all-book-tbl" >
+            <table class="new-arrivals-tbl" >
                 <tr>
                     <td>
                         <img src="images/POLO 1.jpg" alt="" style="width: 210px;">
@@ -103,7 +103,7 @@ include('includes/navbar.php');
 
             <h2 class="my-3 "> TOP DESIGNS </h2>
             <hr>
-            <table class="all-novels ">
+            <table class="top-design-tbl">
                 <tr>
                     <td>
                         <img src="images/tt5.jpg" alt="" style="width: 200px;">

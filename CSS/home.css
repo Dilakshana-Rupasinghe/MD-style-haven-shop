@@ -4,8 +4,8 @@
     |   Navigation section 
     |------------------------------------ */
 .nav-link {
-    font-size: 10px !important;
-    font-weight: 400;
+    font-size: 15px !important;
+    font-weight: 500;
     color: black;
     margin-left: 5px;
     margin-right: 5px;
@@ -37,24 +37,21 @@ body {
     |   Bookds section all books
     |------------------------------------ */
 .container table {
-    background-color: #0077ff;
-}
-.all-product{
-    text-align: center;
+    background-color: #dfdcdc;
 }
 
-.all-product, .all-novels {
+.all-product, .top-design-tbl {
     text-align: center;
 }
 .all-product, h2{
     align-content: center;
 }
 
-.all-book-tbl .all-novels, td{
+.new-arrivals-tbl .top-design-tbl, td{
     padding: 40px ;
 }
 
-.all-novels ,.btn{
+.top-design-tbl,.btn{
     align-items: flex-end;
 }
 
