@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top">
     <div class="container-fluid">
         <a class="navigation-brand ms-2 me-auto" href="Index.php" >
-            <img src="images/logo .jpg" alt="logo" style="width: 100px;" class="logo">
+            <img src="images/logo .jpg" alt="logo" style="height: 80px; width: 110px;" class="logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
                     <a class="position-relative me-1" href="#"><img src="icons/cart-2-line.svg" style="width: 32px;">
                 </li>
                 <li class="nav-item">
-                    <a  class="nav-link "  href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>
+                    <a  href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>
                 </li>
             </ul>
         </DIV>
