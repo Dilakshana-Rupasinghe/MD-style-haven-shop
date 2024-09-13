@@ -19,6 +19,10 @@
         text-decoration: unset;
 }
 
+.material-symbols-outlined{
+    font-size: 32px;
+}
+
 .nav-img:hover{
     color: black;
     width: 35px;
