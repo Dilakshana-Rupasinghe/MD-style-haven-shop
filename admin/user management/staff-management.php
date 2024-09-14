@@ -39,7 +39,7 @@ include('../../database/config.php');
                 <span class="material-symbols-outlined">
                     dashboard
                 </span>
-                <a href="admin-home.php"> Dashboard</a>
+                <a href="../home pages/admin-home.php"> Dashboard</a>
             </div>
             <div class="menu">
                 <span class="material-symbols-outlined">
@@ -108,7 +108,7 @@ include('../../database/config.php');
 
         <!-- main section start -->
         <main class="ms-4">
-            <h1>Main</h1>
+            <h1>Staff management</h1>
         </main>
         <!-- main section end -->
 

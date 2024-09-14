@@ -75,7 +75,7 @@
                 <span class="material-symbols-outlined">
                     group_add
                 </span>
-                <a href="#"> Staff </a>
+                <a href="../user management/staff-management.php"> Staff </a>
 
             </div>
             <div class="menu">
