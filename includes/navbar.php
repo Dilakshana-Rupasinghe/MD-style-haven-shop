@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top">
+<nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top py-0">
     <div class="container-fluid">
         <a class="navbar-brand ms-2 me-auto" href="Index.php">
-            <img src="images/logo .jpg" alt="logo" style="height: 90px; width: 120px;" class="logo">
+            <img src="images/logo .jpg" alt="logo" style="height: 85px; width: 120px;" class="logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

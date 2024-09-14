@@ -12,6 +12,11 @@
     transition: transform 0.2s;
 }
 
+.navbar{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .nav-link:hover {
         transform: scale(1.15);
         font-weight: 600;
