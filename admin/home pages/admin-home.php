@@ -26,66 +26,79 @@
     <div class="container-body">
         <!-- menu section start -->
         <aside class="left-menu">
-            <h3 class="left-manu ms-4 mt-2"> MENU
+            <h3 class="ms-4 mt-2"> MENU
                 <span class="material-symbols-outlined">
                     menu
                 </span>
             </h3>
             <div class="menu">
-                <a href="admin-home.php"> Dashboard</a>
                 <span class="material-symbols-outlined">
                     dashboard
                 </span>
+                <a href="admin-home.php"> Dashboard</a>
             </div>
             <div class="menu">
-                <a href="#"> Orders</a>
                 <span class="material-symbols-outlined">
                     orders
                 </span>
+                <a href="#"> Orders</a>
+
             </div>
             <div class="menu">
-                <a href="#"> Inventory </a>
                 <span class="material-symbols-outlined">
                     inventory
                 </span>
+                <a href="#"> Inventory </a>
+
             </div>
             <div class="menu">
-                <a href="#"> Customization </a>
                 <span class="material-symbols-outlined">
                     tune
                 </span>
+                <a href="#"> Customization </a>
+
             </div>
             <div class="menu">
-                <a href="#"> Inquary </a>
                 <span class="material-symbols-outlined">
                     support_agent
                 </span>
+                <a href="#"> Inquary </a>
             </div>
             <div class="menu">
+                <span class="material-symbols-outlined">
+                    report
+                </span>
+                <a href="#"> Reports </a>
+
+            </div>
+            <div class="menu">
+                <span class="material-symbols-outlined">
+                    group_add
+                </span>
                 <a href="#"> Staff </a>
+
+            </div>
+            <div class="menu">
                 <span class="material-symbols-outlined">
                     manage_accounts
                 </span>
-            </div>
-            <div class="menu">
                 <a href="#"> Customer</a>
-                <span class="material-symbols-outlined">
-                    manage_accounts
-                </span>
+
             </div>
             <div class="menu">
-                <a href="#"> feedbacks </a>
                 <span class="material-symbols-outlined">
                     feedback
                 </span>
+                <a href="#"> feedbacks </a>
+
             </div>
             <div class="menu mb-2">
-                <a href="#"> Dilivery </a>
                 <span class="material-symbols-outlined">
                     local_shipping
                 </span>
-            </div>
+                <a href="#"> Dilivery </a>
 
+            </div>
         </aside>
         <!-- menu section end -->
 

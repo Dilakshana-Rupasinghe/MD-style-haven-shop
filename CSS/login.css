@@ -1,13 +1,16 @@
+/* for all sections */
 * {
     box-sizing: border-box;
 }
 
+/* body section */
 body {
     justify-content: center;
     align-items: center;
   
 }
 
+/* form section */
 .wapper,
 h1 {
     color: black;

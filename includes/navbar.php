@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top">
     <div class="container-fluid">
-        <a class="navigation-brand ms-2 me-auto" href="Index.php">
+        <a class="navbar-brand ms-2 me-auto" href="Index.php">
             <img src="images/logo .jpg" alt="logo" style="height: 90px; width: 120px;" class="logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,5 +52,4 @@
             </ul>
         </DIV>
     </div>
-
 </nav>
