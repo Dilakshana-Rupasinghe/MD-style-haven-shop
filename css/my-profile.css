@@ -6,51 +6,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     background-color: #f8f8f8;
-}
-
-/* Header Section */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    color: white;
-}
-
-.logo img {
-    width: 100px;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li {
-    margin-right: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.user-menu {
-    display: flex;
-    align-items: center;
-}
-
-.user-menu .login {
-    margin-right: 10px;
-    color: white;
-    text-decoration: none;
-}
-
-.user-name {
-    color: white;
 }
 
 /* Main Section */
