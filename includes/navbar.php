@@ -43,7 +43,7 @@
                 </li>
                 <li class="nav-item">
                     <!-- <a class="nav-img me-3" href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a> -->
-                    <a class="nav-link " href="#" style="font-size: 19px; color:black;">
+                    <a class="nav-link " href="profile.php" style="font-size: 19px; color:black;">
                         <span class="material-symbols-outlined">
                             account_circle
                         </span>
