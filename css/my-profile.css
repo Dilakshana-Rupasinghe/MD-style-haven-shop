@@ -10,12 +10,33 @@ body {
     background-color: #f8f8f8;
 }
 
+hr {
+    height: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: black;
+    justify-content: space-between;
+    opacity: unset;
+}
+
+/* logout button */
+
+
+.submit:hover {
+    background-color: rgb(163, 163, 190);
+    font-weight: 700;
+    width: 48%;
+    height: 40.5 px;
+    border: 2px solid rgb(0, 0, 0);
+}
+
 /* Main Section */
 main {
     padding: 20px;
 }
 
-.account-details, .order-history {
+.account-details,
+.order-history {
     background-color: white;
     padding: 20px;
     margin-bottom: 20px;
@@ -27,6 +48,10 @@ h2 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+}
+
+h3 .text-center{
+    color: #eee;
 }
 
 /* Profile Section */
@@ -72,6 +97,7 @@ input {
 }
 
 button#saveChanges {
+    margin: 40px;
     padding: 10px 20px;
     background-color: #5a5;
     color: white;

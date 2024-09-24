@@ -12,6 +12,9 @@
     <!-- css links -->
     <link rel="stylesheet" href="css/my-profile.css">
     <link rel="stylesheet" href="css/home.css">
+
+    
+
 </head>
 
 <body>
@@ -21,15 +24,41 @@
     include('includes/navbar.php');
     ?>
 
+    <h2 class="ms-5 mt-3">Account Details</h2>
+
+    <hr>
     <!-- Main Section -->
+
+    <aside>
+        <h2 class="ms-5 ps-3">My Profile</h2>
+        <div class="profile-section ms-5">
+            <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
+            <button class="edit-profile">✎</button>
+
+            <!-- Logout section start -->
+            <div class="container row my-1 mx-auto">
+                <div class="col-md-5 mx-auto" style="background-color: rgb(34, 33, 33); border-radius: 40px;">
+                    <div class="wrapper-out">
+                        <form action="#" method="post" style="margin: 8%; padding: 25px;">
+                            <h3 class="text-center" style="color: white;">You are login to the system</h3>
+                            <button type="submit" class="btn mt-5 " name="custLogout" style="background-color: orange; margin: 20px; padding: 15px; border-radius: 40px"> Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Logout section end -->
+
+    </aside>
+
     <main>
         <section class="account-details">
-            <h2>Account Details</h2>
-            <div class="profile-section">
-                <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-                <button class="edit-profile">✎</button>
-            </div>
+
             <form id="account-form">
+
+                <label for="firstName">User name</label>
+                <input type="text" id="userName" name="userName" placeholder="User name">
+
                 <label for="firstName">First name</label>
                 <input type="text" id="firstName" name="firstName" placeholder="First name">
 
@@ -48,15 +77,15 @@
                 <button type="button" id="saveChanges">Save Changes</button>
             </form>
         </section>
-
-        <!-- Order History Section -->
-        <section class="order-history">
-            <h2>Order History</h2>
-            <div class="no-orders">
-                You haven't placed any orders yet.
-            </div>
-        </section>
     </main>
+    <!-- Order History Section -->
+    <section class="order-history">
+        <h2>Order History</h2>
+        <div class="no-orders">
+            You haven't placed any orders yet.
+        </div>
+    </section>
+
 
     <!-- footer section -->
     <?php
