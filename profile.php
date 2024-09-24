@@ -41,7 +41,7 @@
                     <div class="wrapper-out">
                         <form action="#" method="post" style="margin: 8%; padding: 25px;">
                             <h3 class="text-center" style="color: white;">You are login to the system</h3>
-                            <button type="submit" class="btn mt-5 " name="custLogout" style="background-color: orange; margin: 20px; padding: 15px; border-radius: 40px"> Logout</button>
+                            <button type="submit" class="submit mt-5 " name="custLogout" style="background-color: orange; margin: 20px; padding: 15px; border-radius: 40px"> Logout</button>
                         </form>
                     </div>
                 </div>
