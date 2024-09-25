@@ -1,3 +1,43 @@
+<?php
+session_start();
+
+// include satabase connection
+include('database/config.php');
+
+//check if the form is submited or not
+if (isset($_POST['customer-login'])) {
+
+    // add user inputs
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    //ferify if password and username store in DB or not
+    $select_quirey  = "SELECT * FROM customer WHERE cust_username='$username'";
+
+    $result = mysqli_query($con, $select_quirey );
+    $row_count = mysqli_num_rows($result);
+    $row_data = mysqli_fetch_assoc($result);
+    if ($row_count > 0) {
+        //check user input password and DB store password are maching or not 
+        if ($password == $row_data['cust_pwd']) {
+            // check if user is active or not
+            if ($row_data['cust_is_active'] == 1) {
+                $_SESSION['cust_id'] = $row_data['cust_id'];
+                header("location:index.php");
+                exit();
+            } else {
+                echo "<script>alert('User is Deactive');</script>";
+            }
+        } else {
+            echo "<script>alert('Invalid Password');</script>";
+        }
+    } else {
+        echo "<script>alert('Invalid Credentials');</script>";
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +84,7 @@
                                 <a href="#" class="ps-3 "> Froget-password?</a>
                             </div>
 
-                            <button type="submit" class="submit btn-dark " name="login">Log-in</button>
+                            <button type="submit" class="submit btn-dark " name="customer-login">Log-in</button>
                             <div class="register-link">
                                 <h5>Don't have an account <a href="sign-up.php" class="ps-3 ">Sign-In</a></h5>
                             </div>
@@ -66,3 +106,8 @@
 </body>
 
 </html>
+
+<?php
+// Close the database connection
+mysqli_close($con);
+?>
