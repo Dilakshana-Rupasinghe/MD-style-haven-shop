@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2024 at 06:33 PM
+-- Generation Time: Sep 25, 2024 at 10:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -90,15 +90,17 @@ CREATE TABLE `customer` (
   `cust_add_line1` varchar(255) DEFAULT NULL,
   `cust_add_line2` varchar(255) DEFAULT NULL,
   `cust_add_line3` varchar(255) DEFAULT NULL,
-  `cust_add_line4` varchar(255) DEFAULT NULL
+  `cust_add_line4` varchar(255) DEFAULT NULL,
+  `cust_is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`) VALUES
-(0, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala');
+INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`, `cust_is_active`) VALUES
+(1, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala', 1),
+(2, 'GABELA', 'RUPASINGHE', 'Mal', 'mal123', 'malindudilak@gmail.com', '0770113944', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1);
 
 -- --------------------------------------------------------
 
@@ -351,8 +353,8 @@ ALTER TABLE `cancellation`
 --
 ALTER TABLE `cart_item`
   ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `fk_cust_id` (`fk_cust_id`),
-  ADD KEY `fk_item_id` (`fk_item_id`);
+  ADD KEY `fk_item_id` (`fk_item_id`),
+  ADD KEY `fk_cust_id` (`fk_cust_id`);
 
 --
 -- Indexes for table `category`
@@ -400,24 +402,24 @@ ALTER TABLE `discount`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`feedback_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`),
   ADD KEY `fk_cust_id` (`fk_cust_id`),
-  ADD KEY `fk_staff_id` (`fk_staff_id`),
-  ADD KEY `fk_item_id` (`fk_item_id`);
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `inquiry`
 --
 ALTER TABLE `inquiry`
   ADD PRIMARY KEY (`inquiry_id`),
-  ADD KEY `fk_staff_id` (`fk_staff_id`),
-  ADD KEY `fk_cust_id` (`fk_cust_id`);
+  ADD KEY `fk_cust_id` (`fk_cust_id`),
+  ADD KEY `fk_staff_id` (`fk_staff_id`);
 
 --
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`item_id`),
-  ADD KEY `fk_category_id` (`fk_category_id`);
+  ADD KEY `fk_category_id` (`fk_category_id`) USING BTREE;
 
 --
 -- Indexes for table `order`
@@ -431,26 +433,26 @@ ALTER TABLE `order`
 --
 ALTER TABLE `order_item`
   ADD PRIMARY KEY (`order_item_id`),
-  ADD KEY `fk_order_id` (`fk_order_id`),
-  ADD KEY `fk_item_id` (`fk_item_id`);
+  ADD KEY `fk_item_id` (`fk_item_id`),
+  ADD KEY `fk_order_id` (`fk_order_id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `fk_order_id` (`fk_order_id`),
-  ADD KEY `fk_customization_id` (`fk_customization_id`);
+  ADD KEY `fk_customization_id` (`fk_customization_id`),
+  ADD KEY `fk_order_id` (`fk_order_id`);
 
 --
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`rating_id`),
+  ADD KEY `fk_item_id` (`fk_item_id`),
   ADD KEY `fk_cust_id` (`fk_cust_id`),
   ADD KEY `fk_staff_id` (`fk_staff_id`),
-  ADD KEY `fk_order_id` (`fk_order_id`),
-  ADD KEY `fk_item_id` (`fk_item_id`);
+  ADD KEY `fk_order_id` (`fk_order_id`);
 
 --
 -- Indexes for table `report`
@@ -496,10 +498,28 @@ ALTER TABLE `cart_item`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `cost_parameter`
 --
 ALTER TABLE `cost_parameter`
   MODIFY `para_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `customization`
+--
+ALTER TABLE `customization`
+  MODIFY `customization_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `delivery_area`
@@ -526,6 +546,18 @@ ALTER TABLE `inquiry`
   MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `item`
+--
+ALTER TABLE `item`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order`
+--
+ALTER TABLE `order`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
@@ -550,6 +582,18 @@ ALTER TABLE `report`
   MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `staff`
+--
+ALTER TABLE `staff`
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `staff_type`
+--
+ALTER TABLE `staff_type`
+  MODIFY `staff_type_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user_loyalty`
 --
 ALTER TABLE `user_loyalty`
@@ -570,8 +614,8 @@ ALTER TABLE `cancellation`
 -- Constraints for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  ADD CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cart_item_ibfk_3` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cost_parameter`
@@ -583,14 +627,14 @@ ALTER TABLE `cost_parameter`
 -- Constraints for table `customization`
 --
 ALTER TABLE `customization`
-  ADD CONSTRAINT `customization_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `customization_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `customization_ibfk_2` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `delivery_area`
 --
 ALTER TABLE `delivery_area`
-  ADD CONSTRAINT `delivery_area_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `delivery_area_ibfk_1` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `discount`
@@ -602,9 +646,9 @@ ALTER TABLE `discount`
 -- Constraints for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `feedback_ibfk_3` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `feedback_ibfk_4` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feedback_ibfk_5` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feedback_ibfk_6` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `inquiry`
@@ -629,24 +673,24 @@ ALTER TABLE `order`
 -- Constraints for table `order_item`
 --
 ALTER TABLE `order_item`
-  ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_item_ibfk_3` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_customization_id`) REFERENCES `customization` (`customization_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`fk_customization_id`) REFERENCES `customization` (`customization_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rating`
 --
 ALTER TABLE `rating`
-  ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rating_ibfk_3` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rating_ibfk_4` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rating_ibfk_5` FOREIGN KEY (`fk_item_id`) REFERENCES `item` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_6` FOREIGN KEY (`fk_cust_id`) REFERENCES `customer` (`cust_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_7` FOREIGN KEY (`fk_order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rating_ibfk_8` FOREIGN KEY (`fk_staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `report`
