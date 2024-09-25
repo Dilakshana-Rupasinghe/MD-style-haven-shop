@@ -39,7 +39,7 @@ include('../../database/config.php');
 
             <h1 class="mt-5">Register staff</h1>
             <!-- Staff Register form section start -->
-            <div class="container  row my-5 mx-auto" style="background-color: red;">
+            <div class="container  row my-5 mx-auto" >
                 <div class="wrapper col-md-4 mx-auto">
                     <form action="#" method="post">
 
@@ -60,7 +60,7 @@ include('../../database/config.php');
                             <input type="password" name="password" id="password" placeholder="Password" required>
                         </div>
                         <!-- staff type dropdown -->
-                        <div>
+                        <div class="input-box">
                             <select name="staffType" required>
                                 <option selected value=''>Select Staff Type</option>
                             </select>
@@ -96,9 +96,6 @@ include('../../database/config.php');
                         <!-- Register button -->
                         <button type="submit" class="btn text-bg-secondary" name="staffRegister">Register</button>
                         <!-- Admin logon link -->
-                        <div class="login-link">
-                            <p> Have an account? <a href="../home-pages/admin-login.php"> Login </a></p>
-                        </div>
                     </form>
                 </div>
             </div>
