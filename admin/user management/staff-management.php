@@ -25,104 +25,45 @@ include('../../database/config.php');
     <?php
     include('../../includes/admin-navigation.php');
     ?>
-
-
     <div class="container-body">
         <!-- menu section start -->
         <aside class="left-menu">
-            <h3 class="ms-4 mt-2"> MENU
-                <span class="material-symbols-outlined">
-                    menu
-                </span>
-            </h3>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    dashboard
-                </span>
-                <a href="../home pages/admin-home.php"> Dashboard</a>
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    orders
-                </span>
-                <a href="#"> Orders</a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    inventory
-                </span>
-                <a href="#"> Inventory </a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    tune
-                </span>
-                <a href="#"> Customization </a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    support_agent
-                </span>
-                <a href="#"> Inquary </a>
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    report
-                </span>
-                <a href="#"> Reports </a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    group_add
-                </span>
-                <a href="#"> Staff </a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    manage_accounts
-                </span>
-                <a href="#"> Customer</a>
-
-            </div>
-            <div class="menu">
-                <span class="material-symbols-outlined">
-                    feedback
-                </span>
-                <a href="#"> feedbacks </a>
-
-            </div>
-            <div class="menu mb-2">
-                <span class="material-symbols-outlined">
-                    local_shipping
-                </span>
-                <a href="#"> Dilivery </a>
-
-            </div>
+            <?php
+            include('../../includes/back-side-nav.php');
+            ?>
         </aside>
-        <!-- menu section end -->
-
         <!-- main section start -->
-        <main class="ms-4">
+        <main class="mx-4">
+            <!-- BACK & Register button start -->
+            <div class="back-button-container">
+                <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                <a href="staff-registration.php" class="Registration">Register</a>
+            </div>
+            <!--  BACK & Register button end -->
             <h1>Staff management</h1>
+
+
+
+            <!-- Staff details  section start -->
+            <table>
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Staff Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <!-- get value from staff table and staff type table -->
         </main>
         <!-- main section end -->
-
-        <!-- right section start -->
-        <div class="right me-4">
-            <h1>right</h1>
-        </div>
-        <!-- right cestion end -->
     </div>
 
 
     <!-- footer section start -->
     <div>
-        <footer class="copyr">
+        <footer class="copyr fixed-bottom">
             <div class="container ">
                 <div class="row col-12 pt-3 ">
                     <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
