@@ -6,7 +6,7 @@ body {
 
 .container-body {
     display: grid;
-    grid-template-columns: 10rem auto 10rem;
+    grid-template-columns: 14rem auto 10rem;
     position: relative;
 }
 
