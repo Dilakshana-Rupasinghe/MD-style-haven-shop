@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2024 at 04:54 PM
+-- Generation Time: Sep 25, 2024 at 06:33 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -92,6 +92,13 @@ CREATE TABLE `customer` (
   `cust_add_line3` varchar(255) DEFAULT NULL,
   `cust_add_line4` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`) VALUES
+(0, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala');
 
 -- --------------------------------------------------------
 
@@ -471,6 +478,82 @@ ALTER TABLE `staff_type`
 ALTER TABLE `user_loyalty`
   ADD PRIMARY KEY (`loyalty_id`),
   ADD KEY `fk_cust_id` (`fk_cust_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cancellation`
+--
+ALTER TABLE `cancellation`
+  MODIFY `cancel_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cart_item`
+--
+ALTER TABLE `cart_item`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cost_parameter`
+--
+ALTER TABLE `cost_parameter`
+  MODIFY `para_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `delivery_area`
+--
+ALTER TABLE `delivery_area`
+  MODIFY `deliver_area_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `discount`
+--
+ALTER TABLE `discount`
+  MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `inquiry`
+--
+ALTER TABLE `inquiry`
+  MODIFY `inquiry_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_item`
+--
+ALTER TABLE `order_item`
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_loyalty`
+--
+ALTER TABLE `user_loyalty`
+  MODIFY `loyalty_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
