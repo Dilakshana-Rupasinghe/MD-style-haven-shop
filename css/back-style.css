@@ -1,0 +1,46 @@
+/* back button */
+.back-button-container {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 6px 18px;
+    margin-right: 25px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #0c0c0c;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #504f4f;
+}
+
+/* ---------------------------------------
+    |   Registration  button
+    |------------------------------------- */
+    .Registration {
+        display: inline-block;
+        padding: 6px 18px;
+        margin-right: 30px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        background-color: #ec5e1c;
+        border: 2px solid #ec5e1c;
+        color: rgb(5, 5, 5);
+        border-radius: 6px;
+        transition: background-color 0.3s;
+    }
+    
+    .Registration:hover {
+        background-color: #ff8555;
+        border: 2px solid rgb(8, 8, 8);
+    }
+
+    
+/* register forms */
