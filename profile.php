@@ -12,8 +12,9 @@
     <!-- css links -->
     <link rel="stylesheet" href="css/my-profile.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    
+
 
 </head>
 
@@ -37,11 +38,11 @@
 
             <!-- Logout section start -->
             <div class="container row my-1 mx-auto">
-                <div class="col-md-5 mx-auto" style="background-color: rgb(34, 33, 33); border-radius: 40px;">
+                <div class="col-md-7 mx-auto" >
                     <div class="wrapper-out">
                         <form action="#" method="post" style="margin: 8%; padding: 25px;">
                             <h3 class="text-center" style="color: white;">You are login to the system</h3>
-                            <button type="submit" class="submit mt-5 " name="custLogout" style="background-color: orange; margin: 20px; padding: 15px; border-radius: 40px"> Logout</button>
+                            <button type="submit" class="submit mt-5 " name="custLogout"> Logout</button>
                         </form>
                     </div>
                 </div>
@@ -51,30 +52,32 @@
 
     </aside>
 
+    <hr>
+
     <main>
-        <section class="account-details">
+        <section class="account-details col-md-8 mx-auto">
 
             <form id="account-form">
 
                 <label for="firstName">User name</label>
-                <input type="text" id="userName" name="userName" placeholder="User name">
+                <input type="text" id="userName" name="userName" placeholder="User name" required>
 
                 <label for="firstName">First name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="First name">
+                <input  type="text" id="firstName" name="firstName" placeholder="First name" required>
 
                 <label for="lastName">Last name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Last name">
+                <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email">
+                <input type="email" id="email" name="email" placeholder="Email" required>
 
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
 
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Address">
+                <input type="text" id="address" name="address" placeholder="Address" required>
 
-                <button type="button" id="saveChanges">Save Changes</button>
+                <button class="savechange" type="button" id="saveChanges">Save Changes</button>
             </form>
         </section>
     </main>

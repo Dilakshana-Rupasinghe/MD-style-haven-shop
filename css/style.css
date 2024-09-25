@@ -1,3 +1,73 @@
-.wrapper-out .submit{
-    background-color: aqua;
+/* log out button aside section */
+aside .container .col-md-7{
+    background-color: #000000;
+    border: 2px solid rgb(255, 102, 0);
+    border-radius: 40px;
+    padding: 0 70px;
+}
+
+.wrapper-out{
+    padding: 0 30px;
+}
+
+aside .container button {
+    background-color: rgba(255, 137, 3, 0.753);
+    margin: 20px;
+    padding: 15px;
+    border-radius: 40px;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(30, 30, 31);
+    box-shadow: #333;
+}
+
+aside .container button:hover {
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 19px;
+
+}
+/* user details change form */
+
+main .account-details {
+margin: 30px;
+padding: 2em 5em 2em 5em ;
+border-radius: 40px;
+border: 2px solid rgb(0, 0, 0);
+}
+
+button#saveChanges {
+    margin: auto;
+    padding: 10px 20px;
+    background-color: #5a5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    border: 2px solid rgb(99, 97, 97);
+    cursor: pointer;
+}
+
+button#saveChanges:hover {
+    background-color: #484;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+
+main .account-details .fname{
+    display: flex;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Order History Section */
+.no-orders {
+    padding: 20px;
+    background-color: #eee;
+    color: #555;
+    text-align: center;
+    border-radius: 4px;
 }
