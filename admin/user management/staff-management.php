@@ -16,6 +16,8 @@ include('../../database/config.php');
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/back-home.css">
+    <link rel="stylesheet" href="../../css/back-style.css">
+
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -36,14 +38,10 @@ include('../../database/config.php');
         <main class="mx-4">
             <!-- BACK & Register button start -->
             <div class="back-button-container">
-                <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 <a href="staff-registration.php" class="Registration">Register</a>
             </div>
             <!--  BACK & Register button end -->
-            <h1>Staff management</h1>
-
-
-
+            <h1>Staff management</h1>            
             <!-- Staff details  section start -->
             <table>
                 <tr>
@@ -56,8 +54,18 @@ include('../../database/config.php');
                     <th>Action</th>
                 </tr>
                 <!-- get value from staff table and staff type table -->
+            </table>
         </main>
         <!-- main section end -->
+         <!-- right section start -->
+        <div class="right me-4">
+             <!-- BACK & Register button start -->
+             <div class="back-button-container">
+                <a href="../home pages/admin-home.php" class="back-button">Back</a>
+            </div>
+            <!--  BACK & Register button end -->
+        </div>
+        <!-- right cestion end -->
     </div>
 
 

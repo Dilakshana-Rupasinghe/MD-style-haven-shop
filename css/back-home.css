@@ -6,9 +6,10 @@ body {
 
 .container-body {
     display: grid;
-    grid-template-columns: 14rem auto 10rem;
+    grid-template-columns: 10rem auto 10rem;
     position: relative;
 }
+
 
 /* left menu section */
 
@@ -23,6 +24,7 @@ body {
     justify-content: center;
     position: relative;
 }
+
 
 .menu a {
     margin-left: 15px;
@@ -48,3 +50,4 @@ body {
     margin-left: 15px;
     font-size: 22px;
 }
+

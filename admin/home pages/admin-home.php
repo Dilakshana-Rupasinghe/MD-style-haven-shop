@@ -24,9 +24,12 @@
     <div class="container-body">
         <!-- menu section start -->
         <aside class="left-menu">
+            <?php
+            include('../../includes/back-side-nav.php');
+            ?>
         </aside>
         <!-- main section start -->
-        <main class="ms-4">
+        <main class="mx-4">
             <h1>Main</h1>
         </main>
         <!-- main section end -->
