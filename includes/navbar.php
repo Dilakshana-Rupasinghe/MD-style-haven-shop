@@ -14,7 +14,7 @@
                 <li class="nav-item ">
                     <a class="nav-link " href="#"> Categorys </a>
                 </li>
-                <li class="nav-item ">
+                <li class=" nav-item ">
                     <a class="nav-link " href="#">Customize</a>
                 </li>
                 <li class="nav-item ">
@@ -27,10 +27,17 @@
 
             <!-- right  nav bar -->
             <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
+                <?php 
+                if(!isset($_SESSION['custId'])){
+                    $displayNone = "";
+                }else{
+                    $displayNone = "d-none" ;
+                }
+                ?>
+                <li class="<?php echo $displayNone; ?> nav-item">
                     <a class="nav-link " href="sign-up.php">Sign up</a>
                 </li>
-                <li class="nav-item me-2">
+                <li class="<?php echo $displayNone; ?> nav-item me-2">
                     <a class="nav-link " href="login.php">Login</a>
                 </li>
                 <li class="nav-item">

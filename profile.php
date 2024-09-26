@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+//include database connection 
+include('database/config.php');
+
+//rederect to the login page if user is not login
+if (!isset($_SESSION['custId'])) {
+    header('location:login.php');
+    exit();
+}
+
+// rederect to if logout button clicked
+if(isset($_POST['custLogout'])){
+    session_destroy();
+    header('location:index.php');
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +59,7 @@
 
             <!-- Logout section start -->
             <div class="container row my-1 mx-auto">
-                <div class="col-md-7 mx-auto" >
+                <div class="col-md-7 mx-auto">
                     <div class="wrapper-out">
                         <form action="#" method="post" style="margin: 8%; padding: 25px;">
                             <h3 class="text-center" style="color: white;">You are login to the system</h3>
@@ -63,7 +84,7 @@
                 <input type="text" id="userName" name="userName" placeholder="User name" required>
 
                 <label for="firstName">First name</label>
-                <input  type="text" id="firstName" name="firstName" placeholder="First name" required>
+                <input type="text" id="firstName" name="firstName" placeholder="First name" required>
 
                 <label for="lastName">Last name</label>
                 <input type="text" id="lastName" name="lastName" placeholder="Last name" required>

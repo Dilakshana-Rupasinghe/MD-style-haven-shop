@@ -12,7 +12,7 @@ if (isset($_POST['customer-login'])) {
     $password = $_POST['password'];
 
     //ferify if password and username store in DB or not
-    $select_quirey  = "SELECT * FROM customer WHERE cust_username='$username'";
+    $select_quirey  = " SELECT * FROM customer WHERE cust_username='$username'";
 
     $result = mysqli_query($con, $select_quirey );
     $row_count = mysqli_num_rows($result);
@@ -22,7 +22,7 @@ if (isset($_POST['customer-login'])) {
         if ($password == $row_data['cust_pwd']) {
             // check if user is active or not
             if ($row_data['cust_is_active'] == 1) {
-                $_SESSION['cust_id'] = $row_data['cust_id'];
+                $_SESSION['custId'] = $row_data['cust_id'];
                 header("location:index.php");
                 exit();
             } else {
@@ -69,15 +69,15 @@ if (isset($_POST['customer-login'])) {
             <div class="container row my-5 mx-auto  ">
                 <div class="col-md-5 mx-auto my-3 ">
                     <div class="wrapper">
-                        <form action="#" class="login">
+                        <form action="#" method="POST" class="login">
                             <h1 class="text-center">MD-Style Haven</h1>
                             <h2 class="text-center">Log-in</h2>
                             <div class="input-box">
-                                <input type="text" name="username" placeholder="USERNAME" required>
+                                <input type="text" name="username" id="username" placeholder="USERNAME" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="password" name="password" placeholder="PASSWORD" required>
+                                <input type="password" name="password" id="password" placeholder="PASSWORD" required>
                             </div>
                             <div class="remember-me">
                                 <label> <input type="checkbox" name="rememberme"> Remember ME </label>

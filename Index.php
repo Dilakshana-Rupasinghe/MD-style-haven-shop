@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+// Include the database configuration file
+include('database/config.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,3 +165,8 @@ include('includes/navbar.php');
 </script>
 
 </html>
+
+<!-- close the DB connection -->
+<?php 
+mysqli_close($con);
+?>
