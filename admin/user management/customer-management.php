@@ -67,7 +67,7 @@ include('../../database/config.php');
                     while ($row_data = mysqli_fetch_assoc($result)) {  // fatch a single row of result data an assosiative array
                         // assign to database value to variable 
                         $cust_id = $row_data['cust_id'];
-                        $cust_name = $row_data['cust_fname'] . '' . $row_data['cust_lname'];
+                        $cust_name = $row_data['cust_fname'] . ' ' . $row_data['cust_lname'];
                         $cust_email = $row_data['cust_email'];
                         $cust_username = $row_data['cust_username'];
                         $cust_contact = $row_data['cust_phone'];
