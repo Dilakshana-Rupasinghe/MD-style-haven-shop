@@ -72,16 +72,16 @@ textarea {
     width: 90%;
     height: 100%;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255);
+    border: 2px solid rgb(12, 12, 12);
     border-radius: 50px;
     font-size: 18px;
-    color: #fff;
+    color: #070707;
     padding: 20px;
 }
 
 .input-box input::placeholder,
 textarea::placeholder {
-    color: #fff;
+    color: #030303;
 }
 
 /* -------------------------------------------
