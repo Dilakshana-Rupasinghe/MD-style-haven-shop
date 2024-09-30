@@ -39,6 +39,8 @@ h2 {
     border: 3px solid blanchedalmond;
     backdrop-filter: blur(15px);
     font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;
     padding: 20px 50px;
 }
 
@@ -70,7 +72,7 @@ h2 {
     color: black;
     background: transparent;
     font-size: large;
-    font-weight: 800;
+    font-weight: 900;
     padding-left: 50px;
     border: 2px solid white;
 }
