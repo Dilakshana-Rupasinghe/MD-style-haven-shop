@@ -41,26 +41,87 @@ include('../../database/config.php');
                 <a href="staff-registration.php" class="Registration">Register</a>
             </div>
             <!--  BACK & Register button end -->
-            <h1>Staff management</h1>            
+            <h1>Staff management</h1>
             <!-- Staff details  section start -->
             <table>
                 <tr>
                     <th>Staff ID</th>
+                    <th>Staff Type</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Username</th>
-                    <th>Staff Type</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 <!-- get value from staff table and staff type table -->
+                <?php
+                $getStaffDetails = "SELECT staff_id, staff_type_name, staff_fname, staff_lname, staff_email, staff_username, staff_is_active FROM staff 
+                 INNER JOIN staff_type ON staff.fk_staff_type_id = staff_type.staff_type_id"; //get user position from staff type tale
+
+                $result = mysqli_query($con, $getStaffDetails);
+                $row_count = mysqli_num_rows($result);
+
+
+                // check the table row count
+                if ($row_count == 0) {
+                    echo "<h2 class='bg-danger text-center mt-5'> No user yet </h2>";
+                } else {
+                    $number = 0;
+                    while ($row_data = mysqli_fetch_assoc($result)) {
+                        //  assigne to database valuse to variable 
+                        $staff_id = $row_data['staff_id'];
+                        $staff_type_name = $row_data['staff_type_name'];
+                        $staff_name = $row_data['staff_fname']. ' ' . $row_data['staff_lname'];
+                        $staff_email = $row_data['staff_email'];
+                        $staff_username = $row_data['staff_username'];
+                        $staff_is_active = $row_data['staff_is_active'];
+                        $number++;
+
+
+                        // check the user is active or deactive
+                        if($staff_is_active == 1){
+                            $status = "Active";
+
+                        }else{
+                            $status = "Deactive";
+                            $invisible = "invisible";
+                        }
+
+                        echo"<tr>
+                        <td> $staff_id </td>
+                        <td> $staff_type_name </td>
+                        <td> $staff_name </td>
+                        <td> $staff_email </td>
+                        <td> $staff_username </td>
+                        <td> $status </td>
+
+                          <td class='action-links'>
+                    <a href='#' class='view' >View</a> 
+                    <a href='#' class='update'>Update</a>
+                    <a href='#' class='deactivate'>Deactivate</a>
+                    </td>
+                        
+                        </td>
+
+
+                        </tr>
+                        ";
+
+
+                    }
+                }
+
+
+
+
+                ?>
             </table>
         </main>
         <!-- main section end -->
-         <!-- right section start -->
+        <!-- right section start -->
         <div class="right me-4">
-             <!-- BACK & Register button start -->
-             <div class="back-button-container">
+            <!-- BACK & Register button start -->
+            <div class="back-button-container">
                 <a href="../home pages/admin-home.php" class="back-button">Back</a>
             </div>
             <!--  BACK & Register button end -->
