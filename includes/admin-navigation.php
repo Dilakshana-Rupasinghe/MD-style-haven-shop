@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link me-3" href="../admin/logout.php"><img src="../../icons/profile-line.svg" style="width: 32px;"></a>
+                    <a class="nav-link me-3" href="../logout.php"><img src="../../icons/profile-line.svg" style="width: 32px;"></a>
                 </li>
             </ul>
         </div>
