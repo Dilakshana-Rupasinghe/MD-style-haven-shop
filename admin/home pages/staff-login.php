@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../css/home.css">
     <link rel="stylesheet" href="../../css/back-home.css">
+    <link rel="stylesheet" href="../../css/login.css">
+
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -24,7 +26,7 @@
 
 
 <div class="sign-up">
-        <div class="sign-up-bg col-md-10 mx-auto" style="background: url('images/log bg.jpg') no-repeat; background-size: cover;  background-position: center; border-radius: 20px ">
+        <div class="sign-up-bg col-md-10 mx-auto" style="background: url('../../images/log\ bg1.jpg') no-repeat; background-size: cover;  background-position: center; border-radius: 20px ">
 
 
             <!-- </div> -->
@@ -47,9 +49,7 @@
                             </div>
 
                             <button type="submit" class="submit btn-dark " name="customer-login">Log-in</button>
-                            <div class="register-link">
-                                <h5>Don't have an account <a href="sign-up.php" class="ps-3 ">Sign-In</a></h5>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -57,6 +57,18 @@
         </div>
     </div>
 
+
+      <!-- footer section start -->
+      <div>
+        <footer class="copyr fixed-bottom">
+            <div class="container ">
+                <div class="row col-12 pt-3 ">
+                    <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- footer section end -->
 
 </body>
 
