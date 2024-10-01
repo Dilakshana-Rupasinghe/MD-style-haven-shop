@@ -1,6 +1,50 @@
 <?php
+// start session
+session_start();
+
+// rederect user to the login if user not logingtothe system
+// if(!isset($_SESSION['staffId'])){
+//     header('location:../home pages/staff-login.php');
+//     exit();
+// }
+
 // include the database configaration file
 include('../../database/config.php');
+?>
+
+<!-- check if form is submited -->
+<?php
+if (isset($_POST['staffRegister'])) {
+
+    // add user inputs
+    $fName = $_POST['fName'];
+    $lName = $_POST['lName'];
+    $userName = $_POST['userName'];
+    $password = $_POST['password'];
+    $staffType = $_POST['staffType'];
+    $email = $_POST['email'];
+    $contactNo = $_POST['contactNo'];
+    $nic = $_POST['nic'];
+    $addressLine1 = $_POST['addressLine1'];
+    $addressLine2 = $_POST['addressLine2'];
+    $addressLine3 = $_POST['addressLine3'];
+    $city = $_POST['city'];
+
+    // check if filed is not empty
+    if (
+        $fName != '' and $lName != '' and $userName != '' and $password != '' and $staffType != '' and $email != '' and
+        $contactNo != '' and $nic != '' and $addressLine1 != '' and $addressLine2 != '' and $addressLine3 != '' and $city != ''
+    ) {
+
+        $staffInsertQuiry = "INSERT INTO staff(staff_fname, staff_lname, staff_username, staff_pwd, staff_email, staff_phone, staff_hire_date, staff_add_line1, staff_add_line2, staff_add_line3, staff_add_line4, fk_staff_type_id) VALUES ('$fName', '$lName', '$userName', '$password', '$email', '$contactNo', NOW(), '$addressLine1', '$addressLine2', '$addressLine3', '$city', '$staffType')";
+
+        // insert user details 
+        if (mysqli_query($con, $staffInsertQuiry)) {
+            echo "<script> alert('Staff Registration is successfully');</script> ";
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +83,7 @@ include('../../database/config.php');
 
             <h1 class="mt-5">Register staff</h1>
             <!-- Staff Register form section start -->
-            <div class="container  row my-5 mx-auto" >
+            <div class="container  row my-5 mx-auto">
                 <div class="wrapper col-md-4 mx-auto">
                     <form action="#" method="post">
 
@@ -63,6 +107,19 @@ include('../../database/config.php');
                         <div class="input-box">
                             <select name="staffType" required>
                                 <option selected value=''>Select Staff Type</option>
+                                <?php
+                                $staffTypeSelectQuiry = "SELECT * FROM staff_type";
+
+                                // execute quiry and get the result
+                                $staffTypeResult = mysqli_query($con, $staffTypeSelectQuiry);
+
+                                // fetch staff type
+                                while($staffTypeRow = mysqli_fetch_assoc($staffTypeResult)){
+                                    // add staff types into drop down menu
+                                    echo "<option value='{$staffTypeRow['staff_type_id']}'> {$staffTypeRow['staff_type_name']} </option>" ;
+                                }
+
+                                ?>
                             </select>
                         </div>
                         <!-- E-mail -->
