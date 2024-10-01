@@ -1,3 +1,11 @@
+<?php 
+session_start();
+
+if(!isset($_SESSION['staffId'])){
+    header('location:staff-login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
