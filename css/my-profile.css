@@ -31,16 +31,21 @@ main {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 h2 {
     margin-bottom: 20px;
     font-size: 28px;
     color: #333;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 h3 .text-center{
     color: #eee;
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 /* Profile Section */
