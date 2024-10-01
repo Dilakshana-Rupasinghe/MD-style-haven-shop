@@ -62,7 +62,7 @@ if (isset($_POST['customer-login'])) {
     <!-- navigaton bar  end -->
 
     <div class="sign-up">
-        <div class="sign-up-bg col-md-10 mx-auto" style="background: url('images/log4.jpg') no-repeat; background-size: cover;  background-position: center; border-radius: 20px ">
+        <div class="sign-up-bg col-md-10 mx-auto" style="background: url('images/log\ bg1.jpg') no-repeat; background-size: cover;  background-position: center; border-radius: 20px ">
 
 
             <!-- </div> -->
