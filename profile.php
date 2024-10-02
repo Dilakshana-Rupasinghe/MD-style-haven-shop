@@ -11,10 +11,35 @@ if (!isset($_SESSION['custId'])) {
 }
 
 // rederect to if logout button clicked
-if(isset($_POST['custLogout'])){
+if (isset($_POST['custLogout'])) {
     session_destroy();
     header('location:index.php');
     exit();
+}
+
+
+// check the form is click the save change button
+if (isset($_POST['saveChanges'])) {
+    // get user input form the form
+    $userName = $_POST['userName'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+
+    $custId = $_GET['custId']; //get cust id form url
+
+    // check filds are not empty
+    if ($userName != '' and $firstName != '' and $lastName != '' and $email != '' and $phone != '' and $address != '') {
+
+        $custUpdateDetails = "UPDATE customer SET cust_username = '$userName', cust_fname = '$firstName', cust_lname = '$lastName', cust_email = '$email', cust_phone = '$phone' cust_add_line1 = '$address', cust_add_line2 = '$address', cust_add_line3 = '$address', cust_add_line4 = '$address' WHERE cust_id = $custId";
+
+        // update user details 
+        if (mysqli_query($con, $custUpdateDetails)) {
+            echo "<script> alart('Information update is successfull'); </script>";
+        }
+    }
 }
 
 ?>
@@ -75,31 +100,65 @@ if(isset($_POST['custLogout'])){
 
     <hr>
 
+
+    <!-- Display user details and change -->
     <main>
         <section class="account-details col-md-8 mx-auto">
+            <?php
+            // get customer information into form
+            if (isset($_GET['custId'])) {
+                $custId = $_GET['custId'];
 
-            <form id="account-form">
+                $getUserDetails = "SELECT cust_username, cust_fname, cust_lname, cust_email, cust_phone, cust_add_line1, cust_add_line2,cust_add_line3,cust_add_line4 FROM customer WHERE cust_id = $custId";
 
-                <label for="firstName">User name</label>
-                <input type="text" id="userName" name="userName" placeholder="User name" required>
+                $result = mysqli_query($con, $getUserDetails);
+                $row_count = mysqli_num_rows($result);
 
-                <label for="firstName">First name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+                if ($row_count == 0) {
+                    echo "<h2 class='bg-danger text-center mt-5 '> No users yet </h2>";
+                } else {
+                    // fetch user details
+                    while ($row_data = mysqli_fetch_assoc($result)) {
+                        $cust_username = $row_data['cust_username'];
+                        $cust_fname = $row_data['cust_fname'];
+                        $cust_lname = $row_data['cust_lname'];
+                        $cust_email = $row_data['cust_email'];
+                        $cust_phone = $row_data['cust_phone'];
+                        $cust_address = $row_data['cust_add_line1'] . ' ' . $row_data['cust_add_line2'] . ' ' . $row_data['cust_add_line3'] . ' ' . $row_data['cust_add_line4'];
 
-                <label for="lastName">Last name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+            ?>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email" required>
 
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
 
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Address" required>
+                        <form id="account-form" action="#" method="post">
 
-                <button class="savechange" type="button" id="saveChanges">Save Changes</button>
-            </form>
+                            <label for="userName">User name</label>
+                            <input type="text" id="userName" name="userName" value="<?php echo $cust_username; ?>" required>
+
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" name="firstName" value="<?php echo $cust_fname; ?>" required>
+
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName" name="lastName" value="<?php echo $cust_lname; ?>" required>
+
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="<?php echo $cust_email; ?>" required>
+
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" value="<?php echo $cust_phone; ?>" required>
+
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" value="<?php echo $cust_address; ?>" required>
+
+                            <button class="savechange" type="submit" name="saveChanges" id="saveChanges">Save Changes</button>
+                        </form>
+
+            <?php
+                    }
+                }
+            }
+
+            ?>
         </section>
     </main>
     <!-- Order History Section -->
@@ -124,3 +183,7 @@ if(isset($_POST['custLogout'])){
 </body>
 
 </html>
+<?php
+// Close the database connection
+mysqli_close($con);
+?>
