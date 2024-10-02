@@ -10,6 +10,9 @@ if (!isset($_SESSION['custId'])) {
     exit();
 }
 
+$custId = $_SESSION['custId'];
+
+
 // rederect to if logout button clicked
 if (isset($_POST['custLogout'])) {
     session_destroy();
@@ -26,14 +29,14 @@ if (isset($_POST['saveChanges'])) {
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $address = $_POST['address'];
-
-    $custId = $_GET['custId']; //get cust id form url
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $address3 = $_POST['address3'];
+    $address4 = $_POST['address4'];
 
     // check filds are not empty
-    if ($userName != '' and $firstName != '' and $lastName != '' and $email != '' and $phone != '' and $address != '') {
-
-        $custUpdateDetails = "UPDATE customer SET cust_username = '$userName', cust_fname = '$firstName', cust_lname = '$lastName', cust_email = '$email', cust_phone = '$phone' cust_add_line1 = '$address', cust_add_line2 = '$address', cust_add_line3 = '$address', cust_add_line4 = '$address' WHERE cust_id = $custId";
+    if ($userName != '' and $firstName != '' and $lastName != '' and $email != '' and $phone != '' and $address1 != '' and $address2 !='' and $address3 !='' and $address4 !='') {
+        $custUpdateDetails = "UPDATE customer SET cust_username = '$userName', cust_fname = '$firstName', cust_lname = '$lastName', cust_email = '$email', cust_phone = '$phone', cust_add_line1 = '$address1', cust_add_line2 = '$address2', cust_add_line3 = '$address3', cust_add_line4 = '$address4' WHERE cust_id = $custId";
 
         // update user details 
         if (mysqli_query($con, $custUpdateDetails)) {
@@ -106,8 +109,7 @@ if (isset($_POST['saveChanges'])) {
         <section class="account-details col-md-8 mx-auto">
             <?php
             // get customer information into form
-            if (isset($_GET['custId'])) {
-                $custId = $_GET['custId'];
+            if (isset($_SESSION['custId'])) {
 
                 $getUserDetails = "SELECT cust_username, cust_fname, cust_lname, cust_email, cust_phone, cust_add_line1, cust_add_line2,cust_add_line3,cust_add_line4 FROM customer WHERE cust_id = $custId";
 
@@ -124,7 +126,10 @@ if (isset($_POST['saveChanges'])) {
                         $cust_lname = $row_data['cust_lname'];
                         $cust_email = $row_data['cust_email'];
                         $cust_phone = $row_data['cust_phone'];
-                        $cust_address = $row_data['cust_add_line1'] . ' ' . $row_data['cust_add_line2'] . ' ' . $row_data['cust_add_line3'] . ' ' . $row_data['cust_add_line4'];
+                        $cust_address1 = $row_data['cust_add_line1'];
+                        $cust_address2 = $row_data['cust_add_line2'];
+                        $cust_address3 = $row_data['cust_add_line3'];
+                        $cust_address4 = $row_data['cust_add_line4'];
 
             ?>
 
@@ -147,8 +152,14 @@ if (isset($_POST['saveChanges'])) {
                             <label for="phone">Phone Number</label>
                             <input type="tel" id="phone" name="phone" value="<?php echo $cust_phone; ?>" required>
 
-                            <label for="address">Address</label>
-                            <input type="text" id="address" name="address" value="<?php echo $cust_address; ?>" required>
+                            <label for="address1">Address</label>
+                            <input type="text" id="address" name="address1" value="<?php echo $cust_address1; ?>" required>
+                            <label for="address2">Address</label>
+                            <input type="text" id="address" name="address2" value="<?php echo $cust_address2; ?>" required>
+                            <label for="address3">Address</label>
+                            <input type="text" id="address" name="address3" value="<?php echo $cust_address3; ?>" required>
+                            <label for="address4">Address</label>
+                            <input type="text" id="address" name="address4" value="<?php echo $cust_address4; ?>" required>
 
                             <button class="savechange" type="submit" name="saveChanges" id="saveChanges">Save Changes</button>
                         </form>

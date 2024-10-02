@@ -27,11 +27,11 @@
 
             <!-- right  nav bar -->
             <ul class="navbar-nav ms-auto ">
-                <?php 
-                if(!isset($_SESSION['custId'])){
+                <?php
+                if (!isset($_SESSION['custId'])) {
                     $displayNone = "";
-                }else{
-                    $displayNone = "d-none" ;
+                } else {
+                    $displayNone = "d-none";
                 }
                 ?>
                 <li class="<?php echo $displayNone; ?> nav-item">
@@ -49,12 +49,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <!-- <a class="nav-img me-3" href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a> -->
+                    <!-- <a class="nav-img me-3" href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>  -->
                     <a class="nav-link " href="profile.php" style="font-size: 19px; color:black;">
                         <span class="material-symbols-outlined">
                             account_circle
                         </span>
                     </a>
+
                 </li>
             </ul>
         </DIV>
