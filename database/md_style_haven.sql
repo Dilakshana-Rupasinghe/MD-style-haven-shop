@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2024 at 10:16 PM
+-- Generation Time: Oct 02, 2024 at 11:53 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -99,8 +99,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`, `cust_is_active`) VALUES
-(1, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala', 1),
-(2, 'GABELA', 'RUPASINGHE', 'Mal', 'mal123', 'malindudilak@gmail.com', '0770113944', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1);
+(3001, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala', 1),
+(3002, 'GABELA', 'RUPASINGHE', 'Mal', 'mal123', 'malindudilak@gmail.com', '0770113944', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1);
 
 -- --------------------------------------------------------
 
@@ -303,6 +303,7 @@ CREATE TABLE `staff` (
   `staff_pwd` varchar(100) DEFAULT NULL,
   `staff_email` varchar(100) DEFAULT NULL,
   `staff_phone` varchar(20) DEFAULT NULL,
+  `staff_is_active` tinyint(1) DEFAULT 1,
   `staff_hire_date` date DEFAULT NULL,
   `staff_add_line1` varchar(255) DEFAULT NULL,
   `staff_add_line2` varchar(255) DEFAULT NULL,
@@ -310,6 +311,13 @@ CREATE TABLE `staff` (
   `staff_add_line4` varchar(255) DEFAULT NULL,
   `fk_staff_type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_username`, `staff_pwd`, `staff_email`, `staff_phone`, `staff_is_active`, `staff_hire_date`, `staff_add_line1`, `staff_add_line2`, `staff_add_line3`, `staff_add_line4`, `fk_staff_type_id`) VALUES
+(1, 'Malindu', 'Dilakshana', 'Dila', '1234', 'malindudilak@gmail.com', '0770113944', 1, '2024-10-01', 'F02', 'Noori road', 'hambanawela', 'Deraniyagala', 1001);
 
 -- --------------------------------------------------------
 
@@ -321,6 +329,17 @@ CREATE TABLE `staff_type` (
   `staff_type_id` int(11) NOT NULL,
   `staff_type_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `staff_type`
+--
+
+INSERT INTO `staff_type` (`staff_type_id`, `staff_type_name`) VALUES
+(1001, 'Admin'),
+(1002, 'inventory manager'),
+(1003, 'Delivery person '),
+(1004, 'Cashier\r\n'),
+(1005, 'Customer care');
 
 -- --------------------------------------------------------
 
@@ -513,7 +532,7 @@ ALTER TABLE `cost_parameter`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20024;
 
 --
 -- AUTO_INCREMENT for table `customization`
@@ -585,13 +604,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff_type`
 --
 ALTER TABLE `staff_type`
-  MODIFY `staff_type_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
 
 --
 -- AUTO_INCREMENT for table `user_loyalty`
