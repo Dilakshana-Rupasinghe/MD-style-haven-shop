@@ -1,19 +1,19 @@
 /* manu sections */
 
-.container-body {
+/* .container-body {
     display: grid;
     grid-template-columns: 14rem auto 10rem;
     position: relative;
-}
+} */
 
 /*----------------------------- 
     |chart section
     |--------------------------*/
 
     .charts{
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-gap: 20px;
+        display: flex;
+        grid-gap: 30px;
+        flex-wrap: wrap;
         width: 100%;
         padding: 20px
     }

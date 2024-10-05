@@ -4,11 +4,11 @@ body {
 
 /* manu sections */
 
-.container-body {
-    display: grid;
+/* .container-body {
+    display: flex;
     grid-template-columns: 14rem auto;
     position: relative;
-}
+} */
 
 
 /* left menu section */
@@ -16,16 +16,30 @@ body {
 
 .left-menu {
     background-color: #ffffff;
-    margin: 10px 0px 10px 10px;
-    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    position: relative;
+    justify-content: start;
+    position: fixed;
     transition: max-height 0.5s ease-out;
     overflow: hidden;
-    max-height: 500px; 
+    height: fit-content;
+    width: 13rem;
+    padding: 0 0 60px;
+
+}
+
+.middle-side{
+    margin-left: 14rem;
+    padding-bottom: 2rem;
+    margin-top: 10px;
+
+}
+
+.main {
+    display: grid;
+    grid-template-columns: auto 10rem;
 }
 
 
@@ -46,12 +60,10 @@ body {
     margin-left: 1px;
     font-size: 19px;
     font-weight: 620;
-} 
+}
 
 .menu .material-symbols-outlined {
     line-height: 2.1;
     margin-left: 15px;
     font-size: 22px;
 }
-
-
