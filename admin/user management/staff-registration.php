@@ -170,7 +170,7 @@ if (isset($_POST['staffRegister'])) {
 
     <!-- footer section start -->
     <div>
-        <footer class="copyr fixed-bottom">
+        <footer class="copyr ">
             <div class="container ">
                 <div class="row col-12 pt-3 ">
                     <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
