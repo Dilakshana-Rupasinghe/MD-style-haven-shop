@@ -6,7 +6,25 @@
     position: relative;
 }
 
+/*----------------------------- 
+    |chart section
+    |--------------------------*/
 
+    .charts{
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 20px;
+        width: 100%;
+        padding: 20px
+    }
+    
+    .chart{
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 10px 10px 20px 5px rgba(65, 64, 64, 0.3); 
+
+    }
 /*----------------------------- 
     |middle main section
     |--------------------------*/
@@ -131,3 +149,5 @@ hr {
     justify-content: space-between;
     opacity: unset;
 }
+
+

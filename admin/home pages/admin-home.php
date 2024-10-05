@@ -47,8 +47,87 @@ if (!isset($_SESSION['staffId'])) {
                 <input type="date">
             </div>
 
+            <div class="charts">
+                <div class="chart">
+                    <h3>Earning (past 12 months)</h3>
+                    <canvas id="barChart"></canvas>
+
+                </div>
+                <div class="chart" id="pie-cahrt">
+                    <h3>Employes</h3>
+                    <canvas id="pieChart"></canvas>
+
+                </div>
+            </div>
+
             <div class="insights mt-5 ms-1">
 
+                <!-- start sessing -->
+                <div class="seals text-center">
+                    <span class="material-symbols-outlined">
+                        trending_up
+                    </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h5>total seals</h5>
+                            <h4>Rs. 45,840.50</h4>
+                        </div>
+                        <div class="progoss">
+                            <svg>
+                                <circle r="30" cy="40" cx="9.3rem"> </circle>
+                            </svg>
+                            <div class="number">75%</div>
+                        </div>
+                        <small>Last 24 Hours</small>
+                    </div>
+                </div>
+                <!-- end selling -->
+
+
+                <!-- start expensess -->
+                <div class="expenses text-center">
+                    <span class="material-symbols-outlined">
+                        local_mall
+                    </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h5> total expenses</h5>
+                            <h4>Rs. 25,480.99</h4>
+                        </div>
+                        <div class="progoss">
+                            <svg>
+                                <circle r="30" cy="40" cx="9.3rem"> </circle>
+                            </svg>
+                            <div class="number">85%</div>
+                        </div>
+                        <small>Last 24 Hours</small>
+                    </div>
+
+                </div>
+                <!-- end expensess -->
+
+                <!-- start income -->
+                <div class="income text-center">
+                    <span class="material-symbols-outlined">
+                        monitoring
+                    </span>
+                    <div class="middle">
+                        <div class="left">
+                            <h5> total income</h5>
+                            <h4>Rs. 128,980.19</h4>
+                        </div>
+                        <div class="progoss">
+                            <svg>
+                                <circle r="30" cy="40" cx="9.3rem"> </circle>
+                            </svg>
+                            <div class="number">65%</div>
+                        </div>
+                        <small>Last 24 Hours</small>
+                    </div>
+
+                </div>
+
+                <!-- end income -->
                 <!-- start sessing -->
                 <div class="seals text-center">
                     <span class="material-symbols-outlined">
@@ -135,7 +214,7 @@ if (!isset($_SESSION['staffId'])) {
     <!-- start recent order -->
     <div class="recent_order mt-4">
         <hr>
-        <h2 class="ms-5 ps-5 mb-3" >Recent orders</h2>
+        <h2 class="ms-5 ps-5 mb-3">Recent orders</h2>
         <hr>
         <table>
             <tr>
@@ -177,6 +256,12 @@ if (!isset($_SESSION['staffId'])) {
         </footer>
     </div>
     <!-- footer section end -->
+
+<!-- Chart JS link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js"></script>
+    <script src="script/chart1.js"></script>
+    <script src="script/chart2.js"></script>
+
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -1,8 +1,8 @@
-var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('barChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar', // Type of chart (bar, line, pie, etc.)
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'October', 'December'], // X-axis labels
+        labels: ['Ja', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'], // X-axis labels
         datasets: [{
             label: 'Sales Data',
             data: [1200, 1900, 300, 2500, 200, 300, 500, 1000, 600, 650, 550, 2850], // Data for the graph
@@ -38,10 +38,6 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+        Responsive:true 
     }
 });
