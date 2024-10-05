@@ -26,6 +26,11 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-        Responsive: true
+        responsive: true, // Make the chart responsive
+        scales: {
+            y: {
+                beginAtZero: true // Start the y-axis at zero
+            }
+        }
     }
 });
