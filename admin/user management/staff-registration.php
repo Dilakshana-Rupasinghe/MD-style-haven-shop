@@ -78,110 +78,112 @@ if (isset($_POST['staffRegister'])) {
             include('../../includes/back-side-nav.php');
             ?>
         </aside>
-        <!-- main section start -->
-        <main class="mx-4">
-            <!-- BACK button start -->
-            <div class="back-button-container">
-                <a href="staff-management.php" class="back-button">Back</a>
-            </div>
-            <!-- BACK button end -->
-            <h1 >Register staff</h1>
-            <!-- Staff Register form section start -->
-            <div class="container  row my-5 mx-auto">
-                <div class="wrapper col-md-4 mx-auto">
-                    <form action="#" method="post">
+        <div class="middle-side">
 
-                        <!-- First name -->
-                        <div class="input-box">
-                            <input type="text" name="fName" id="fName" placeholder="First Name" required>
-                        </div>
-                        <!-- Last name -->
-                        <div class="input-box">
-                            <input type="text" name="lName" id="lName" placeholder="Last Name" required>
-                        </div>
-                        <!-- Username -->
-                        <div class="input-box">
-                            <input type="text" name="userName" id="userName" placeholder="Username" required>
-                        </div>
-                        <!-- Password -->
-                        <div class="input-box">
-                            <input type="password" name="password" id="password" placeholder="Password" required>
-                        </div>
-                        <!-- staff type dropdown -->
-                        <div class="input-box">
-                            <select name="staffType" required>
-                                <option selected value=''>Select Staff Type</option>
-                                <?php
-                                $staffTypeSelectQuiry = "SELECT * FROM staff_type";
-
-                                // execute quiry and get the result
-                                $staffTypeResult = mysqli_query($con, $staffTypeSelectQuiry);
-
-                                // fetch staff type
-                                while ($staffTypeRow = mysqli_fetch_assoc($staffTypeResult)) {
-                                    // add staff types into drop down menu
-                                    echo "<option value='{$staffTypeRow['staff_type_id']}'> {$staffTypeRow['staff_type_name']} </option>";
-                                }
-
-                                ?>
-                            </select>
-                        </div>
-                        <!-- E-mail -->
-                        <div class="input-box">
-                            <input type="text" name="email" id="email" placeholder="E-mail" required>
-                        </div>
-                        <!-- Contact no -->
-                        <div class="input-box">
-                            <input type="text" name="contactNo" id="contactNo" placeholder="Contact No" required>
-                        </div>
-                        <!-- NIC -->
-                        <div class="input-box">
-                            <input type="text" name="nic" id="nic" placeholder="NIC" required>
-                        </div>
-                        <!-- Address line1 -->
-                        <div class="input-box">
-                            <input type="text" name="addressLine1" id="addressLine1" placeholder="Address Line-1" required>
-                        </div>
-                        <!-- Address line2 -->
-                        <div class="input-box">
-                            <input type="text" name="addressLine2" id="addressLine2" placeholder="Address Line-2" required>
-                        </div>
-                        <!-- Address line3 -->
-                        <div class="input-box">
-                            <input type="text" name="addressLine3" id="addressLine3" placeholder="Address Line-3">
-                        </div>
-                        <!-- City  -->
-                        <div class="input-box">
-                            <input type="text" name="city" id="city" placeholder="City" required>
-                        </div>
-                        <!-- Register button -->
-                        <button type="submit" class="btn text-bg-secondary" name="staffRegister">Register</button>
-                        <!-- Admin logon link -->
-                    </form>
+            <!-- main section start -->
+            <main class="mx-4">
+                <!-- BACK button start -->
+                <div class="back-button-container mt-1">
+                    <a href="staff-management.php" class="back-button">Back</a>
                 </div>
-            </div>
-            <!-- Staff Register form section end -->
-        </main>
-        <!-- main section end -->
-    </div>
-    <!--  -->
+                <!-- BACK button end -->
+                <h1>Register staff</h1>
+                <!-- Staff Register form section start -->
+                <div class="container  row my-5 mx-auto">
+                    <div class="wrapper col-md-4 mx-auto">
+                        <form action="#" method="post">
 
+                            <!-- First name -->
+                            <div class="input-box">
+                                <input type="text" name="fName" id="fName" placeholder="First Name" required>
+                            </div>
+                            <!-- Last name -->
+                            <div class="input-box">
+                                <input type="text" name="lName" id="lName" placeholder="Last Name" required>
+                            </div>
+                            <!-- Username -->
+                            <div class="input-box">
+                                <input type="text" name="userName" id="userName" placeholder="Username" required>
+                            </div>
+                            <!-- Password -->
+                            <div class="input-box">
+                                <input type="password" name="password" id="password" placeholder="Password" required>
+                            </div>
+                            <!-- staff type dropdown -->
+                            <div class="input-box">
+                                <select name="staffType" required>
+                                    <option selected value=''>Select Staff Type</option>
+                                    <?php
+                                    $staffTypeSelectQuiry = "SELECT * FROM staff_type";
 
+                                    // execute quiry and get the result
+                                    $staffTypeResult = mysqli_query($con, $staffTypeSelectQuiry);
 
-    <!-- footer section start -->
-    <div>
-        <footer class="copyr ">
-            <div class="container ">
-                <div class="row col-12 pt-3 ">
-                    <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
+                                    // fetch staff type
+                                    while ($staffTypeRow = mysqli_fetch_assoc($staffTypeResult)) {
+                                        // add staff types into drop down menu
+                                        echo "<option value='{$staffTypeRow['staff_type_id']}'> {$staffTypeRow['staff_type_name']} </option>";
+                                    }
+
+                                    ?>
+                                </select>
+                            </div>
+                            <!-- E-mail -->
+                            <div class="input-box">
+                                <input type="text" name="email" id="email" placeholder="E-mail" required>
+                            </div>
+                            <!-- Contact no -->
+                            <div class="input-box">
+                                <input type="text" name="contactNo" id="contactNo" placeholder="Contact No" required>
+                            </div>
+                            <!-- NIC -->
+                            <div class="input-box">
+                                <input type="text" name="nic" id="nic" placeholder="NIC" required>
+                            </div>
+                            <!-- Address line1 -->
+                            <div class="input-box">
+                                <input type="text" name="addressLine1" id="addressLine1" placeholder="Address Line-1" required>
+                            </div>
+                            <!-- Address line2 -->
+                            <div class="input-box">
+                                <input type="text" name="addressLine2" id="addressLine2" placeholder="Address Line-2" required>
+                            </div>
+                            <!-- Address line3 -->
+                            <div class="input-box">
+                                <input type="text" name="addressLine3" id="addressLine3" placeholder="Address Line-3">
+                            </div>
+                            <!-- City  -->
+                            <div class="input-box">
+                                <input type="text" name="city" id="city" placeholder="City" required>
+                            </div>
+                            <!-- Register button -->
+                            <button type="submit" class="btn text-bg-secondary" name="staffRegister">Register</button>
+                            <!-- Admin logon link -->
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </footer>
-    </div>
-    <!-- footer section end -->
+                <!-- Staff Register form section end -->
+            </main>
+            <!-- main section end -->
+        </div>
+        <!--  -->
 
-    <!--Bootstrap JS link -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+        <!-- footer section start -->
+        <div>
+            <footer class="copyr fixed-bottom  ">
+                <div class="container ">
+                    <div class="row col-12 pt-3 ">
+                        <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- footer section end -->
+
+        <!--Bootstrap JS link -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 
 </body>

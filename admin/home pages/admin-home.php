@@ -39,215 +39,221 @@ if (!isset($_SESSION['staffId'])) {
             include('../../includes/back-side-nav.php');
             ?>
         </aside>
+    </div>
+
+    <div class="middle-side">
+
         <!-- main section start -->
-        <main class="mx-2" style="height: fit-content;">
-            <h1 class="mt-5 ms-3">Dashboard</h1>
+        <div class="main">
 
-            <div class="date ms-4 mt-3">
-                <input type="date">
+            <main class="mx-2" style="height: fit-content;">
+                <h1 class="mt-5 ms-3">Dashboard</h1>
+
+                <div class="date ms-4 mt-3">
+                    <input type="date">
+                </div>
+
+                <div class="charts">
+                    <div class="chart" style="    width: 33rem;">
+                        <h3>Earning (past 12 months)</h3>
+                        <canvas id="barChart"></canvas>
+
+                    </div>
+                    <div class="chart" id="pie-cahrt">
+                        <h3>Employes</h3>
+                        <canvas id="pieChart"></canvas>
+
+                    </div>
+                </div>
+
+                <div class="insights mt-5 ms-1">
+
+                    <!-- start sessing -->
+                    <div class="seals text-center">
+                        <span class="material-symbols-outlined">
+                            trending_up
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5>total seals</h5>
+                                <h4>Rs. 45,840.50</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">75%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+                    </div>
+                    <!-- end selling -->
+
+
+                    <!-- start expensess -->
+                    <div class="expenses text-center">
+                        <span class="material-symbols-outlined">
+                            local_mall
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5> total expenses</h5>
+                                <h4>Rs. 25,480.99</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">85%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+
+                    </div>
+                    <!-- end expensess -->
+
+                    <!-- start income -->
+                    <div class="income text-center">
+                        <span class="material-symbols-outlined">
+                            monitoring
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5> total income</h5>
+                                <h4>Rs. 128,980.19</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">65%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+
+                    </div>
+
+                    <!-- end income -->
+                    <!-- start sessing -->
+                    <div class="seals text-center">
+                        <span class="material-symbols-outlined">
+                            trending_up
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5>total seals</h5>
+                                <h4>Rs. 45,840.50</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">75%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+                    </div>
+                    <!-- end selling -->
+
+
+                    <!-- start expensess -->
+                    <div class="expenses text-center">
+                        <span class="material-symbols-outlined">
+                            local_mall
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5> total expenses</h5>
+                                <h4>Rs. 25,480.99</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">85%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+
+                    </div>
+                    <!-- end expensess -->
+
+                    <!-- start income -->
+                    <div class="income text-center">
+                        <span class="material-symbols-outlined">
+                            monitoring
+                        </span>
+                        <div class="middle">
+                            <div class="left">
+                                <h5> total income</h5>
+                                <h4>Rs. 128,980.19</h4>
+                            </div>
+                            <div class="progoss">
+                                <svg>
+                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
+                                </svg>
+                                <div class="number">65%</div>
+                            </div>
+                            <small>Last 24 Hours</small>
+                        </div>
+
+                    </div>
+
+                    <!-- end income -->
+
+                </div>
+
+            </main>
+
+            <!-- main section end -->
+
+
+
+            <!-- right section start -->
+            <div class="right me-4 mb-5">
+                <h1>right</h1>
             </div>
-
-            <div class="charts">
-                <div class="chart">
-                    <h3>Earning (past 12 months)</h3>
-                    <canvas id="barChart"></canvas>
-
-                </div>
-                <div class="chart" id="pie-cahrt">
-                    <h3>Employes</h3>
-                    <canvas id="pieChart"></canvas>
-
-                </div>
-            </div>
-
-            <div class="insights mt-5 ms-1">
-
-                <!-- start sessing -->
-                <div class="seals text-center">
-                    <span class="material-symbols-outlined">
-                        trending_up
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5>total seals</h5>
-                            <h4>Rs. 45,840.50</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">75%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-                </div>
-                <!-- end selling -->
-
-
-                <!-- start expensess -->
-                <div class="expenses text-center">
-                    <span class="material-symbols-outlined">
-                        local_mall
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5> total expenses</h5>
-                            <h4>Rs. 25,480.99</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">85%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-
-                </div>
-                <!-- end expensess -->
-
-                <!-- start income -->
-                <div class="income text-center">
-                    <span class="material-symbols-outlined">
-                        monitoring
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5> total income</h5>
-                            <h4>Rs. 128,980.19</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">65%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-
-                </div>
-
-                <!-- end income -->
-                <!-- start sessing -->
-                <div class="seals text-center">
-                    <span class="material-symbols-outlined">
-                        trending_up
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5>total seals</h5>
-                            <h4>Rs. 45,840.50</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">75%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-                </div>
-                <!-- end selling -->
-
-
-                <!-- start expensess -->
-                <div class="expenses text-center">
-                    <span class="material-symbols-outlined">
-                        local_mall
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5> total expenses</h5>
-                            <h4>Rs. 25,480.99</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">85%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-
-                </div>
-                <!-- end expensess -->
-
-                <!-- start income -->
-                <div class="income text-center">
-                    <span class="material-symbols-outlined">
-                        monitoring
-                    </span>
-                    <div class="middle">
-                        <div class="left">
-                            <h5> total income</h5>
-                            <h4>Rs. 128,980.19</h4>
-                        </div>
-                        <div class="progoss">
-                            <svg>
-                                <circle r="30" cy="40" cx="9.3rem"> </circle>
-                            </svg>
-                            <div class="number">65%</div>
-                        </div>
-                        <small>Last 24 Hours</small>
-                    </div>
-
-                </div>
-
-                <!-- end income -->
-
-            </div>
-
-        </main>
-        <!-- main section end -->
-
-
-
-        <!-- right section start -->
-        <div class="right me-4 mb-5">
-            <h1>right</h1>
+            <!-- right cestion end -->
         </div>
-        <!-- right cestion end -->
-    </div>
-    </div>
-    </div>
-
-    <!-- start recent order -->
-    <div class="recent_order mt-4">
-        <hr>
-        <h2 class="ms-5 ps-5 mb-3">Recent orders</h2>
-        <hr>
-        <table>
-            <tr>
-                <th>item name</th>
-                <th>item code</th>
-                <th>Price </th>
-                <th>Payment Method </th>
-                <th>Status </th>
-            </tr>
-            <tr>
-                <td>POLO T-SHIRT SIGNATURE V NECK</td>
-                <td>25001</td>
-                <td>Rs : 3299.99</td>
-                <td>COD</td>
-                <td class="warring" style="color: darkred;">Pending</td>
-            </tr>
-            <tr>
-                <td>GRAPHIC T-SHIRT Tropic Night Tee</td>
-                <td>25052</td>
-                <td>Rs : 5900.00</td>
-                <td>Bank payment</td>
-                <td class="warring" style="color: green;">Delivering</td>
-            </tr>
-        </table>
-    </div>
-    <!-- end recent order -->
 
 
+        <!-- start recent order -->
+        <div class="recent_order mt-4">
+            <hr>
+            <h2 class="ms-5 ps-5 mb-3">Recent orders</h2>
+            <hr>
+            <table>
+                <tr>
+                    <th>item name</th>
+                    <th>item code</th>
+                    <th>Price </th>
+                    <th>Payment Method </th>
+                    <th>Status </th>
+                </tr>
+                <tr>
+                    <td>POLO T-SHIRT SIGNATURE V NECK</td>
+                    <td>25001</td>
+                    <td>Rs : 3299.99</td>
+                    <td>COD</td>
+                    <td class="warring" style="color: darkred;">Pending</td>
+                </tr>
+                <tr>
+                    <td>GRAPHIC T-SHIRT Tropic Night Tee</td>
+                    <td>25052</td>
+                    <td>Rs : 5900.00</td>
+                    <td>Bank payment</td>
+                    <td class="warring" style="color: green;">Delivering</td>
+                </tr>
+            </table>
+        </div>
+        <!-- end recent order -->
+
+    </div>
 
 
     <!-- footer section start -->
     <div>
-        <footer class="copyr ">
+        <footer class="copyr fixed-bottom ">
             <div class="container ">
                 <div class="row col-12 pt-3 ">
                     <p class="copy-right">Copyright &COPY; 2024 MD-Style Haven SHOP | Develop by - <a href="#"> Malindu </a> </p>
@@ -257,10 +263,10 @@ if (!isset($_SESSION['staffId'])) {
     </div>
     <!-- footer section end -->
 
-<!-- Chart JS link -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js"></script>
-    <script src="script/chart1.js"></script>
-    <script src="script/chart2.js"></script>
+    <!-- Chart JS link -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../script/chart1.js"></script>
+    <script src="../../script/chart2.js"></script>
 
 
     <!--Bootstrap JS link -->
