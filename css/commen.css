@@ -1,19 +1,133 @@
+/* manu sections */
+
+.container-body {
+    display: grid;
+    grid-template-columns: 14rem auto 10rem;
+    position: relative;
+}
+
+
 /*----------------------------- 
     |middle main section
     |--------------------------*/
 
-    .container-body main {
-        width: auto;
-    }
-    
-    main .date{
-        display: inline-block;
-        background-color: #ffffff;
-        border-radius: 30px;
-    }
-    
-    main .insights{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        justify-items: center;
-    }
+.container-body main {
+    width: auto;
+
+}
+
+main .date {
+    display: inline-block;
+    background-color: #ffffff;
+    border-radius: 30px;
+}
+
+main .insights {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    position: relative;
+}
+
+main .insights>div {
+    background-color: #ffffff;
+    padding: var(--card-padding);
+    border-radius: 30px;
+    margin: 5px;
+    padding: 1rem 0 ;
+}
+main .insights>div:hover {
+    box-shadow: 10px 10px 20px 5px rgba(65, 64, 64, 0.3); /* Example shadow */
+}
+
+main .insights .seals span{
+    background-color: rgb(64, 170, 212);
+    color: #ffffff;
+    padding: 0.7rem;
+    border-radius: 50%;
+    border: 1px solid rgb(10, 10, 10);
+}
+
+main .insights .expenses span{
+    background-color: rgb(247, 51, 51);
+    color: floralwhite;
+    padding: 0.7rem;
+    border-radius: 50%;
+    border: 1px solid rgb(10, 10, 10);
+}
+
+main .insights .income span{
+    background-color: rgb(24, 209, 64);
+    color: #ffffff;
+    padding: 0.7rem;
+    border-radius: 50%;
+    border: 1px solid rgb(10, 10, 10);
+}
+
+main .insights>div .middle{
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .insights .progoss svg{
+    height: 80px;
+}
+
+main .insights .progoss svg circle{
+    fill: none;
+    stroke: rgb(240, 117, 117);
+    transition: rotate(270,80,80);
+    stroke-width: 5px;
+}
+
+main .insights .seals .progoss svg circle{
+stroke-dashoffset: 15px;
+stroke-dasharray: 160px;
+}
+main .insights .expenses .progoss svg circle{
+stroke-dashoffset: 28%;
+stroke-dasharray: 100%;
+}
+main .insights .income .progoss svg circle{
+stroke-dashoffset: 15%;
+stroke-dasharray: 75%;
+}
+
+main .insights  .progoss .number{
+    position:static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+/* main .insights .seals .progoss .number{
+    height: 50%;
+    width: 22%;
+    top: 43%;
+    left: 5.2%;
+}
+main .insights .expenses .progoss .number{
+    height: 50%;
+    width: 22%;
+    top: 43%;
+    left: 38.5%;
+}
+main .insights .income .progoss .number{
+    height: 50%;
+    width: 22%;
+    top: 43%;
+    left: 71.6%;
+} */
+
+/*----------------------------- 
+    |recent order section
+    |--------------------------*/
+
+hr {
+    height: 1px;
+    margin: 15px 40px;
+    background-color: black;
+    justify-content: space-between;
+    opacity: unset;
+}
