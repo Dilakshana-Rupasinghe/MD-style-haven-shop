@@ -80,8 +80,12 @@ if (isset($_POST['staffRegister'])) {
         </aside>
         <!-- main section start -->
         <main class="mx-4">
-
-            <h1 class="mt-5">Register staff</h1>
+            <!-- BACK button start -->
+            <div class="back-button-container">
+                <a href="staff-management.php" class="back-button">Back</a>
+            </div>
+            <!-- BACK button end -->
+            <h1 >Register staff</h1>
             <!-- Staff Register form section start -->
             <div class="container  row my-5 mx-auto">
                 <div class="wrapper col-md-4 mx-auto">
@@ -114,9 +118,9 @@ if (isset($_POST['staffRegister'])) {
                                 $staffTypeResult = mysqli_query($con, $staffTypeSelectQuiry);
 
                                 // fetch staff type
-                                while($staffTypeRow = mysqli_fetch_assoc($staffTypeResult)){
+                                while ($staffTypeRow = mysqli_fetch_assoc($staffTypeResult)) {
                                     // add staff types into drop down menu
-                                    echo "<option value='{$staffTypeRow['staff_type_id']}'> {$staffTypeRow['staff_type_name']} </option>" ;
+                                    echo "<option value='{$staffTypeRow['staff_type_id']}'> {$staffTypeRow['staff_type_name']} </option>";
                                 }
 
                                 ?>
@@ -159,15 +163,6 @@ if (isset($_POST['staffRegister'])) {
             <!-- Staff Register form section end -->
         </main>
         <!-- main section end -->
-        <!-- right section start -->
-        <div class="right me-4">
-            <!-- BACK button start -->
-            <div class="back-button-container">
-                <a href="staff-management.php" class="back-button">Back</a>
-            </div>
-            <!-- BACK button end -->
-        </div>
-        <!-- right cestion end -->
     </div>
     <!--  -->
 

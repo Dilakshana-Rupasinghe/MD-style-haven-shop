@@ -37,8 +37,13 @@ include('../../database/config.php');
         </aside>
         <!-- main section start -->
         <main class="ms-4">
+             <!-- BACK button start -->
+             <div class="back-button-container">
+                <a href="staff-management.php" class="back-button">Back</a>
+            </div>
+            <!-- BACK button end -->
 
-            <h1 class="mt-5">Customer management</h1>
+            <h1>Customer management</h1>
 
             <!-- Staff details  section start -->
             <table>
@@ -98,15 +103,7 @@ include('../../database/config.php');
 
         </main>
         <!-- main section end -->
-        <!-- right section start -->
-        <div class="right me-4">
-            <!-- BACK button start -->
-            <div class="back-button-container">
-                <a href="../home pages/admin-home.php" class="back-button">Back</a>
-            </div>
-            <!-- BACK button end -->
-        </div>
-        <!-- right cestion end -->
+       
     </div>
 
     <!-- footer section start -->

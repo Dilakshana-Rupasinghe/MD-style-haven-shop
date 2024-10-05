@@ -6,7 +6,7 @@ body {
 
 .container-body {
     display: grid;
-    grid-template-columns: 14rem auto 10rem;
+    grid-template-columns: 14rem auto;
     position: relative;
 }
 
@@ -23,6 +23,9 @@ body {
     flex-direction: column;
     justify-content: center;
     position: relative;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+    max-height: 500px; 
 }
 
 
@@ -50,4 +53,5 @@ body {
     margin-left: 15px;
     font-size: 22px;
 }
+
 

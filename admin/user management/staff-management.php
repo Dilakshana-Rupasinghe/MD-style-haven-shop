@@ -28,18 +28,23 @@ include('../../database/config.php');
     include('../../includes/admin-navigation.php');
     ?>
     <div class="container-body">
+
         <!-- menu section start -->
-        <aside class="left-menu">
+        <aside class="left-menu" style="height: fit-content;">
             <?php
             include('../../includes/back-side-nav.php');
             ?>
         </aside>
+
         <!-- main section start -->
         <main class="mx-4">
             <!-- BACK & Register button start -->
             <div class="back-button-container">
                 <a href="staff-registration.php" class="Registration">Register</a>
+                <a href="../home pages/admin-home.php" class="back-button">Back</a>
+
             </div>
+
             <!--  BACK & Register button end -->
             <h1>Staff management</h1>
             <!-- Staff details  section start -->
@@ -71,7 +76,7 @@ include('../../database/config.php');
                         //  assigne to database valuse to variable 
                         $staff_id = $row_data['staff_id'];
                         $staff_type_name = $row_data['staff_type_name'];
-                        $staff_name = $row_data['staff_fname']. ' ' . $row_data['staff_lname'];
+                        $staff_name = $row_data['staff_fname'] . ' ' . $row_data['staff_lname'];
                         $staff_email = $row_data['staff_email'];
                         $staff_username = $row_data['staff_username'];
                         $staff_is_active = $row_data['staff_is_active'];
@@ -79,15 +84,14 @@ include('../../database/config.php');
 
 
                         // check the user is active or deactive
-                        if($staff_is_active == 1){
+                        if ($staff_is_active == 1) {
                             $status = "Active";
-
-                        }else{
+                        } else {
                             $status = "Deactive";
                             $invisible = "invisible";
                         }
 
-                        echo"<tr>
+                        echo "<tr>
                         <td> $staff_id </td>
                         <td> $staff_type_name </td>
                         <td> $staff_name </td>
@@ -106,8 +110,6 @@ include('../../database/config.php');
 
                         </tr>
                         ";
-
-
                     }
                 }
 
@@ -118,15 +120,7 @@ include('../../database/config.php');
             </table>
         </main>
         <!-- main section end -->
-        <!-- right section start -->
-        <div class="right me-4">
-            <!-- BACK & Register button start -->
-            <div class="back-button-container">
-                <a href="../home pages/admin-home.php" class="back-button">Back</a>
-            </div>
-            <!--  BACK & Register button end -->
-        </div>
-        <!-- right cestion end -->
+
     </div>
 
 
