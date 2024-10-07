@@ -36,7 +36,7 @@ include('../../database/config.php');
 </head>
 
 <body>
-
+<!-- top side navigation bar -->
     <?php
     include('../../includes/admin-navigation.php');
     ?>
@@ -56,7 +56,7 @@ include('../../database/config.php');
                     <a href="staff-management.php" class="back-button">Back</a>
                 </div>
                 <!-- BACK button end -->
-                <h1>staff manaement - view user details</h1>
+                <h1>Staff manaement - view user details</h1>
 
                 <!-- user details view table -->
                 <table>

@@ -110,7 +110,7 @@ include('../../database/config.php');
 
                           <td class='action-links'>
                     <a href='staff-view-account.php?staffId=$staff_id' class='view' >View</a> 
-                    <a href='#' class='update'>Update</a>
+                    <a href='edit-account.php?staffId=$staff_id' class='update'>Update</a>
                     <a href='#' class='deactivate'>Deactivate</a>
                     </td>
                         
