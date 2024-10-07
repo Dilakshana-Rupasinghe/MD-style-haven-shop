@@ -1,19 +1,27 @@
-/* --------------------------- 
- update/edit account forms
------------------------------*/
+/* --------------------------------- 
+ update/edit staff account forms
+----------------------------------*/
 
-.edit{
+.edit {
     display: flex;
     grid-gap: 50px;
     flex-wrap: wrap;
     width: 100%;
-    padding: 20px
+    padding: 20px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
 }
 
-.d-change .p-change{
+.change {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 25px;
+    box-shadow: 0px 0px 50px 5px rgba(65, 64, 64, 0.3);
+    border-radius: 15px;
+    width: 300px;
+    border: 3px solid #B0BEC5;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 label {
@@ -28,4 +36,22 @@ input {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
+}
+
+button#update {
+    margin: auto;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #5a5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    border: 2px solid rgb(99, 97, 97);
+    cursor: pointer;
+}
+
+button#update :hover {
+    background-color: #484;
+    border: 2px solid rgb(0, 0, 0);
 }

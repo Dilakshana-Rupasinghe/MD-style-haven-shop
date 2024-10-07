@@ -26,6 +26,7 @@ include('../../database/config.php');
     <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
+    <link rel="stylesheet" href="../../css/fuck.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -33,7 +34,7 @@ include('../../database/config.php');
 </head>
 
 <body>
-<?php
+    <?php
     include('../../includes/admin-navigation.php');
     ?>
     <div class="container-body">
@@ -53,6 +54,84 @@ include('../../database/config.php');
                 </div>
                 <!-- BACK button end -->
                 <h1>Staff manaement - edit/update user details</h1>
+
+                <div class="edit">
+                    <div class="change" style="width: 35rem;">
+                        <h3 class="text-center">Edit/Update user details</h3>
+
+                        <form action="" method="post" class="details-change">
+                            <div>
+                                <label for="userName">User name</label> <br>
+                                <input type="text" id="userName" name="userName" readonly>
+                            </div>
+
+                            <div>
+                                <label for="firstName">First name</label> <br>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+
+                            <div>
+                                <label for="lastName">Last name</label> <br>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+
+                            <div>
+                                <label for="email">Email</label> <br>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div>
+                                <label for="phone">Phone Number</label> <br>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+
+                            <div>
+                                <label for="address1">Address</label> <br>
+                                <input type="text" id="address" name="address1" required>
+                            </div>
+
+                            <div>
+                                <label for="address2">Address</label> <br>
+                                <input type="text" id="address" name="address2" required>
+                            </div>
+
+                            <div>
+                                <label for="address3">Address</label> <br>
+                                <input type="text" id="address" name="address3" required>
+                            </div>
+
+                            <div>
+                                <label for="address4">Address</label> <br>
+                                <input type="text" id="address" name="address4" required>
+                            </div>
+                            <div style="margin: 0 9rem;">
+                                <button class="update-change" type="submit" name="update" id="update">Update Details</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="change" style="height: fit-content;">
+                        <h3 class="text-center">Channge password</h3>
+                        <form action="" method="post" class="password-change">
+                            <div>
+                                <label for="userName">User-Name</label> <br>
+                                <input type="text" id="userName" name="userName" readonly>
+                            </div>
+
+                            <div>
+                                <label for="password">Password</label> <br>
+                                <input type="text" id="password" name="password" required>
+                            </div>
+
+                            <div style="margin:0 40px;" >
+                                <button  type="submit" name="update" id="update"> Changes Password</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
