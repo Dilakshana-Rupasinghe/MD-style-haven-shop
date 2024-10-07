@@ -247,3 +247,20 @@ tr:hover {
     background-color: #DC3545;
 }
 
+/* --------------------------- 
+ update/edit account forms
+-----------------------------*/
+
+.edit{
+    display: flex;
+    grid-gap: 50px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px
+}
+
+.d-change .p-change{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 25px;
+}
