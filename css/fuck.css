@@ -31,12 +31,13 @@ label {
 }
 
 input {
+    margin-left: 2rem;
     margin-bottom: 15px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%;
+    width: 90%;
 }
 
 button#update {
