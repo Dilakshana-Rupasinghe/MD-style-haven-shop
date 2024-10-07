@@ -24,7 +24,7 @@ if (isset($_POST['custLogout'])) {
 // check the form is click the save change button
 if (isset($_POST['saveChanges'])) {
     // get user input form the form
-    $userName = $_POST['userName'];
+    // $userName = $_POST['userName']; // cant change the user name 
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
@@ -35,8 +35,8 @@ if (isset($_POST['saveChanges'])) {
     $address4 = $_POST['address4'];
 
     // check filds are not empty
-    if ($userName != '' and $firstName != '' and $lastName != '' and $email != '' and $phone != '' and $address1 != '' and $address2 !='' and $address3 !='' and $address4 !='') {
-        $custUpdateDetails = "UPDATE customer SET cust_username = '$userName', cust_fname = '$firstName', cust_lname = '$lastName', cust_email = '$email', cust_phone = '$phone', cust_add_line1 = '$address1', cust_add_line2 = '$address2', cust_add_line3 = '$address3', cust_add_line4 = '$address4' WHERE cust_id = $custId";
+    if ($firstName != '' and $lastName != '' and $email != '' and $phone != '' and $address1 != '' and $address2 != '' and $address3 != '' and $address4 != '') {
+        $custUpdateDetails = "UPDATE customer SET  cust_fname = '$firstName', cust_lname = '$lastName', cust_email = '$email', cust_phone = '$phone', cust_add_line1 = '$address1', cust_add_line2 = '$address2', cust_add_line3 = '$address3', cust_add_line4 = '$address4' WHERE cust_id = $custId";
 
         // update user details 
         if (mysqli_query($con, $custUpdateDetails)) {
@@ -138,7 +138,7 @@ if (isset($_POST['saveChanges'])) {
                         <form id="account-form" action="#" method="post">
 
                             <label for="userName">User name</label>
-                            <input type="text" id="userName" name="userName" value="<?php echo $cust_username; ?>" required>
+                            <input type="text" id="userName" name="userName" value="<?php echo $cust_username; ?>" readonly>
 
                             <label for="firstName">First name</label>
                             <input type="text" id="firstName" name="firstName" value="<?php echo $cust_fname; ?>" required>
@@ -154,10 +154,13 @@ if (isset($_POST['saveChanges'])) {
 
                             <label for="address1">Address</label>
                             <input type="text" id="address" name="address1" value="<?php echo $cust_address1; ?>" required>
+                           
                             <label for="address2">Address</label>
                             <input type="text" id="address" name="address2" value="<?php echo $cust_address2; ?>" required>
+                           
                             <label for="address3">Address</label>
                             <input type="text" id="address" name="address3" value="<?php echo $cust_address3; ?>" required>
+                           
                             <label for="address4">Address</label>
                             <input type="text" id="address" name="address4" value="<?php echo $cust_address4; ?>" required>
 
