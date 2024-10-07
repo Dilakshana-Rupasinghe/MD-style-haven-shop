@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// rederect user to login page if user not loggin
+if (!isset($_SESSION['staffId'])) {
+    header('location:../home pages/staff-login.php');
+    exit();
+}
+
+// create database connection
+include('../../database/config.php');
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,21 +59,100 @@
                 <h1>staff manaement - view user details</h1>
 
                 <!-- user details view table -->
-                 <table>
+                <table>
+
+                    <?php
+                    // get value from staff and staff type table
+                    if (isset($_GET['staffId'])) {
+                        $view_staff = $_GET['staffId'];
+
+
+                        $get_staffdetails = "SELECT staff_id, staff_type_name, staff_fname, staff_lname, staff_username, staff_email, staff_nic, staff_phone, staff_add_line1, staff_add_line2, staff_add_line3, staff_add_line4, staff_hire_date, staff_is_active FROM staff
+                    INNER JOIN staff_type ON staff.fk_staff_type_id = staff_type.staff_type_id
+                    WHERE staff.staff_id = $view_staff "; //get user position form staff type table
+
+                        $result = mysqli_query($con, $get_staffdetails);
+                        $row_count = mysqli_num_rows($result);
+
+
+                        //chect table row connt
+                        if ($row_count == 0) {
+                            echo "<h2 style='bg-danger text-center mt-5 '>no user yet</h2>";
+                        } else {
+                            while ($row_data = mysqli_fetch_assoc($result)) {
+                                // assign values
+                                $staff_id = $row_data['staff_id'];
+                                $staff_type_name = $row_data['staff_type_name'];
+                                $staff_name = $row_data['staff_fname'] . ' ' . $row_data['staff_lname'];
+                                $staff_username = $row_data['staff_username'];
+                                $staff_email = $row_data['staff_email'];
+                                $staff_nic = $row_data['staff_nic'];
+                                $staff_phone = $row_data['staff_phone'];
+                                $staff_address = $row_data['staff_add_line1'] . ' ' . $row_data['staff_add_line2'] . ' ' . $row_data['staff_add_line3'] . ' ' . $row_data['staff_add_line4'];
+                                $staff_hire_date = $row_data['staff_hire_date'];
+                                $staff_is_active = $row_data['staff_is_active'];
+
+
+
+                                // check is user actiive or deactive
+                                $status = "Deactive";
+                                if ($staff_is_active == 1) {
+                                    $status = "Active";
+                                }
+                                echo "
                     <tr>
-                        <th>Staff ID</th>
-                        <th>Staff Type </th>
-                        <th>Name</th>
-                        <th> Email</th>
-                        <th>User name</th>
-                        <th>NIC</th>
-                        <th>Contact</th>
-                        <th>Address</th>
-                        <th>Hire Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Staff ID</th> 
+                        <td>$staff_id</td>
                     </tr>
-                 </table>
+                    <tr>
+                        <th>Staff Type </th>
+                        <td>$staff_type_name</td>
+                     </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>$staff_name</td>
+
+                     </tr>
+                    <tr>
+                        <th>User name</th>
+                        <td>$staff_username</td>
+
+                    </tr>
+                    <tr>
+                        <th> Email</th>
+                        <td>$staff_email</td>
+
+                    </tr>
+                    <tr>
+                        <th>NIC</th>
+                        <td>$staff_nic</td>
+
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td>$staff_phone</td>
+
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>$staff_address</td>
+
+                    </tr>
+                    <tr>
+                        <th>Hire Date</th>
+                        <td>$staff_hire_date</td>
+
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>$status</td>
+                    </tr>";
+                            }
+                        }
+                    }
+                    ?>
+
+                </table>
             </main>
         </div>
     </div>
@@ -82,3 +177,8 @@
 </body>
 
 </html>
+
+<!-- close database connection -->
+<?php
+mysqli_close($con);
+?>

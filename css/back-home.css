@@ -4,13 +4,6 @@ body {
 
 /* manu sections */
 
-/* .container-body {
-    display: flex;
-    grid-template-columns: 14rem auto;
-    position: relative;
-} */
-
-
 /* left menu section */
 
 
@@ -31,7 +24,7 @@ body {
 }
 
 .middle-side{
-    margin-left: 14rem;
+    margin-left: 13rem;
     padding-bottom: 2rem;
     margin-top: 10px;
 

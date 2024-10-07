@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// rederect user to the login if user not logingtothe system
+if (!isset($_SESSION['staffId'])) {
+    header('location:../home pages/staff-login.php');
+    exit();
+}
 // include the database configaration file
 include('../../database/config.php');
 ?>
@@ -102,7 +109,7 @@ include('../../database/config.php');
                         <td> $status </td>
 
                           <td class='action-links'>
-                    <a href='#' class='view' >View</a> 
+                    <a href='staff-view-account.php?staffId=$staff_id' class='view' >View</a> 
                     <a href='#' class='update'>Update</a>
                     <a href='#' class='deactivate'>Deactivate</a>
                     </td>

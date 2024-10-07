@@ -3,10 +3,10 @@
 session_start();
 
 // rederect user to the login if user not logingtothe system
-// if(!isset($_SESSION['staffId'])){
-//     header('location:../home pages/staff-login.php');
-//     exit();
-// }
+if(!isset($_SESSION['staffId'])){
+    header('location:../home pages/staff-login.php');
+    exit();
+}
 
 // include the database configaration file
 include('../../database/config.php');
