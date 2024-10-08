@@ -22,7 +22,7 @@
     <span class="material-symbols-outlined">
         inventory
     </span>
-    <a href="#"> Inventory </a>
+    <a href="../inventory/inventory-management.php"> Inventory </a>
 
 </div>
 <div class="menu">
