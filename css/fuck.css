@@ -1,6 +1,6 @@
-/* --------------------------------- 
+/* ---------------------------------------- 
  update/edit staff account forms
-----------------------------------*/
+------------------------------------------*/
 
 .edit {
     display: flex;
@@ -34,11 +34,20 @@ input {
     margin-left: 2rem;
     margin-bottom: 15px;
     padding: 10px;
+    color: #333;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 90%;
 }
+
+/* -------------------------------------------
+    |   Password icon
+    |----------------------------------------- */
+    ::-ms-reveal {
+        filter: invert(1);
+    }
+    
 
 button#update {
     margin: auto;
