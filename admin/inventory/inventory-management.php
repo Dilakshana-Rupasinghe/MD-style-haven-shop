@@ -55,7 +55,7 @@ include('../../database/config.php');
                     <div class="date ms-4" style=" line-height: 2rem;">
                         <input type="date" style=" padding: 0px 10px;">
                     </div>
-                    <a href="#" class="manage-item-button">
+                    <a href="item-management.php" class="manage-item-button">
                         Manage item
                         <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px; ">
                             inventory_2
