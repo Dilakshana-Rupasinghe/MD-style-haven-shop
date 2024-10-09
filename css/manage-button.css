@@ -1,0 +1,20 @@
+/* manage item/ category button */
+.manage-item-button{
+    /* text-align: left;
+    display: flex;
+    float: inline-start; */
+    padding: 9px 18px;
+    margin-right: 25px;
+    background-color: rgb(72, 172, 72);
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid #000000;
+}
+
+.manage-item-button:hover{
+background-color: rgb(118, 187, 118);
+}
