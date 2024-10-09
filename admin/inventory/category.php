@@ -60,6 +60,9 @@ include('../../database/config.php');
 
                 <!--  BACK & Register button end -->
                 <h1>Category management</h1>
+
+
+
             </main>
         </div>
     </div>

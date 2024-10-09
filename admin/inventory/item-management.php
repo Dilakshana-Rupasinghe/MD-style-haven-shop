@@ -55,18 +55,39 @@ include('../../database/config.php');
                     <div class="date ms-4" style=" line-height: 2rem;">
                         <input type="date" style=" padding: 0px 10px;">
                     </div>
+                    <a href="add-item.php" class="manage-item-button" style="font-size: 16px; padding:11px 22px">
+                        Add Item
+                        <span class="material-symbols-outlined" style="font-size:20px; padding-left: 7px; ">
+                            list_alt_add
+                        </span></a>
                     <a href="inventory-management.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
                 <h1>Item management</h1>
+
+                <h2 class="text-center">Item Details</h2>
+
+
+                <table>
+                    <tr>
+                            <th>item ID</th>
+                            <th>item name</th>
+                            <th>Brand</th>
+                            <th>sell Price </th>
+                            <th>Discount </th>
+                            <th>Cost price </th>
+                            <th>Quntity </th>
+                            <th>Action </th>
+                    </tr>
+                </table>
             </main>
         </div>
     </div>
 
 
 
- <!-- footer section start -->
+    <!-- footer section start -->
     <div>
         <footer class="copyr fixed-bottom  ">
             <div class="container ">

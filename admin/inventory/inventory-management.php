@@ -55,7 +55,7 @@ include('../../database/config.php');
                     <div class="date ms-4" style=" line-height: 2rem;">
                         <input type="date" style=" padding: 0px 10px;">
                     </div>
-                    <a href="item-management.php" class="manage-item-button">
+                    <a href="item-management.php" class="manage-item-button" >
                         Manage item
                         <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px; ">
                             inventory_2
@@ -87,25 +87,22 @@ include('../../database/config.php');
                     <table>
                         <tr>
                             <th>item ID</th>
+                            <th>category</th>
                             <th>item name</th>
                             <th>Brand</th>
                             <th>sell Price </th>
                             <th>Discount </th>
-                            <th>Cost price </th>
                             <th>Quntity </th>
-                            <th>Action </th>
                         </tr>
                         <tr>
                             <td>25001</td>
+                            <td>T-shirt</td>
                             <td>POLO T-SHIRT SIGNATURE V NECK</td>
                             <td>MAS</td>
                             <td>Rs : 3299.99</td>
                             <td class="warring" style="color: darkred;">5%</td>
-                            <td>Rs : 3350.99</td>
                             <td>69</td>
-                            <td>
-                                <a href='#' class='view'>View</a>
-                            </td>
+                            
                         </tr>
                     </table>
                 </div>
