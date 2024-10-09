@@ -33,6 +33,16 @@ if (isset($_POST['categoryAdd'])) {
         }
     }
 }
+
+// delete category if user click delete button
+if (isset($_GET['categoryId'])) {
+    $categoryId = $_GET['categoryId'];
+
+    $categoryDeleteQuire = "DELETE FROM category WHERE category_id = $categoryId"; //delete quary
+    if (mysqli_query($con, $categoryDeleteQuire)) {
+        echo "<script>alert('Category is deleted successfully');</script>";
+    }
+}
 ?>
 
 
@@ -111,15 +121,50 @@ if (isset($_POST['categoryAdd'])) {
 
                     </div>
                 </div>
+
+                <div>
+                    <table>
+                        <tr>
+                            <th>Category ID</th>
+                            <th>Category name</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php
+                        $get_categoryDetail = "SELECT * FROM category ";
+
+                        $result = mysqli_query($con, $get_categoryDetail);
+                        $row_count = mysqli_num_rows($result);
+
+                        if ($row_count == 0) {
+                            echo "<h2 class='bg-danger text-center mt-5'>Np user yet </h2>";
+                        } else {
+                            while ($row_date = mysqli_fetch_assoc($result)) {
+                                $category_id = $row_date['category_id'];
+                                $categoryName = $row_date['category_name'];
+
+                                echo "<tr>
+                                
+                                <td> $category_id </td>
+                                <td> $categoryName </td>
+
+                                <td class='action-links'>
+                                <a href='category.php?categoryId=$category_id' class='deactivate'> Delete </a> 
+                                </td>
+                                
+                                </tr>";
+                            }
+                        }
+                        ?>
+
+                    </table>
+                </div>
+
+
+
+
+
+            </main>
         </div>
-
-
-
-
-
-
-        </main>
-    </div>
     </div>
 
 
