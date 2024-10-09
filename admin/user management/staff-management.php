@@ -46,7 +46,7 @@ include('../../database/config.php');
 
 
             <!-- main section start -->
-            <main class="mx-4">
+            <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
                     <a href="staff-registration.php" class="Registration">Register</a>

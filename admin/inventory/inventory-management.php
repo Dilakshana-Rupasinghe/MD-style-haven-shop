@@ -26,6 +26,7 @@ include('../../database/config.php');
     <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
+    <link rel="stylesheet" href="../../css/manage-button.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -48,9 +49,11 @@ include('../../database/config.php');
 
 
             <!-- main section start -->
-            <main class="mx-4">
+            <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
+                    <a href="#" class="manage-item-button">Manage item / category </a>
+
                     <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 </div>
 

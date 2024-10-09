@@ -81,7 +81,7 @@ if (isset($_POST['staffRegister'])) {
         <div class="middle-side">
 
             <!-- main section start -->
-            <main class="mx-4">
+            <main class="ms-4">
                 <!-- BACK button start -->
                 <div class="back-button-container mt-1">
                     <a href="staff-management.php" class="back-button">Back</a>
