@@ -52,17 +52,16 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
+                <div class="date ms-4" style=" line-height: 2rem;">
+                        <input type="date" style=" padding: 0px 10px;">
+                    </div>
                     <a href="#" class="manage-item-button">Manage item / category </a>
-
                     <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
-                <h1>Inventory management</h1>
+                    <h1>Inventory management</h1>
 
-                <div class="date ms-4 mt-3">
-                    <input type="date">
-                </div>
 
                 <div class="charts">
                     <div class="chart" style="width: 90%;">
@@ -70,6 +69,38 @@ include('../../database/config.php');
                         <canvas id="lineChart"></canvas>
 
                     </div>
+                </div>
+
+                <!-- start recent order -->
+                <div class="recent_order mt-4">
+                    <hr>
+                    <h2 class="ms-5 ps-5 mb-3"> Product list</h2>
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>item ID</th>
+                            <th>item name</th>
+                            <th>Brand</th>
+                            <th>sell Price </th>
+                            <th>Discount </th>
+                            <th>Cost price </th>
+                            <th>Quntity </th>
+                            <th>Action </th>
+                        </tr>
+                        <tr>
+                            <td>25001</td>
+                            <td>POLO T-SHIRT SIGNATURE V NECK</td>
+                            <td>MAS</td>
+                            <td>Rs : 3299.99</td>
+                            <td class="warring" style="color: darkred;">5%</td>
+                            <td>Rs : 3350.99</td>
+                            <td>69</td>
+                            <td>
+                                <a href='#' class='view'>View</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </main>
         </div>
     </div>

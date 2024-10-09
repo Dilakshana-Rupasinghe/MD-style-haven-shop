@@ -18,3 +18,9 @@
 .manage-item-button:hover{
 background-color: rgb(118, 187, 118);
 }
+
+.date{
+    text-align: left;
+    display: flex;
+    float: inline-start;
+}

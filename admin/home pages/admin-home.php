@@ -21,6 +21,7 @@ if (!isset($_SESSION['staffId'])) {
     <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
+    <link rel="stylesheet" href="../../css/manage-button.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -47,11 +48,17 @@ if (!isset($_SESSION['staffId'])) {
         <div class="main">
 
             <main class="mx-2" style="height: fit-content;">
+                  <!-- BACK & Register button start -->
+                  <div class="back-button-container mt-0">
+                <div class="date ms-5" style=" line-height: 2rem;">
+                        <input type="date" style=" padding: 0px 10px;">
+                    </div>
+                </div>
+
+                <!--  BACK & Register button end -->
                 <h1 class="mt-5 ms-3">Dashboard</h1>
 
-                <div class="date ms-4 mt-3">
-                    <input type="date">
-                </div>
+                
 
                 <div class="charts">
                     <div class="chart" style="width: 33rem;">
