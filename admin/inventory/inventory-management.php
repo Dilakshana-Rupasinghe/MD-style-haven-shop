@@ -52,15 +52,23 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-                <div class="date ms-4" style=" line-height: 2rem;">
+                    <div class="date ms-4" style=" line-height: 2rem;">
                         <input type="date" style=" padding: 0px 10px;">
                     </div>
-                    <a href="#" class="manage-item-button">Manage item / category </a>
+                    <a href="#" class="manage-item-button">
+                        Manage item
+                        <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px; ">
+                            inventory_2
+                        </span></a>
+                    <a href="category.php" class="manage-category-button">Manage Category
+                        <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px;">
+                            category
+                        </span></a>
                     <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
-                    <h1>Inventory management</h1>
+                <h1>Inventory management</h1>
 
 
                 <div class="charts">
