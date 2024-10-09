@@ -26,6 +26,7 @@ include('../../database/config.php');
     <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
+    <link rel="stylesheet" href="../../css/fuck.css">
     <link rel="stylesheet" href="../../css/manage-button.css">
 
     <!-- material icons CSS link -->
@@ -52,31 +53,53 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-                    <div class="date ms-4" style=" line-height: 2rem;">
-                        <input type="date" style=" padding: 0px 10px;">
-                    </div>
+                   
                     <a href="inventory-management.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
                 <h1>Category management</h1>
+                <div>
+                    
+                </div>
 
-                <div class="charts">
-                    <div class="chart" style="width: 18rem;">
+                <div class="edit ms-5" style="margin-top: 1rem;">
+                    <div class="change ms-5 " style="height: fit-content;">
+                        <h3 class="text-center">Add category</h3>
+                        <form action="#" method="post" id="categoryAddForm">
+                            <!-- Category name -->
+                            <div>
+                                <label for="Cname">Category name</label> <br>
+                                <input type="Cname" id="Cname" name="Cname" required>
+                            </div>
+                            
+                            <div style="margin:0 40px;">
+                                <button type="submit" name="categoryAdd" id="update"> Add </button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="change ms-5" style="width: 25rem;">
                         <h3>Strock by Category</h3>
                         <canvas id="pie-chart"></canvas>
 
                     </div>
                 </div>
-
-
-            </main>
         </div>
+
+
+
+
+
+
+        </main>
+    </div>
     </div>
 
 
 
- <!-- footer section start -->
+    <!-- footer section start -->
     <div>
         <footer class="copyr fixed-bottom  ">
             <div class="container ">
