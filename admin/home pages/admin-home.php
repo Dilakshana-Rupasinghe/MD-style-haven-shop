@@ -55,7 +55,7 @@ if (!isset($_SESSION['staffId'])) {
 
                 <div class="charts">
                     <div class="chart" style="width: 33rem;">
-                        <h3>Earning (past 12 months)</h3>
+                        <h3>Earning (2024)</h3>
                         <canvas id="barChart"></canvas>
 
                     </div>
