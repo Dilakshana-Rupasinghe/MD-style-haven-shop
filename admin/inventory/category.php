@@ -8,6 +8,31 @@ if (!isset($_SESSION['staffId'])) {
 }
 // include the database configaration file
 include('../../database/config.php');
+
+// check if user click the button or not
+if (isset($_POST['categoryAdd'])) {
+
+    // get user input
+    $categoryname = $_POST['Categoryname'];
+
+    //check fild is not empty
+    if ($categoryname != '') {
+        // check if category alrady exists
+        $categorySelectQuiry = "SELECT * FROM category WHERE category_name = '$categoryname'";
+        $result = (mysqli_query($con, $categorySelectQuiry));
+        if (mysqli_num_rows($result) > 0) {
+            echo "<script>alert('{$categoryname} already exists');</script>";
+        } else {
+
+            //insert new catagory into DB
+            $addcategoryQuory = "INSERT INTO category(category_name) VALUES('$categoryname')";
+
+            if (mysqli_query($con, $addcategoryQuory)) {
+                echo "<script>alert('New Category is added Successfully')</script>";
+            }
+        }
+    }
+}
 ?>
 
 
@@ -53,26 +78,26 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-                   
+
                     <a href="inventory-management.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
                 <h1>Category management</h1>
-                <div>
-                    
-                </div>
+
+
 
                 <div class="edit ms-5" style="margin-top: 1rem;">
-                    <div class="change ms-5 " style="height: fit-content;">
+                    <div class="change ms-3 " style="height: fit-content; width: 25rem">
                         <h3 class="text-center">Add category</h3>
+
                         <form action="#" method="post" id="categoryAddForm">
                             <!-- Category name -->
                             <div>
-                                <label for="Cname">Category name</label> <br>
-                                <input type="Cname" id="Cname" name="Cname" required>
+                                <label for="Categoryname">Category name</label> <br>
+                                <input type="Categoryname" id="Categoryname" name="Categoryname" required>
                             </div>
-                            
+
                             <div style="margin:0 40px;">
                                 <button type="submit" name="categoryAdd" id="update"> Add </button>
                             </div>
