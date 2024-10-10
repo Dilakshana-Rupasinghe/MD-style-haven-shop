@@ -97,7 +97,7 @@ if (isset($_POST['itemAdd'])) {
                 <div class="container-item">
                     <h1>Add New Item</h1>
                     <!-- Form starts here -->
-                    <form id="addItemForm" action="" method="POST" enctype="multipart/form-data">
+                    <form id="addItemForm" action="#" method="POST" enctype="multipart/form-data">
 
                         <!-- Item Details Section -->
                         <fieldset>
