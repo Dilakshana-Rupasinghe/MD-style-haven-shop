@@ -131,12 +131,12 @@ textarea::placeholder {
     |   Form input file field
     |----------------------------------------- */
 .input-file-box input {
-    width: 100%;
+    width: 90%;
     height: 100%;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255);
+    border: 2px solid rgb(3, 3, 3);
     border-radius: 50px;
-    color: #fff;
+    color: #000000;
     padding-right: 5px;
 }
 
@@ -177,6 +177,7 @@ select {
 label {
     font-size: 18px;
     text-align: end !important;
+    color: #000000;
 }
 
 
