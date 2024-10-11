@@ -3,6 +3,9 @@ session_start();
 
 // Include the database configuration file
 include('database/config.php');
+
+
+include('function/commen-function.php');
 ?>
 
 
@@ -53,9 +56,9 @@ include('database/config.php');
             </div>
             <div class="row">
                 <?php
-                
+                $itemSelectQuairy = "SELECT * FROM item WHERE fk_category_id = $categoryId ";
+                getItemCard($con, $itemSelectQuairy); // call the function to get item cart 
                 ?>
-
             </div>
         <?php
         }

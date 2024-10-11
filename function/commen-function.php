@@ -36,19 +36,19 @@
              <!-- display item card -->
              <div class="col-sm-6 col-md-4 col-lg-3 text-center mb-4">
                  <div class="card border-0 bg-light">
-                     <img src="images/products/<?= $row_data['item_image1']?>" class="card-img-top p-2 position-relative" alt="<?= $row_data['item_image1']?>">
+                     <img src="images/products/<?= $row_data['item_image1']?>" class="card-img-top p-3 position-relative" alt="<?= $row_data['item_image1'] ?>">
                      <!-- item discount percentage-->
                      <span class=" <?= $showNone?> position-absolute top-0 start-0 rounded-end-pill badge bg-success p-2">
                          -<?= $row_data['item_discount']?>%
                      </span>
                      <div class="card-body p-0 pb-2">
                          <div class="tool-tip">
-                             <span class="tool-tip-text"><?= $row_data['item_name']?></span>
-                             <h6 class="product-name"> <?= $row_data['item_name']?> </h6>
+                             <span class="tool-tip-text"> <?= $row_data['item_name'] ?> </span>
+                             <h6 class="product-name"> <?= $row_data['item_name'] ?> </h6>
                          </div>
                          <!-- item prices-->
-                         <h6 class="<?= $showNone?>text-decoration-line-through d-inline text-body-tertiary">Rs. <?= number_format($itemDiscountPrice, 2)?> </h6>
-                         <h6 class="<?= $showNone?>d-inline">Rs. <?= number_format($item_sell_price, 2)?> </h6>
+                         <h6 class="<?= $showNone?> text-decoration-line-through d-inline text-body-tertiary">Rs. <?= number_format($item_sell_price, 2)?> </h6>
+                         <h6 class="d-inline">Rs. <?= number_format($itemDiscountPrice, 2)?> </h6>
                          <!-- item availability -->
                          <h6 class="<?= $avilabiltyShow?> fw-bold "> <?= $avilabilty?></h6>
                          <a href="#" class="btn btn-outline-warning btn-view btn-sm">View</a>
