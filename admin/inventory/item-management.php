@@ -8,6 +8,19 @@ if (!isset($_SESSION['staffId'])) {
 }
 // include the database configaration file
 include('../../database/config.php');
+
+
+//check delete button is clicked
+if(isset($_GET['itemId'])){ //get item detail from item id
+    $item_id = $_GET['itemId'];
+
+    $item_deleteQuiry = "DELETE FROM item WHERE item_id = $item_id"; //detelet queiry
+
+    if(mysqli_query($con, $item_deleteQuiry)){
+        echo "<script>alert('item is deleted successfully');</script>";
+    }
+}
+
 ?>
 
 
@@ -112,9 +125,9 @@ include('../../database/config.php');
                         <td> $item_cost_price </td>
                         <td> $item_stock_qty </td>
                         <td class='action-links'>
-                         <a href='#' class='view'>View</a> 
+                         <a href='item-view.php?itemId=$item_id' class='view'>View</a> 
                          <a href='#' class='update'>Update</a>
-                         <a href='#' class='deactivate'>Delete</a>
+                         <a href='item-management.php?itemId=$item_id' class='deactivate'>Delete</a>
                         
                         </td>
                     </tr>";
