@@ -11,8 +11,38 @@
                 <li class="nav-item ms-3 ">
                     <a class="nav-link " href="Index.php">Home</a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link " href="#"> Categorys </a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        $categorySelectQuiey = "SELECT * FROM category ORDER BY category_name"; //select quary
+
+                        $result = mysqli_query($con, $categorySelectQuiey); //exicute SQL quary
+                        $row_count = mysqli_num_rows($result); // get row count
+
+                        if ($row_count > 0) {
+                            $textBgColor = "";
+                            while ($row_data = mysqli_fetch_assoc($result)) {
+
+                                //apply background color if the category is selected 
+                                if (isset($_GET['categoryId'])) {
+                                    if ($_GET['categoryId'] == $row_data['category_id']) {
+                                        $textBgColor = 'text-bg-dark';
+                                    } else {
+                                        $textBgColor = ""; // remove bagroound color class 
+
+                                    }
+                                }
+                                //display category in dropdown menu
+                                echo "<li> <a class='dropdown-item $textBgColor' href='collections.php?categoryId={$row_data['category_id']}&categoryName={$row_data['category_name']}'>{$row_data['category_name']} </a> </li>";
+                            }
+                        } else {
+                            //display not available if there is no category
+                            echo "<li><a class='dropdown-item'>Not Available Category</a></li>";
+                        }
+                        ?>
+
+                    </ul>
                 </li>
                 <li class=" nav-item ">
                     <a class="nav-link " href="#">Customize</a>

@@ -60,7 +60,7 @@ include('../../database/config.php');
                         <span class="material-symbols-outlined" style="font-size:20px; padding-left: 7px; ">
                             list_alt_add
                         </span></a>
-                    <a href="inventory-management.php" class="back-button">Back</a>
+                    <a href="item-management.php" class="back-button">Back</a>
                 </div>
 
                 <!--  BACK & Register button end -->
@@ -93,9 +93,9 @@ include('../../database/config.php');
                                 $item_brand = $row_data['item_brand'];
                                 $item_material = $row_data['item_material'];
                                 $item_description = $row_data['item_description'];
+                                $item_cost_price = $row_data['item_cost_price'];
                                 $item_sell_price = $row_data['item_sell_price'];
                                 $item_discount = $row_data['item_discount'];
-                                $item_cost_price = $row_data['item_cost_price'];
                                 $item_stock_qty = $row_data['item_stock_qty'];
                                 $item_date_added = $row_data['item_date_added'];
 
@@ -128,14 +128,14 @@ include('../../database/config.php');
                         <th>Discription</th>
                         <td> $item_description </td>
                         </tr>
-                    <tr>
-                        <th>sell Price </th>
-                        <td> $item_sell_price </td>
+                     <tr>
+                        <th>Cost price </th>
+                        <td> $item_cost_price </td>
 
                         </tr>
                     <tr>
-                        <th>Quntity </th>
-                        <td> $item_stock_qty </td>
+                        <th>sell Price </th>
+                        <td> $item_sell_price </td>
 
                         </tr>
                     <tr>
@@ -143,10 +143,11 @@ include('../../database/config.php');
                         <td> $item_discount </td>
                         </tr>
                     <tr>
-                        <th>Cost price </th>
-                        <td> $item_cost_price </td>
+                        <th>Quntity </th>
+                        <td> $item_stock_qty </td>
 
                         </tr>
+                   
                     <tr>
                         <th>Item date added </th>
                         <td> $item_date_added </td>
@@ -164,7 +165,6 @@ include('../../database/config.php');
             </main>
         </div>
     </div>
-
 
 
     <!-- footer section start -->
