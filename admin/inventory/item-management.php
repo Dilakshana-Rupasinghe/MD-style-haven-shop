@@ -71,15 +71,59 @@ include('../../database/config.php');
 
                 <table>
                     <tr>
-                            <th>item ID</th>
-                            <th>item name</th>
-                            <th>Brand</th>
-                            <th>sell Price </th>
-                            <th>Discount </th>
-                            <th>Cost price </th>
-                            <th>Quntity </th>
-                            <th>Action </th>
+                        <th>item ID</th>
+                        <th>item name</th>
+                        <th>Brand</th>
+                        <th>Material</th>
+                        <th>sell Price </th>
+                        <th>Discount </th>
+                        <th>Cost price </th>
+                        <th>Quntity </th>
+                        <th>Action </th>
                     </tr>
+                    <?php
+                    //get value from item table
+                    $get_itemDetails = "SELECT * FROM item ";
+                    $result = mysqli_query($con, $get_itemDetails);
+                    $row_count = mysqli_num_rows($result);
+
+                    if ($row_count == 0) {
+                        echo "<h2 class = 'bd-danger text-center mt-5'> No item yet </h2> ";
+                    } else {
+                        while ($row_data = mysqli_fetch_assoc($result)) {
+
+                            $item_id = $row_data['item_id'];
+                            $item_name = $row_data['item_name'];
+                            $item_brand = $row_data['item_brand'];
+                            $item_material = $row_data['item_material'];
+                            $item_sell_price = $row_data['item_sell_price'];
+                            $item_discount = $row_data['item_discount'];
+                            $item_cost_price = $row_data['item_cost_price'];
+                            $item_stock_qty = $row_data['item_stock_qty'];
+
+                            echo "
+                              <tr>
+                        <td> $item_id </td>
+                        <td> $item_name </td>
+                        <td> $item_brand </td>
+                        <td> $item_material </td>
+                        <td> $item_sell_price </td>
+                        <td> $item_discount </td>
+                        <td> $item_cost_price </td>
+                        <td> $item_stock_qty </td>
+                        <td class='action-links'>
+                         <a href='#' class='view'>View</a> 
+                         <a href='#' class='update'>Update</a>
+                         <a href='#' class='deactivate'>Delete</a>
+                        
+                        </td>
+                    </tr>";
+                        }
+                    }
+
+                    ?>
+
+
                 </table>
             </main>
         </div>
