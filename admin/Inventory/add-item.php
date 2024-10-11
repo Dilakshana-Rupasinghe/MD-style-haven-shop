@@ -144,7 +144,7 @@ if (isset($_POST['itemAdd'])) {
 
                             <!-- Additional Images -->
                             <label for="additionalImages">Additional Images:</label>
-                            <input class="" type="file" name="image2" id="image2" required>
+                            <input class="" type="file" name="image2" id="image2" >
                             </fieldset>
 
                         <!-- Pricing Section -->

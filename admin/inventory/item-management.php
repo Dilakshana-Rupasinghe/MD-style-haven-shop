@@ -11,12 +11,12 @@ include('../../database/config.php');
 
 
 //check delete button is clicked
-if(isset($_GET['itemId'])){ //get item detail from item id
+if (isset($_GET['itemId'])) { //get item detail from item id
     $item_id = $_GET['itemId'];
 
     $item_deleteQuiry = "DELETE FROM item WHERE item_id = $item_id"; //detelet queiry
 
-    if(mysqli_query($con, $item_deleteQuiry)){
+    if (mysqli_query($con, $item_deleteQuiry)) {
         echo "<script>alert('item is deleted successfully');</script>";
     }
 }
@@ -86,17 +86,18 @@ if(isset($_GET['itemId'])){ //get item detail from item id
                     <tr>
                         <th>item ID</th>
                         <th>item name</th>
+                        <th>Category</th>
                         <th>Brand</th>
                         <th>Material</th>
                         <th>sell Price </th>
                         <th>Discount </th>
-                        <th>Cost price </th>
                         <th>Quntity </th>
                         <th>Action </th>
                     </tr>
                     <?php
                     //get value from item table
-                    $get_itemDetails = "SELECT * FROM item ";
+                    $get_itemDetails ="SELECT item_id, item_name, category_name, item_brand, item_material, item_sell_price, item_discount, item_stock_qty FROM item
+                    INNER JOIN category ON item.fk_category_id = category.category_id ";
                     $result = mysqli_query($con, $get_itemDetails);
                     $row_count = mysqli_num_rows($result);
 
@@ -107,22 +108,22 @@ if(isset($_GET['itemId'])){ //get item detail from item id
 
                             $item_id = $row_data['item_id'];
                             $item_name = $row_data['item_name'];
+                            $category_name = $row_data['category_name'];
                             $item_brand = $row_data['item_brand'];
                             $item_material = $row_data['item_material'];
                             $item_sell_price = $row_data['item_sell_price'];
                             $item_discount = $row_data['item_discount'];
-                            $item_cost_price = $row_data['item_cost_price'];
                             $item_stock_qty = $row_data['item_stock_qty'];
 
                             echo "
                               <tr>
                         <td> $item_id </td>
                         <td> $item_name </td>
+                        <td> $category_name </td>
                         <td> $item_brand </td>
                         <td> $item_material </td>
                         <td> $item_sell_price </td>
                         <td> $item_discount </td>
-                        <td> $item_cost_price </td>
                         <td> $item_stock_qty </td>
                         <td class='action-links'>
                          <a href='item-view.php?itemId=$item_id' class='view'>View</a> 
