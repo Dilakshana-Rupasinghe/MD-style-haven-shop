@@ -36,7 +36,7 @@ include('../../database/config.php');
 </head>
 
 <body>
-<!-- top side navigation bar -->
+    <!-- top side navigation bar -->
     <?php
     include('../../includes/admin-navigation.php');
     ?>
