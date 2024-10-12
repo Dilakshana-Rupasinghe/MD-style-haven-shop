@@ -58,31 +58,65 @@ include('function/commen-function.php');
                     </tr>
                 </thead>
                 <?php
-                
+                $getCartItemSelectQuiry = "SELECT item_id, item_name, item_image1, item_sell_price, item_stock_qty, item_discount, cart_id, item_qty FROM item
+                INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
+                INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
+                WHERE customer.cust_id = $custId ";
+
+
+                $result = mysqli_query($con, $getCartItemSelectQuiry);
+                $totalPrice = 0;
+                $row_count = mysqli_num_rows($result);
+
+                if($row_count > 0){ //cart is empty or not
+                    while($row_data = mysqli_fetch_assoc($result)){
+                        $item_id = $row_data['item_id'];
+                        $item_name = $row_data['item_name'];
+                        $item_image1 = $row_data['item_image1'];
+                        $item_sell_price = (float)$row_data['item_sell_price'];
+                        $item_discount = (float)$row_data['item_discount'];
+                        $item_stock_qty = (int)$row_data['item_stock_qty'];
+
+                        $cart_id = $row_data['cart_id'];
+                        $item_qty = (int)$row_data['item_qty'];
+
+                        // discount price calculation
+                        $discountPrice = $item_sell_price * (100 - $item_discount) / 100; 
+
+                        // get subtotle price
+                        $subtotal = $item_qty * $discountPrice;
+
+                        // get total price
+                        $totalPrice += $subtotal;  
+
+                    }
+
+                }
                 ?>
                 <tbody>
                     <!-- Product Image -->
                     <td class="text-center">
                         <a href="product-view.php?productId=<?= $item_id ?>">
-                            <img class="object-fit-contain" src="#" width="80" height="100%">
+                            <img class="object-fit-contain" src="images/products/<?php echo $item_image1;?>" width="100" height="100%">
                         </a>
                     </td>
                     <!-- Product name -->
                     <td>
-                        <a class="text-decoration-none " href="#">
+                        <a class="text-decoration-none text-dark" href="product-view.php?productId=<?= $item_id ?>" style="text-transform:uppercase; font-size:larger"> 
+                            <?php echo $item_name;?>
                         </a>
                     </td>
                     <!-- Price -->
-                    <td>Rs. </td>
+                    <td style="font-size:larger;" >Rs. <?= number_format($discountPrice, 2)?> </td>
 
                     <!-- QTY -->
                     <td class="col-1">
                         <form action="#" method="post">
-                            <input class="form-control" type="number" min="1" max="" value="" name="cartQty" required>
+                            <input class="form-control" type="number" min="1" max="<?= $item_stock_qty + $item_qty  ?>" value="<?= $item_qty ?>" name="cartQty" required>
                     </td>
 
                     <!-- subtotal -->
-                    <td>Rs. </td>
+                    <td>Rs. <?= number_format($subtotal, 2)?></td>
 
                     <!-- action -->
                     <td class="text-center px-0 ">
@@ -92,13 +126,20 @@ include('function/commen-function.php');
                                     <form action="#" method="post" class="d-inline">
                                         <input type="hidden" name="cartId" value="<?= $cart_id ?>">
                                         <input type="hidden" name="itemId" value="<?= $item_id ?>">
-                                        <input type="hidden" name="existCartItemQty" value="<?= $existCartItemQty ?>">
-                                        <input type="hidden" name="existItemStockQty" value="<?= $existItemStockQty ?>">
+                                        <input type="hidden" name="existCartItemQty" value="<?= $item_qty ?>">
+                                        <input type="hidden" name="existItemStockQty" value="<?= $item_stock_qty ?>">
                                         <!-- hidden form end-->
                                         <input type="submit" value="Remove-Item" name="removeCartItem<?= $cart_id ?>" class="deactivate mx-0 d-inline mt-1 mt-lg-0">
                                     </form>
                                 </td>
                             </tr>
+
+                            <?php
+                            // update cart item
+
+                            // remove cart item
+                            
+                            ?>
 
                 </tbody>
             </table>
@@ -111,7 +152,7 @@ include('function/commen-function.php');
                 <a href="#"><button class="Registration bg-info">CheckOut</button></a>
             </div>
             <div class="col-md-6 text-md-end mt-2 mt-md-0 pe-0">
-                <h3>Total Price: Rs. </h3>
+                <h3>Total Price: Rs. <?= number_format($totalPrice, 2)?> </h3>
             </div>
         </div>
     </div>
