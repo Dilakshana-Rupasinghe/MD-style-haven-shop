@@ -5,8 +5,9 @@
                 <div class="col-3 ">
                     <h4>Who we are</h4>
                     <p>
-                        Junky Books was started in 2024 with the vision of buying
-                        books online in a wide range of digital formats.
+                    Our mission is to provide you with stylish, high-quality clothing that not only 
+                    enhances your wardrobe but also reflects your personality. Whether you're looking for 
+                    the latest trends, custom-made suits, or timeless classics, we've got you covered.
                     </p>
                 </div>
                 <div class="col-2 mx-2 ">

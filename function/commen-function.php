@@ -96,3 +96,34 @@
             }
         }
     }
+
+    // update cart
+    function updateCartItem($con, $cart_id, $item_id, $item_qty, $item_stock_qty){
+
+        if (isset($_POST['updateCartItem' . $cart_id])) {
+            $updatedCartItemQty = (int)$_POST['cartQty'];
+        
+            if ($updatedCartItemQty != $item_qty) {
+              // update quantity in user cart
+              $cartUpdateQuery = "UPDATE cart_item SET item_qty=$updatedCartItemQty WHERE cart_id=$cart_id";
+              if (mysqli_query($con, $cartUpdateQuery)) {
+                // update item stock quantity
+                $updatedItemStockQty = 0;
+                if ($updatedCartItemQty > $item_qty) {
+                  // remove adding cart items from item stock
+                  $updatedItemStockQty = $item_stock_qty - ($updatedCartItemQty - $item_qty);
+                } else {
+                  // add removing item to item stock
+                  $updatedItemStockQty = $item_stock_qty + ($item_qty - $updatedCartItemQty);
+                }
+                $itemUpdateQuery = "UPDATE item SET item_stock_qty=$updatedItemStockQty WHERE item_id=$item_id";
+                if (mysqli_query($con, $itemUpdateQuery)) {
+                  echo "<script>alert('Updated successfully');</script>";
+                  echo "<script>window.open('cart.php', '_self');</script>";
+                  exit();
+                }
+              }
+            }
+          }
+        }
+            

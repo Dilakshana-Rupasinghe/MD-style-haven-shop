@@ -51,10 +51,10 @@ include('function/commen-function.php');
                     <a class="nav-link " href="#">CUSTOMIZE </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="#">ABOUT-US </a>
+                    <a class="nav-link " href="about-us.php">ABOUT-US </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="#">CONTACT-US </a>
+                    <a class="nav-link " href="contact-us.php">CONTACT-US </a>
                 </li>
             </ul>
 

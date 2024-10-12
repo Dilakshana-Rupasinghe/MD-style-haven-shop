@@ -136,7 +136,8 @@ include('database/config.php');
 
                             <?php
                             // update cart item
-
+                            updateCartItem($con, $cart_id, $item_id, $item_qty, $item_stock_qty);
+                            
                             // remove cart item
                             removeCartItem($con, $cart_id, $item_id, $item_qty, $item_stock_qty);
 
