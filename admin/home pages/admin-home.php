@@ -141,72 +141,7 @@ if (!isset($_SESSION['staffId'])) {
                     </div>
 
                     <!-- end income -->
-                    <!-- start sessing -->
-                    <div class="seals text-center">
-                        <span class="material-symbols-outlined">
-                            trending_up
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5>total seals</h5>
-                                <h4>Rs. 45,840.50</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">75%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-                    </div>
-                    <!-- end selling -->
-
-
-                    <!-- start expensess -->
-                    <div class="expenses text-center">
-                        <span class="material-symbols-outlined">
-                            local_mall
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5> total expenses</h5>
-                                <h4>Rs. 25,480.99</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">85%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-
-                    </div>
-                    <!-- end expensess -->
-
-                    <!-- start income -->
-                    <div class="income text-center">
-                        <span class="material-symbols-outlined">
-                            monitoring
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5> total income</h5>
-                                <h4>Rs. 128,980.19</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">65%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-
-                    </div>
-
-                    <!-- end income -->
+                   
 
                 </div>
 
@@ -218,7 +153,7 @@ if (!isset($_SESSION['staffId'])) {
 
             <!-- right section start -->
             <div class="right me-4 mb-5">
-                <h1>right</h1>
+                <h1></h1>
             </div>
             <!-- right cestion end -->
         </div>

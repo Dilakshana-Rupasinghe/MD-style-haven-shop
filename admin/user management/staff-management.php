@@ -8,6 +8,19 @@ if (!isset($_SESSION['staffId'])) {
 }
 // include the database configaration file
 include('../../database/config.php');
+
+//deactivate user 
+if(isset($_GET['staffId'])){
+    $staff_id = $_GET['staffId'];
+
+    //delete query
+    $staffDeleteQuiry = "UPDATE staff SET staff_is_active = 0 WHERE staff_id = '$staff_id'";
+
+    if(mysqli_query($con, $staffDeleteQuiry)){
+        header('location:staff-management.php');
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -95,6 +108,8 @@ include('../../database/config.php');
                             // check the user is active or deactive
                             if ($staff_is_active == 1) {
                                 $status = "Active";
+                                $invisible = "";
+
                             } else {
                                 $status = "Deactive";
                                 $invisible = "invisible";
@@ -110,8 +125,8 @@ include('../../database/config.php');
 
                           <td class='action-links'>
                     <a href='staff-view-account.php?staffId=$staff_id' class='view' >View</a> 
-                    <a href='edit-account.php?staffId=$staff_id' class='update'>Update</a>
-                    <a href='#' class='deactivate'>Deactivate</a>
+                    <a href='edit-account.php?staffId=$staff_id' class='$invisible update'>Update</a>
+                    <a href='staff-management.php?staffId=$staff_id' class='$invisible deactivate'>Deactivate</a>
                     </td>
                         
                         </td>
