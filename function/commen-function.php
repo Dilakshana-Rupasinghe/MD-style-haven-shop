@@ -64,3 +64,17 @@
         }
     }
     ?>
+
+    <!-- get no of item into cart badge -->
+
+    <?php
+    function getNoOfCartItem($con){
+        $cartSelectQuiry = "SELECT * FROM cart_item WHERE fk_cust_id= {$_SESSION['custId']}";
+
+        $cartResult = mysqli_query($con, $cartSelectQuiry);
+        return mysqli_num_rows($cartResult);
+    }
+    
+    
+    
+     
