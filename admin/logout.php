@@ -65,7 +65,7 @@ if (isset($_POST['staffLogout'])) {
 
     <!-- BACK button start -->
     <div class="back-button-container">
-        <a href="#" class="back-button">Back</a>
+        <a href="home pages/admin-home.php" class="back-button">Back</a>
     </div>
     <!-- BACK button end -->
 
