@@ -49,16 +49,16 @@ include('function/commen-function.php');
                 $row_data = mysqli_fetch_assoc($item_result);
 
 
-                $item_image1 = $item_result['item_image1'];
-                $item_image2 = $item_result['item_image2'];
-                $item_name = $item_result['item_name'];
-                $item_brand = $item_result['item_brand'];
-                $item_material = $item_result['item_material'];
-                $item_description = $item_result['item_description'];
-                $item_sell_price = $item_result['item_sell_price'];
-                $item_discount = $item_result['item_discount'];
-                $item_discount = $item_result['item_discount'];
-                $item_stock_qty = $item_result['item_stock_qty'];
+                $item_image1 = $row_data['item_image1'];
+                $item_image2 = $row_data['item_image2'] ?? null;
+                $item_name = $row_data['item_name'];
+                $item_brand = $row_data['item_brand'];
+                $item_material = $row_data['item_material'];
+                $item_description = $row_data['item_description'];
+                $item_sell_price = $row_data['item_sell_price'];
+                $item_discount = $row_data['item_discount'];
+                $item_discount = $row_data['item_discount'];
+                $item_stock_qty = $row_data['item_stock_qty'];
 
 
                 //discount calculation
@@ -72,35 +72,41 @@ include('function/commen-function.php');
                 // show item availability
                 if ($item_stock_qty == 0) {
                     $statusAvailabal = 'slod out';
-                    $showItemQnty = 'text-danger';
+                    $showItemQntyColor = 'text-danger';
                     $showNoneQnty = 'd-none';
                 } else {
                     $statusAvailabal = 'In stock';
-                    $showItemQnty = 'text-success';
+                    $showItemQntyColor = 'text-success';
                 }
             ?>
 
 
                 <!-- image show section start -->
-                <div class="col-md-6 d-flex" style="align-items: center;">
+                <div class="col-md-6 d-flex" style="align-items: center; grid-gap: 18px; padding-left: 35px;">
                     <div class="py-3 px-2">
                         <div class="text-center">
-                            <img class="object-fit-contain" id="mainimage" src="images/products/<? echo $item_image1; ?>" >
+                            <img class="object-fit-contain" id="mainimage" src="images/products/<?php echo $item_image1; ?>" height="500" width="100%">
                         </div>
                     </div>
-                    <div class="text-center py-3">
-                        <img class="object-fit-contain" onclick="change_image(this)" src="images/products/<? echo $item_image1; ?>" height="60">
-                        <img class="object-fit-contain" onclick="change_image(this)" src="images/products/<? echo $item_image2; ?>" height="60">
+                    <div class="text-center ps-3 d-grid">
+                        <img class="object-fit-contain" onclick="change_image(this)" src="images/products/<?php echo $item_image1; ?>" height="90" width="50">
+                        <?php if ($item_image2): ?>
+                            <img class="object-fit-contain" onclick="change_image(this)" src="images/products/<?php echo $item_image2; ?>" height="90" width="50">
+                        <?php else: ?>
+                            <!-- Optionally, you can display a placeholder image or hide this section -->
+                            <img class="object-fit-contain" src="">
+                        <?php endif; ?>
+
                     </div>
                 </div>
                 <!-- image show section end -->
 
                 <!-- item details show section start  -->
                 <div class="col-md-6 p-3 bg-secondary bg-gradient bg-opacity-25 rounded-4">
-                    <h3>name</h3>
-                    <h4>brand</h4>
-                    <h6>Matirial</h6>
-                    <h6>discription</h6>
+                    <h4><span>Name : </span><?php echo $item_name;?></h4>
+                    <h5 class='text-body-secondary'> <span>Brand : </span><?php echo $item_brand; ?></h5>
+                    <p><span>Matirial : </span><?php echo $item_material; ?></p>
+                    <p><span>Discription : </span><?php echo $item_description; ?></p>
                     <h5>Size</h5>
                     <div class="size d-flex px-2">
 
@@ -146,33 +152,34 @@ include('function/commen-function.php');
 
                     <div class=" color d-flex px-2">
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-primary" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-primary" name="color" value="">
                         </div>
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-success" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-success" name="color" value="">
                         </div>
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-danger" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-danger" name="color" value="">
                         </div>
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-secondary" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-secondary" name="color" value="">
                         </div>
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-dark" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-dark" name="color" value="">
                         </div>
                         <div class="px-2">
-                            <input type="radio" class="form-check-input bg-light" name="Size" value="">
+                            <input type="radio" class="form-check-input bg-light" name="color" value="">
                         </div>
                     </div>
+                    <span>price : </span>
+                    <h3 class="<?php echo $showNoneDiscount; ?> text-decoration-line-through text-body-tertiary"> <?php echo number_format($item_sell_price,2) ?> <span class="badge bg-success ms-2">- <?php echo $item_discount?> %</span> </h3>
 
-                    <h3> sell price <span class="badge bg-success ms-2">- %</span> </h3>
+                    <h3> <?php echo number_format($discountPrice,2);?></h3>
 
-                    <h3>Discount price</h3>
-
+                    <h4 class="<?php echo $showItemQntyColor?> fw-bold"><?php echo $statusAvailabal?></h4>
 
                     <form action="" method="post" class="d-flex mx-auto">
-                        <div class="d-flex mt3">
-                            <input type="number" class="form-controle" min="1" value="1" name="cartQnty" required>
+                        <div class="<?php echo $showNoneQnty?> d-flex mt3">
+                            <input type="number" class="form-controle" min="1" max="<?php echo $item_stock_qty?>" value="1" name="cartQnty" required>
                         </div>
                         <div>
                             <button class="btn btn-outline-dark btn-orange py-1 ms-2" type="submit" name="AddtoCart"> Add To Cart</button>
@@ -187,7 +194,7 @@ include('function/commen-function.php');
             ?>
         </div>
     </div>
-
+    </div>
     <!-- Item image and details section end -->
 
 
