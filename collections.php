@@ -34,14 +34,10 @@ include('function/commen-function.php');
     <div class="bg-light pt-1 pb-4 ">
 
         <!-- serch item -->
-        <div class="container col-7">
-            <form action="#" method="get" class="search d-flex  my-4 ">
-                <input type="text" class="me-3 search-bar fw-semibold form-control py-1" placeholder="Search here"
-                    name="searchName" required>
-                <button type="submit" class=" rounded-2 py-1 px-3 fw-semibold" name="search"> Search</button>
-            </form>
-
-        </div>
+        <?php
+        include('includes/search.php');
+        ?>
+        <!-- search item end -->
     </div>
 
     <div class="container ">
@@ -49,6 +45,7 @@ include('function/commen-function.php');
         <!-- product view using select category in navigation bar -->
         <?php
         if (isset($_GET['categoryId'])) {
+            if (!isset($_GET['search'])) {
             $categoryId = $_GET['categoryId'];
         ?>
             <div class="col-lg-6 m-auto text-center my-3">
@@ -60,6 +57,27 @@ include('function/commen-function.php');
                 getItemCard($con, $itemSelectQuairy); // call the function to get item cart 
                 ?>
             </div>
+        <?php
+        }
+    }
+        ?>
+
+           <!-- search product start -->
+           <?php
+        if (isset($_GET['search'])) {
+            $item_name = $_GET['searchName'];
+        ?>
+            <div class="col-lg-6 m-auto text-center">
+                <h2> <?php echo "Searching result for \"$item_name\""; ?> </h2>
+                <hr>
+            </div>
+            <div class="row">
+                <?php
+                $itemSelectQuairy = "SELECT * FROM item WHERE item_name LIKE '%$item_name%'";
+                getItemCard($con, $itemSelectQuairy);
+                ?>
+            </div>
+
         <?php
         }
         ?>

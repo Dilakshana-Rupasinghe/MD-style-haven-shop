@@ -43,7 +43,7 @@
                      </span>
                      <div class="card-body p-0 pb-2">
                          <div class="tool-tip">
-                             <span class="tool-tip-text"> <?= $row_data['item_name'] ?> </span>
+                             <!-- <span class="tool-tip-text"> <?= $row_data['item_name'] ?> </span> -->
                              <h6 class="product-name"> <?= $row_data['item_name'] ?> </h6>
                          </div>
                          <!-- item prices-->

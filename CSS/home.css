@@ -76,11 +76,12 @@ body {
 /* btn */
   
 .btn{
-    background-color: rgb(108, 177, 235);
-    color: rgb(82, 82, 87);
-    border-radius: 10px;
-    border-color: black;
-    transition: background-color 1s, color 1s;
+    width: 80%;
+    font-size: 18px;
+    font-weight: 500;
+    border: 2px solid rgb(44, 148, 233);
+    color: rgb(109, 220, 235);
+    transition: background-color 1s, color 0.7s;
 
 }
 .btn:hover{
