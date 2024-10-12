@@ -103,7 +103,7 @@ include('function/commen-function.php');
 
                 <!-- item details show section start  -->
                 <div class="col-md-6 p-3 bg-secondary bg-gradient bg-opacity-25 rounded-4">
-                    <h4><span>Name : </span><?php echo $item_name;?></h4>
+                    <h4><span>Name : </span><?php echo $item_name; ?></h4>
                     <h5 class='text-body-secondary'> <span>Brand : </span><?php echo $item_brand; ?></h5>
                     <p><span>Matirial : </span><?php echo $item_material; ?></p>
                     <p><span>Discription : </span><?php echo $item_description; ?></p>
@@ -171,15 +171,15 @@ include('function/commen-function.php');
                         </div>
                     </div>
                     <span>price : </span>
-                    <h3 class="<?php echo $showNoneDiscount; ?> text-decoration-line-through text-body-tertiary"> <?php echo number_format($item_sell_price,2) ?> <span class="badge bg-success ms-2">- <?php echo $item_discount?> %</span> </h3>
+                    <h3 class="<?php echo $showNoneDiscount; ?> text-decoration-line-through text-body-tertiary"> <?php echo number_format($item_sell_price, 2) ?> <span class="badge bg-success ms-2">- <?php echo $item_discount ?> %</span> </h3>
 
-                    <h3> <?php echo number_format($discountPrice,2);?></h3>
+                    <h3> <?php echo number_format($discountPrice, 2); ?></h3>
 
-                    <h4 class="<?php echo $showItemQntyColor?> fw-bold"><?php echo $statusAvailabal?></h4>
+                    <h4 class="<?php echo $showItemQntyColor ?> fw-bold"><?php echo $statusAvailabal ?></h4>
 
                     <form action="" method="post" class="d-flex mx-auto">
-                        <div class="<?php echo $showNoneQnty?> d-flex mt3">
-                            <input type="number" class="form-controle" min="1" max="<?php echo $item_stock_qty?>" value="1" name="cartQnty" required>
+                        <div class="<?php echo $showNoneQnty ?> d-flex mt3">
+                            <input type="number" class="form-controle" min="1" max="<?php echo $item_stock_qty ?>" value="1" name="cartQnty" required>
                         </div>
                         <div>
                             <button class="btn btn-outline-dark btn-orange py-1 ms-2" type="submit" name="AddtoCart"> Add To Cart</button>
@@ -196,6 +196,50 @@ include('function/commen-function.php');
     </div>
     </div>
     <!-- Item image and details section end -->
+
+
+    <!-- add to the cart start-->
+    <?php
+    if (isset($_POST['AddtoCart'])) {
+        //rederect to the login page if user is not login
+        if (!isset($_SESSION['custId'])) {
+            echo "<script>window.open('Login.php', '_self');</script>";
+            exit();
+        }
+
+        $cust_id = $_SESSION['custId'];
+        $addingItemQTY = $_POST['cartQnty'];
+
+        $cartSelectQuiry = "SELECT * FROM cart_item WHERE fk_item_id= $itemId and fk_cust_id= $cust_id";
+        $cartResult = mysqli_query($con, $cartSelectQuiry);
+
+        // check if item alrady existe
+        if(mysqli_num_rows($cartResult) > 0 ) {
+            echo "<script>alert('This item already exists in your cart.');</script>";
+            echo "<script>window.open('cart.php', '_self')</script>";
+            exit();
+        }
+
+        // add item to cart item
+        $cartInsertQuiry = "INSERT INTO cart_item (item_qty, fk_cust_id, fk_item_id) VALUES ($addingItemQTY, $cust_id, $itemId)";
+
+        if(mysqli_query($con, $cartInsertQuiry)){
+            echo "<script>alert('Add item to cart successfully');</script>";
+        }
+
+        // Update the stock quantity of the item after add to cart
+        $newStockQTY = $item_stock_qty - $addingItemQTY;
+
+        $updateItemQuiry = "UPDATE cart_item SET item_stock_qty= $newStockQTY WHERE item_id = $itemId ";
+        if(mysqli_query($con, $updateItemQuiry)){
+            echo "<script>window.open('product.php', '_self');</script>";
+            exit();
+        }
+
+    }
+    ?>
+
+    <!-- add to the cart end-->
 
 
     <!-- footer section -->

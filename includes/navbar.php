@@ -79,7 +79,7 @@
                         if (isset($_SESSION['custId'])) {
                         ?>
                             <span class="position-absolute top-00 start-10 translate-middle badge rounded-pill bg-danger">
-                                <?php echo 0 ?>
+                                <?php echo getNoOfCartItem($con) ?>
                             </span>
                         <?php } ?>
 
