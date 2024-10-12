@@ -51,7 +51,7 @@
                          <h6 class="d-inline">Rs. <?= number_format($itemDiscountPrice, 2)?> </h6>
                          <!-- item availability -->
                          <h6 class="<?= $avilabiltyShow?> fw-bold "> <?= $avilabilty?></h6>
-                         <a href="#" class="btn btn-outline-warning btn-view btn-sm">View</a>
+                         <a href="product-view.php" class="btn btn-outline-warning btn-view btn-sm">View</a>
                      </div>
                  </div>
              </div>

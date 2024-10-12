@@ -46,24 +46,24 @@ include('function/commen-function.php');
         <?php
         if (isset($_GET['categoryId'])) {
             if (!isset($_GET['search'])) {
-            $categoryId = $_GET['categoryId'];
+                $categoryId = $_GET['categoryId'];
         ?>
-            <div class="col-lg-6 m-auto text-center my-3">
-                <h1><?php echo $_GET['categoryName']; ?></h1>
-            </div>
-            <div class="row">
-                <?php
-                $itemSelectQuairy = "SELECT * FROM item WHERE fk_category_id = $categoryId ";
-                getItemCard($con, $itemSelectQuairy); // call the function to get item cart 
-                ?>
-            </div>
+                <div class="col-lg-6 m-auto text-center my-3">
+                    <h1><?php echo $_GET['categoryName']; ?></h1>
+                </div>
+                <div class="row">
+                    <?php
+                    $itemSelectQuairy = "SELECT * FROM item WHERE fk_category_id = $categoryId ";
+                    getItemCard($con, $itemSelectQuairy); // call the function to get item cart 
+                    ?>
+                </div>
         <?php
+            }
         }
-    }
         ?>
 
-           <!-- search product start -->
-           <?php
+        <!-- search product start -->
+        <?php
         if (isset($_GET['search'])) {
             $item_name = $_GET['searchName'];
         ?>
