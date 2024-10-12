@@ -127,7 +127,7 @@ if (isset($_GET['itemId'])) { //get item detail from item id
                         <td> $item_stock_qty </td>
                         <td class='action-links'>
                          <a href='item-view.php?itemId=$item_id' class='view'>View</a> 
-                         <a href='#' class='update'>Update</a>
+                         <a href='update-item.php?itemId=$item_id' class='update'>Update</a>
                          <a href='item-management.php?itemId=$item_id' class='deactivate'>Delete</a>
                         
                         </td>
