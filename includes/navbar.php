@@ -1,3 +1,6 @@
+<?php
+include('function/commen-function.php');
+?>
 <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top py-0">
     <div class="container-fluid">
         <a class="navbar-brand ms-2 me-auto" href="Index.php">
@@ -79,7 +82,7 @@
                         if (isset($_SESSION['custId'])) {
                         ?>
                             <span class="position-absolute top-00 start-10 translate-middle badge rounded-pill bg-danger">
-                                <?php echo getNoOfCartItem($con) ?>
+                                <?php echo getNoOfCartItem($con); ?>
                             </span>
                         <?php } ?>
 

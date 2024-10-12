@@ -1,0 +1,225 @@
+body {
+    background-color: #f7f7fa;
+}
+
+/* manu sections */
+/* --------------------------------------
+        |   left menu section
+        |------------------------------------ */
+
+
+.left-menu {
+    background-color: #ffffff;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: fixed;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+    height: fit-content;
+    width: 13rem;
+    padding: 0 0 60px;
+
+}
+
+.middle-side {
+    margin-left: 13rem;
+    padding-bottom: 2rem;
+
+}
+
+.main {
+    display: grid;
+    grid-template-columns: auto 10rem;
+}
+
+
+.menu a {
+    margin-left: 15px;
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    font-weight: 500;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+
+.menu:hover {
+    transform: scale(1.08);
+    margin-left: 1px;
+    font-size: 19px;
+    font-weight: 620;
+}
+
+.menu .material-symbols-outlined {
+    line-height: 2.1;
+    margin-left: 15px;
+    font-size: 22px;
+}
+
+
+/* --------------------------------------
+        |  Item management section 
+        |------------------------------------ */
+
+.container-item {
+    width: 80%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+form legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.checkbox-group label,
+.size-group label {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: normal;
+}
+
+.size-details {
+    margin-left: 20px;
+    display: none;
+    /* Hidden by default, shown when checkbox is checked */
+}
+
+.size-group input[type="checkbox"]:checked+.size-details {
+    display: block;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.form-actions button {
+    padding: 10px 40px;
+    margin: 5px;
+    margin-right: 30px;
+    border: none;
+    background-color: #409419;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.form-actions button:hover {
+    background-color: #40c93b;
+}
+
+/* -------------------------------------------
+            |   Select option field
+            |----------------------------------------- */
+select {
+    /* width: 90%; */
+    /* height: 50px; */
+    border: 1px solid rgb(5, 5, 5);
+    font-size: 18px;
+    color: #000000;
+    background-color: transparent;
+    padding: 10px 17px;
+}
+
+
+/* ---------------------------------------- 
+ update/edit staff account forms
+------------------------------------------*/
+
+.edit {
+    display: flex;
+    grid-gap: 50px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
+}
+
+.change {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 50px 5px rgba(65, 64, 64, 0.3);
+    border-radius: 15px;
+    width: 300px;
+    border: 3px solid #B0BEC5;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    margin-left: 2rem;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: #333;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%;
+}
+
+/* -------------------------------------------
+    |   Password icon
+    |----------------------------------------- */
+    ::-ms-reveal {
+        filter: invert(1);
+    }
+    
+
+button#update {
+    margin: auto;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #5a5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    border: 2px solid rgb(99, 97, 97);
+    cursor: pointer;
+}
+
+button#update :hover {
+    background-color: #484;
+    border: 2px solid rgb(0, 0, 0);
+}

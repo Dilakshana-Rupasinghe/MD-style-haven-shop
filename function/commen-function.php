@@ -36,22 +36,21 @@
              <!-- display item card -->
              <div class="col-sm-6 col-md-4 col-lg-3 text-center mb-4">
                  <div class="card border-0 bg-light">
-                     <img src="images/products/<?= $row_data['item_image1']?>" class="card-img-top p-3 position-relative" alt="<?= $row_data['item_image1'] ?>">
+                     <img src="images/products/<?= $row_data['item_image1'] ?>" class="card-img-top p-3 position-relative" alt="<?= $row_data['item_image1'] ?>">
                      <!-- item discount percentage-->
-                     <span class=" <?= $showNone?> position-absolute top-0 start-0 rounded-end-pill badge bg-success p-2">
-                         -<?= $row_data['item_discount']?>%
+                     <span class=" <?= $showNone ?> position-absolute top-50 start-0 badge bg-danger p-2">
+                         -<?= $row_data['item_discount'] ?>%
                      </span>
                      <div class="card-body p-0 pb-2">
                          <div class="tool-tip">
-                             <!-- <span class="tool-tip-text"> <?= $row_data['item_name'] ?> </span> -->
                              <h6 class="product-name"> <?= $row_data['item_name'] ?> </h6>
                          </div>
                          <!-- item prices-->
-                         <h6 class="<?= $showNone?> text-decoration-line-through d-inline text-body-tertiary">Rs. <?= number_format($item_sell_price, 2)?> </h6>
-                         <h6 class="d-inline">Rs. <?= number_format($itemDiscountPrice, 2)?> </h6>
+                         <h6 class="<?= $showNone ?> text-decoration-line-through d-inline text-body-tertiary">Rs. <?= number_format($item_sell_price, 2) ?> </h6>
+                         <h6 class="d-inline">Rs. <?= number_format($itemDiscountPrice, 2) ?> </h6>
                          <!-- item availability -->
-                         <h6 class="<?= $avilabiltyShow?> fw-bold "> <?= $avilabilty?></h6>
-                         <a href="product-view.php?productId=<?= $row_data['item_id']?>" class="btn btn-outline-warning btn-view btn-sm">View</a>
+                         <h6 class="<?= $avilabiltyShow ?> fw-bold "> <?= $avilabilty ?></h6>
+                         <a href="product-view.php?productId=<?= $row_data['item_id'] ?>" class="btn btn-outline-warning btn-view btn-sm">View</a>
                      </div>
                  </div>
              </div>
@@ -59,22 +58,41 @@
  <?php
 
             }
-        } else{
+        } else {
             echo "<h2>Not available products</h2>";
         }
     }
     ?>
 
-    <!-- get no of item into cart badge -->
+ <!-- get no of item into cart badge -->
 
-    <?php
-    function getNoOfCartItem($con){
+ <?php
+    function getNoOfCartItem($con)
+    {
         $cartSelectQuiry = "SELECT * FROM cart_item WHERE fk_cust_id= {$_SESSION['custId']}";
 
         $cartResult = mysqli_query($con, $cartSelectQuiry);
         return mysqli_num_rows($cartResult);
     }
-    
-    
-    
-     
+
+    // remove cart item
+    function removeCartItem($con, $cart_id, $item_id, $item_qty, $item_stock_qty)
+    {
+        if (isset($_POST['removeCartItem' . $cart_id])) {
+
+            // delete from cart item table
+            $cartItemDeletQuiry = "DELETE FROM cart_item WHERE cart_id = $cart_id";
+            // exicute quairy
+            if (mysqli_query($con, $cartItemDeletQuiry)) {
+                $updateItemStock = $item_qty + $item_stock_qty;
+
+                // update quairy
+                $itemUpdateQuiry = "UPDATE item SET item_stock_qty = $updateItemStock WHERE item_id = $item_id";
+                // exicute quiry
+                if (mysqli_query($con, $itemUpdateQuiry)) {
+                    echo "<script>alert('Delete item from cart successfully');</script>";
+                    echo "<script>window.open('cart.php', '_self');</script>";
+                }
+            }
+        }
+    }

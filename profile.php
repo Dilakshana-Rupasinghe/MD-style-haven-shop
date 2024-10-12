@@ -60,7 +60,7 @@ if (isset($_POST['saveChanges'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- css links -->
     <link rel="stylesheet" href="css/my-profile.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-style.css">
     <link rel="stylesheet" href="css/style.css">
 
 

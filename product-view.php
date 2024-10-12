@@ -5,10 +5,6 @@ session_start();
 include('database/config.php');
 
 
-
-include('function/commen-function.php');
-
-
 ?>
 
 
@@ -171,7 +167,7 @@ include('function/commen-function.php');
                         </div>
                     </div>
                     <span>price : </span>
-                    <h3 class="<?php echo $showNoneDiscount; ?> text-decoration-line-through text-body-tertiary"> <?php echo number_format($item_sell_price, 2) ?> <span class="badge bg-success ms-2">- <?php echo $item_discount ?> %</span> </h3>
+                    <h3 class="<?php echo $showNoneDiscount; ?> text-decoration-line-through text-body-tertiary"> <?php echo number_format($item_sell_price, 2) ?> <span class="badge bg-danger ms-2" style="font-size:medium;">- <?php echo $item_discount ?> %</span> </h3>
 
                     <h3> <?php echo number_format($discountPrice, 2); ?></h3>
 
