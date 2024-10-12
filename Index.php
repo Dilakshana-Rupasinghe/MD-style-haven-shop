@@ -37,9 +37,9 @@ include('function/commen-function.php');
     <div class="bg-light pt-1 pb-4 ">
 
 
-        <h4 class="text-center my-3  text-primary-emphasis ">Welcome to <span
-                style="text-transform:uppercase; color: rgb(43, 92, 226);">" MD-Style heven" </span> - online Shoping
-        </h4>
+        <h5 class="text-center my-3  text-primary-emphasis ">WELCOME TO -<span
+                style="text-transform:uppercase; color: rgb(43, 92, 226); font-size:30px;"> MD-Style heven </span> - ONLINE SHOPING
+        </h5>
 
         <!-- serch item -->
         <?php
@@ -99,7 +99,7 @@ include('function/commen-function.php');
         ?>
 
                 <div class="col-lg-6 m-auto text-center">
-                    <h2> ALL Products </h2>
+                    <h2> ALL PRODUCT </h2>
                     <hr>
                 </div>
                 <div class="row">

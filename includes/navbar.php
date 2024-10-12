@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item ms-3 ">
-                    <a class="nav-link " href="Index.php">Home</a>
+                    <a class="nav-link " href="Index.php">HOME</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> CATEGORY </a>
                     <ul class="dropdown-menu">
                         <?php
                         $categorySelectQuiey = "SELECT * FROM category ORDER BY category_name"; //select quary
@@ -45,13 +45,13 @@
                     </ul>
                 </li>
                 <li class=" nav-item ">
-                    <a class="nav-link " href="#">Customize</a>
+                    <a class="nav-link " href="#">CUSTOMIZE </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="#">About us</a>
+                    <a class="nav-link " href="#">ABOUT-US </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="#">Contact us</a>
+                    <a class="nav-link " href="#">CONTACT-US </a>
                 </li>
             </ul>
 
@@ -71,15 +71,21 @@
                     <a class="nav-link " href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <!-- <a class="nav-img position-relative me-1" href="#"><img src="icons/cart-2-line.svg" style="width: 32px;"> -->
-                    <a class="nav-link " href="#" style="color:black;">
+                    <a class="nav-link " href="cart.php" style="color:black;">
                         <span class="material-symbols-outlined">
                             shopping_cart
                         </span>
+                        <?php
+                        if (isset($_SESSION['custId'])) {
+                        ?>
+                            <span class="position-absolute top-00 start-10 translate-middle badge rounded-pill bg-danger">
+                                <?php echo 0 ?>
+                            </span>
+                        <?php } ?>
+
                     </a>
                 </li>
                 <li class="nav-item">
-                    <!-- <a class="nav-img me-3" href="#"><img src="icons/profile-line.svg" style="width: 32px;"></a>  -->
                     <a class="nav-link " href="profile.php" style="font-size: 19px; color:black;">
                         <span class="material-symbols-outlined">
                             account_circle
