@@ -35,7 +35,7 @@ include('database/config.php');
         <div class="row d-flex mx-auto bg-primary bg-gradient bg-opacity-25 rounded-4">
             <?php
 
-            if (isset($_GET['productId'])) {
+            if (isset($_GET['productId'])) { //get product id from item card in funtion section
                 $itemId = $_GET['productId'];
 
                 $itemSelectQuairy = "SELECT * FROM item WHERE item_id = $itemId";
