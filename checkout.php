@@ -48,7 +48,7 @@ include('database/config.php');
         <div class="row">
             <!-- Billing Details Section -->
             <div class="col-md-6 bg-light p-4 rounded">
-                <h4 class="mb-3">Billing Details</h4>
+                <h4 class="mb-3 text-center">BILLING DETAILS</h4>
                 <hr>
                 <form>
                     <div class="row g-3">
@@ -204,7 +204,7 @@ include('database/config.php');
 
             <!-- Your Order Section -->
             <div class="col-md-6 bg-primary text-white p-4 rounded " style="background-color: rgba(113, 169, 242, 1);">
-                <h4 class="mb-3">Your Order</h4>
+                <h4 class="mb-3 text-center">YOUR ORDER</h4>
                 <table class="table text-white">
                     <thead>
                         <tr>
