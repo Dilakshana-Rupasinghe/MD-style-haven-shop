@@ -156,7 +156,7 @@ include('database/config.php');
         <div class="row">
             <div class="col-md-6 ps-0">
                 <a href="index.php"><button class="back-button">Keep Shopping</button></a>
-                <a href="#"><button class="Registration bg-info">CheckOut</button></a>
+                <a href="checkout.php"><button class="Registration bg-info">CheckOut</button></a>
             </div>
             <div class="col-md-6 text-md-end mt-2 mt-md-0 pe-0">
                 <h3>Total Price: Rs. <?= number_format($totalPrice, 2) ?> </h3>

@@ -34,7 +34,7 @@
     ?>
 
              <!-- display item card -->
-             <div class="col-sm-6 col-md-4 col-lg-3 text-center mb-4">
+             <div class="col-sm-6 col-md-4  text-center mb-4">
                  <div class="card border-0 bg-light">
                      <img src="images/products/<?= $row_data['item_image1'] ?>" class="card-img-top p-3 position-relative" alt="<?= $row_data['item_image1'] ?>">
                      <!-- item discount percentage-->
