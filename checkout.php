@@ -282,7 +282,89 @@ include('database/config.php');
 
 
 
-   
+    <script>
+        // Toggle visibility of billing address form
+        function toggleBillingAddress(isDifferentAddress) {
+            const differentBillingAddressForm = document.getElementById("differentBillingAddressForm");
+            const shippingFields = document.querySelectorAll("#firstName, #lastName, #district, #address-line1, #address-line2, #city, #postalCode, #phone");
+            const billingFields = document.querySelectorAll("#billingFirstName, #billingLastName, #district, #address-line1, #address-line2, #city, #postalCode, #phone");
+
+            if (isDifferentAddress) {
+                // Show the different billing address form
+                differentBillingAddressForm.classList.remove("d-none");
+
+                // Hide the same as billing address form
+                sameasBillingAddressForm.classList.add("d-none");
+
+                // Clear the "Same as shipping address" fields
+                shippingFields.forEach(field => field.value = "");
+            } else {
+                // Hide the different billing address form
+                differentBillingAddressForm.classList.add("d-none");
+
+                // Show the same as billing address form
+                sameasBillingAddressForm.classList.remove("d-none");
+
+                // Clear the "Different billing address" fields
+                billingFields.forEach(field => field.value = "");
+
+                // Automatically copy data from shipping to billing fields
+                const shippingData = {
+                    firstName: document.getElementById("firstName").value,
+                    lastName: document.getElementById("lastName").value,
+                    district: document.getElementById("district").value,
+                    addressLine1: document.getElementById("address-line1").value,
+                    addressLine2: document.getElementById("address-line2").value,
+                    city: document.getElementById("city").value,
+                    postalCode: document.getElementById("postalCode").value,
+                    phone: document.getElementById("phone").value,
+                };
+
+                document.getElementById("billingFirstName").value = shippingData.firstName;
+                document.getElementById("billingLastName").value = shippingData.lastName;
+                document.getElementById("district").value = shippingData.district;
+                document.getElementById("address-line1").value = shippingData.addressLine1;
+                document.getElementById("address-line2").value = shippingData.addressLine2;
+                document.getElementById("city").value = shippingData.city;
+                document.getElementById("postalCode").value = shippingData.postalCode;
+                document.getElementById("phone").value = shippingData.phone;
+            }
+        }
+
+        // Handle form submission and provide confirmation alerts
+        function handleFormSubmission(event) {
+            // Prevent default form submission behavior
+            event.preventDefault();
+
+            // Check if "Same as shipping address" is selected
+            const isSameAddressChecked = document.getElementById("sameAddress").checked;
+
+            // Confirmation alert logic
+            if (isSameAddressChecked) {
+                alert("Your order has been placed successfully! Billing address is the same as the shipping address.");
+            } else {
+                // Ensure required fields for different billing address are filled
+                const billingFirstName = document.getElementById("billingFirstName").value;
+                const billingLastName = document.getElementById("billingLastName").value;
+                const billingCity = document.getElementById("city").value;
+                const billingPostalCode = document.getElementById("postalCode").value;
+
+                if (billingFirstName && billingLastName && billingCity && billingPostalCode) {
+                    alert("Your order has been placed successfully! Billing address is different from the shipping address.");
+                } else {
+                    alert("Please fill in all the required fields in the billing address form.");
+                    return; // Stop submission if form is incomplete
+                }
+            }
+
+            // Provide an additional forum confirmation for tracking purposes
+            console.log("Forum 1: Confirmation sent.");
+            console.log("Forum 2: Confirmation sent.");
+        }
+
+        // Attach form submission handler
+        document.querySelector(".btn-success").addEventListener("click", handleFormSubmission);
+    </script>
 
     <!-- footer section -->
     <?php
