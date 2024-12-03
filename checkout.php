@@ -47,7 +47,7 @@ include('database/config.php');
         <hr>
         <div class="row">
             <!-- Billing Details Section -->
-            <div class="col-md-6 bg-light p-4 rounded">
+            <div class="col-md-6 bg-light p-4 " style="border-radius: 30px 0 0 30px ">
                 <h4 class="mb-3 text-center">BILLING DETAILS</h4>
                 <hr>
                 <form>
@@ -66,13 +66,38 @@ include('database/config.php');
                         <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
                     </div>
                     <div class="mb-3">
-                        <label for="district" class="form-label">District (optional)</label>
-                        <select class="form-select" id="district">
-                            <option value="Colombo" selected>Colombo</option>
-                            <option value="Gampaha">Gampaha</option>
-                            <option value="Kandy">Kandy</option>
+                        <label for="district" class="form-label">District </label>
+                        <select class="form-select" id="district" required>
+                            <option value="Dictrict" selected>Select Destrict</option>
+                            <option value="LK52">Ampara</option>
+                            <option value="LK71">Anuradhapura</option>
+                            <option value="LK81">Badulla</option>
+                            <option value="LK51">Batticaloa</option>
+                            <option value="LK11">Colombo</option>
+                            <option value="LK31">Galle</option>
+                            <option value="LK12">Gampaha</option>
+                            <option value="LK33">Hambantota</option>
+                            <option value="LK41">Jaffna</option>
+                            <option value="LK13">Kalutara</option>
+                            <option value="LK21">Kandy</option>
+                            <option value="LK92">Kegalla</option>
+                            <option value="LK42">Kilinochchi</option>
+                            <option value="LK61">Kurunegala</option>
+                            <option value="LK43">Mannar</option>
+                            <option value="LK22">Matale</option>
+                            <option value="LK32">Matara</option>
+                            <option value="LK82">Monaragala</option>
+                            <option value="LK45">Mullaittivu</option>
+                            <option value="LK23">Nuwara Eliya</option>
+                            <option value="LK72">Polonnaruwa</option>
+                            <option value="LK62">Puttalam</option>
+                            <option value="LK91">Ratnapura</option>
+                            <option value="LK53">Trincomalee</option>
+                            <option value="LK44">Vavuniya</option>
                         </select>
                     </div>
+
+
                     <div class="mb-3">
                         <label for="address-line1" class="form-label">Address-line1</label>
                         <input type="text" class="form-control" id="address-line1" placeholder="line1" required>
@@ -126,10 +151,34 @@ include('database/config.php');
                     <!-- Additional Billing Address Form -->
                     <div id="differentBillingAddressForm" class="d-none">
                         <div class="mb-3">
-                            <label for="country" class="form-label">Country/Region</label>
-                            <select class="form-select" id="country" required>
-                                <option value="Sri Lanka" selected>Sri Lanka</option>
-                                <option value="India">India</option>
+                            <label for="country" class="form-label">Region</label>
+                            <select class="form-select" id="district" required>
+                                <option value="Dictrict" selected>Select Destrict</option>
+                                <option value="LK52">Ampara</option>
+                                <option value="LK71">Anuradhapura</option>
+                                <option value="LK81">Badulla</option>
+                                <option value="LK51">Batticaloa</option>
+                                <option value="LK11">Colombo</option>
+                                <option value="LK31">Galle</option>
+                                <option value="LK12">Gampaha</option>
+                                <option value="LK33">Hambantota</option>
+                                <option value="LK41">Jaffna</option>
+                                <option value="LK13">Kalutara</option>
+                                <option value="LK21">Kandy</option>
+                                <option value="LK92">Kegalla</option>
+                                <option value="LK42">Kilinochchi</option>
+                                <option value="LK61">Kurunegala</option>
+                                <option value="LK43">Mannar</option>
+                                <option value="LK22">Matale</option>
+                                <option value="LK32">Matara</option>
+                                <option value="LK82">Monaragala</option>
+                                <option value="LK45">Mullaittivu</option>
+                                <option value="LK23">Nuwara Eliya</option>
+                                <option value="LK72">Polonnaruwa</option>
+                                <option value="LK62">Puttalam</option>
+                                <option value="LK91">Ratnapura</option>
+                                <option value="LK53">Trincomalee</option>
+                                <option value="LK44">Vavuniya</option>
                             </select>
                         </div>
                         <div class="row g-3">
@@ -203,7 +252,7 @@ include('database/config.php');
             </div>
 
             <!-- Your Order Section -->
-            <div class="col-md-6 bg-primary text-white p-4 rounded " style="background-color: rgba(113, 169, 242, 1);">
+            <div class="col-md-6 p-4 display-fixed " style="border-radius: 0px 30px 30px 0px">
                 <h4 class="mb-3 text-center">YOUR ORDER</h4>
                 <table class="table text-white">
                     <thead>
