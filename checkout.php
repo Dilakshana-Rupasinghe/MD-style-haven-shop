@@ -51,90 +51,91 @@ include('database/config.php');
                 <h4 class="mb-3 text-center">BILLING DETAILS</h4>
                 <hr>
                 <form>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                    <div id="sameasBillingAddressForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="district" class="form-label">District </label>
-                        <select class="form-select" id="district" required>
-                            <option value="Dictrict" selected>Select Destrict</option>
-                            <option value="LK52">Ampara</option>
-                            <option value="LK71">Anuradhapura</option>
-                            <option value="LK81">Badulla</option>
-                            <option value="LK51">Batticaloa</option>
-                            <option value="LK11">Colombo</option>
-                            <option value="LK31">Galle</option>
-                            <option value="LK12">Gampaha</option>
-                            <option value="LK33">Hambantota</option>
-                            <option value="LK41">Jaffna</option>
-                            <option value="LK13">Kalutara</option>
-                            <option value="LK21">Kandy</option>
-                            <option value="LK92">Kegalla</option>
-                            <option value="LK42">Kilinochchi</option>
-                            <option value="LK61">Kurunegala</option>
-                            <option value="LK43">Mannar</option>
-                            <option value="LK22">Matale</option>
-                            <option value="LK32">Matara</option>
-                            <option value="LK82">Monaragala</option>
-                            <option value="LK45">Mullaittivu</option>
-                            <option value="LK23">Nuwara Eliya</option>
-                            <option value="LK72">Polonnaruwa</option>
-                            <option value="LK62">Puttalam</option>
-                            <option value="LK91">Ratnapura</option>
-                            <option value="LK53">Trincomalee</option>
-                            <option value="LK44">Vavuniya</option>
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="district" class="form-label">District </label>
+                            <select class="form-select" id="district" required>
+                                <option value="Dictrict" selected>Select Destrict</option>
+                                <option value="LK52">Ampara</option>
+                                <option value="LK71">Anuradhapura</option>
+                                <option value="LK81">Badulla</option>
+                                <option value="LK51">Batticaloa</option>
+                                <option value="LK11">Colombo</option>
+                                <option value="LK31">Galle</option>
+                                <option value="LK12">Gampaha</option>
+                                <option value="LK33">Hambantota</option>
+                                <option value="LK41">Jaffna</option>
+                                <option value="LK13">Kalutara</option>
+                                <option value="LK21">Kandy</option>
+                                <option value="LK92">Kegalla</option>
+                                <option value="LK42">Kilinochchi</option>
+                                <option value="LK61">Kurunegala</option>
+                                <option value="LK43">Mannar</option>
+                                <option value="LK22">Matale</option>
+                                <option value="LK32">Matara</option>
+                                <option value="LK82">Monaragala</option>
+                                <option value="LK45">Mullaittivu</option>
+                                <option value="LK23">Nuwara Eliya</option>
+                                <option value="LK72">Polonnaruwa</option>
+                                <option value="LK62">Puttalam</option>
+                                <option value="LK91">Ratnapura</option>
+                                <option value="LK53">Trincomalee</option>
+                                <option value="LK44">Vavuniya</option>
+                            </select>
+                        </div>
 
 
-                    <div class="mb-3">
-                        <label for="address-line1" class="form-label">Address-line1</label>
-                        <input type="text" class="form-control" id="address-line1" placeholder="line1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address-line2" class="form-label">Address-line2</label>
-                        <input type="text" class="form-control" id="address-line2" placeholder="line2" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address-line3" class="form-label">Address-line3 (If any)</label>
-                        <input type="text" class="form-control" id="address-line3" placeholder="line3 ">
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" placeholder="City" required>
+                        <div class="mb-3">
+                            <label for="address-line1" class="form-label">Address-line1</label>
+                            <input type="text" class="form-control" id="address-line1" placeholder="line1" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="postalCode" class="form-label">Postcode / ZIP</label>
-                            <input type="text" class="form-control" id="postalCode" placeholder="Postcode" required>
+                        <div class="mb-3">
+                            <label for="address-line2" class="form-label">Address-line2</label>
+                            <input type="text" class="form-control" id="address-line2" placeholder="line2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address-line3" class="form-label">Address-line3 (If any)</label>
+                            <input type="text" class="form-control" id="address-line3" placeholder="line3 ">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" placeholder="City" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="postalCode" class="form-label">Postcode / ZIP</label>
+                                <input type="text" class="form-control" id="postalCode" placeholder="Postcode" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="billingCompanyName" class="form-label">Company (optional)</label>
+                            <input type="text" class="form-control" id="billingCompanyName" placeholder="Company">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Primary Phone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="secondaryPhone" class="form-label">Secondary Phone</label>
+                                <input type="tel" class="form-control" id="secondaryPhone" placeholder="Secondary Phone">
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="billingCompanyName" class="form-label">Company (optional)</label>
-                        <input type="text" class="form-control" id="billingCompanyName" placeholder="Company">
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Primary Phone" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="secondaryPhone" class="form-label">Secondary Phone</label>
-                            <input type="tel" class="form-control" id="secondaryPhone" placeholder="Secondary Phone">
-                        </div>
-                    </div>
-
                     <hr>
                     <!-- Billing Address Options -->
                     <h4 class="mt-4 mb-3">Billing Address</h4>
@@ -150,6 +151,7 @@ include('database/config.php');
                     <hr>
                     <!-- Additional Billing Address Form -->
                     <div id="differentBillingAddressForm" class="d-none">
+                        <h4 class="mt-4 mb-3">Different Address</h4>
                         <div class="mb-3">
                             <label for="country" class="form-label">Region</label>
                             <select class="form-select" id="district" required>
@@ -278,16 +280,9 @@ include('database/config.php');
         </div>
     </div>
 
-    <script>
-        function toggleBillingAddress(show) {
-            const form = document.getElementById('differentBillingAddressForm');
-            if (show) {
-                form.classList.remove('d-none');
-            } else {
-                form.classList.add('d-none');
-            }
-        }
-    </script>
+
+
+   
 
     <!-- footer section -->
     <?php
