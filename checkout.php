@@ -254,30 +254,97 @@ include('database/config.php');
             </div>
 
             <!-- Your Order Section -->
-            <div class="col-md-6 p-4 display-fixed " style="border-radius: 0px 30px 30px 0px">
+            <div class="col-md-6 py-4 display-fixed " style="    padding-right: 0rem !important; padding-left: 1rem !important;">
                 <h4 class="mb-3 text-center">YOUR ORDER</h4>
-                <table class="table text-white">
-                    <thead>
-                        <tr>
-                            <th scope="col">Item Detail</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Order items will be dynamically inserted -->
-                        <tr>
-                            <!-- <td colspan="2" class="text-end">Shipping Cost:</td>
-                            <td>$0.00</td> -->
-                        </tr>
-                        <tr>
-                            <!-- <td colspan="2" class="text-end">Total Amount:</td>
-                            <td>$0.00</td> -->
-                        </tr>
-                    </tbody>
-                </table>
+                <?php
+                $getCartItemSelectQuiry = "SELECT item_id, item_name, item_image1, item_sell_price, item_stock_qty, item_discount, cart_id, item_qty FROM item
+                INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
+                INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
+                WHERE customer.cust_id = $custId ";
+
+
+                $result = mysqli_query($con, $getCartItemSelectQuiry);
+                $totalPrice = 0;
+                $row_count = mysqli_num_rows($result);
+
+                if ($row_count > 0) { //cart is empty or not
+                ?>
+
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>ITEM IMAGE</th>
+                                <th>ITEM DETAILS</th>
+                                <th>QTY</th>
+                                <th>SUBTOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while ($row_data = mysqli_fetch_assoc($result)) {
+                                $item_id = $row_data['item_id'];
+                                $item_name = $row_data['item_name'];
+                                $item_image1 = $row_data['item_image1'];
+                                $item_sell_price = (float)$row_data['item_sell_price'];
+                                $item_discount = (float)$row_data['item_discount'];
+                                $item_stock_qty = (int)$row_data['item_stock_qty'];
+
+                                $cart_id = $row_data['cart_id'];
+                                $item_qty = (int)$row_data['item_qty'];
+
+                                // discount price calculation
+                                $discountPrice = $item_sell_price * (100 - $item_discount) / 100;
+
+                                // get subtotle price
+                                $subtotal = $item_qty * $discountPrice;
+
+                                // get total price
+                                $totalPrice += $subtotal;
+
+                            ?>
+
+                                <tr>
+                                    <!-- Product Image -->
+                                    <td class="text-center">
+                                        <a href="product-view.php?productId=<?= $item_id ?>">
+                                            <img class="object-fit-contain" src="images/products/<?php echo $item_image1; ?>" width="80" height="40%">
+                                        </a>
+                                    </td>
+                                    <!-- Product name -->
+                                    <td>
+                                        <a class="text-decoration-none text-dark" href="product-view.php?productId=<?= $item_id ?>" style="text-transform:uppercase; font-size:small">
+                                            <?php echo $item_name; ?>
+                                        </a>
+                                    </td>
+
+                                    <!-- QTY -->
+                                    <td class="col-1 text-center">
+                                        <?php echo $item_qty; ?>
+                                    </td>
+
+                                    <!-- subtotal -->
+                                    <td>Rs. <?= number_format($subtotal, 2) ?></td>
+
+                                </tr>
+
+                            <?php } ?>
+
+                        </tbody>
+                    </table>
+                <?php
+                } else {
+                    echo "<h2 class='bg-danger text-center mt-5 '> Not added item in cart to checkout </h2>";
+                } ?>
+
+                <div class="text-center">
+                    <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
+                        <h7 class="text mx-3" style="font-weight:700">TOTAL PRICE: </h7>
+                        <h7 class="price px-3" style="font-weight:700"> Rs.<?= number_format($totalPrice, 2) ?> </h7>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
 
