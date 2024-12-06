@@ -14,6 +14,48 @@ if (!isset($_SESSION['custId'])) {
 include('database/config.php');
 
 
+
+// Add this where the total price and items are calculated:
+$itemDescriptions = []; // Array to hold item names
+$totalPrice = 0;
+
+// Fetch data from the cart query
+// $getCartItemSelectQuiry = "SELECT item_name, item_sell_price, item_discount, item_qty FROM item
+// INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
+// INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
+// WHERE customer.cust_id = $custId ";
+
+$getCartItemSelectQuiry = "SELECT item_id, item_name, item_image1, item_sell_price, item_stock_qty, item_discount, cart_id, item_qty FROM item
+INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
+INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
+WHERE customer.cust_id = $custId ";
+
+$result = mysqli_query($con, $getCartItemSelectQuiry);
+
+if (mysqli_num_rows($result) > 0) {
+    while ($row_data = mysqli_fetch_assoc($result)) {
+        $item_name = $row_data['item_name'];
+        $item_qty = $row_data['item_qty'];
+        $item_price = $row_data['item_sell_price'];
+        $item_discount = $row_data['item_discount'];
+
+        // Calculate discounted price
+        $discountPrice = $item_price * (100 - $item_discount) / 100;
+
+        // Add subtotal to total price
+        $subtotal = $discountPrice * $item_qty;
+        $totalPrice += $subtotal;
+
+        // Add item name to descriptions
+        $itemDescriptions[] = $item_name . " (Qty: $item_qty)";
+    }
+}
+
+// Store data in session
+$_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
+$_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
+
+
 ?>
 
 
@@ -45,12 +87,14 @@ include('database/config.php');
     <div class="container my-5">
         <h1 class="text-center mb-4">CHECKOUT</h1>
         <hr>
+
         <div class="row">
             <!-- Billing Details Section -->
             <div class="col-md-6 bg-light p-4 " style="border-radius: 30px 0 0 30px ">
                 <h4 class="mb-3 text-center">BILLING DETAILS</h4>
                 <hr>
-                <form>
+                
+                <form action="" method="post" id="checkoutForm" >
                     <div id="sameasBillingAddressForm">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -69,7 +113,7 @@ include('database/config.php');
                         <div class="mb-3">
                             <label for="district" class="form-label">District </label>
                             <select class="form-select" id="district" required>
-                                <option value="Dictrict" selected>Select Destrict</option>
+                                <option value="Dictrict" >Select Destrict</option>
                                 <option value="LK52">Ampara</option>
                                 <option value="LK71">Anuradhapura</option>
                                 <option value="LK81">Badulla</option>
@@ -136,120 +180,27 @@ include('database/config.php');
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <!-- Billing Address Options -->
-                    <h4 class="mt-4 mb-3">Billing Address</h4>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="billingAddress" id="sameAddress" checked onclick="toggleBillingAddress(false)">
-                        <label class="form-check-label" for="sameAddress">Same as shipping address</label>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="billingAddress" id="differentAddress" onclick="toggleBillingAddress(true)">
-                        <label class="form-check-label" for="differentAddress">Use a different billing address</label>
-                    </div>
 
-                    <hr>
-                    <!-- Additional Billing Address Form -->
-                    <div id="differentBillingAddressForm" class="d-none">
-                        <h4 class="mt-4 mb-3">Different Address</h4>
-                        <div class="mb-3">
-                            <label for="country" class="form-label">Region</label>
-                            <select class="form-select" id="district" required>
-                                <option value="Dictrict" selected>Select Destrict</option>
-                                <option value="LK52">Ampara</option>
-                                <option value="LK71">Anuradhapura</option>
-                                <option value="LK81">Badulla</option>
-                                <option value="LK51">Batticaloa</option>
-                                <option value="LK11">Colombo</option>
-                                <option value="LK31">Galle</option>
-                                <option value="LK12">Gampaha</option>
-                                <option value="LK33">Hambantota</option>
-                                <option value="LK41">Jaffna</option>
-                                <option value="LK13">Kalutara</option>
-                                <option value="LK21">Kandy</option>
-                                <option value="LK92">Kegalla</option>
-                                <option value="LK42">Kilinochchi</option>
-                                <option value="LK61">Kurunegala</option>
-                                <option value="LK43">Mannar</option>
-                                <option value="LK22">Matale</option>
-                                <option value="LK32">Matara</option>
-                                <option value="LK82">Monaragala</option>
-                                <option value="LK45">Mullaittivu</option>
-                                <option value="LK23">Nuwara Eliya</option>
-                                <option value="LK72">Polonnaruwa</option>
-                                <option value="LK62">Puttalam</option>
-                                <option value="LK91">Ratnapura</option>
-                                <option value="LK53">Trincomalee</option>
-                                <option value="LK44">Vavuniya</option>
-                            </select>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="billingFirstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="billingFirstName" placeholder="First name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="billingLastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="billingLastName" placeholder="Last name" required>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address-line1" class="form-label">Address-line1</label>
-                            <input type="text" class="form-control" id="address-line1" placeholder="line1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address-line2" class="form-label">Address-line2</label>
-                            <input type="text" class="form-control" id="address-line2" placeholder="line2" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address-line3" class="form-label">Address-line3 (If any)</label>
-                            <input type="text" class="form-control" id="address-line3" placeholder="line3 ">
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="city" class="form-label">City</label>
-                                <input type="text" class="form-control" id="city" placeholder="City" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="postalCode" class="form-label">Postcode / ZIP</label>
-                                <input type="text" class="form-control" id="postalCode" placeholder="Postcode" required>
-                            </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="billingCompanyName" class="form-label">Company (optional)</label>
-                            <input type="text" class="form-control" id="billingCompanyName" placeholder="Company">
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Primary Phone" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="secondaryPhone" class="form-label">Secondary Phone</label>
-                                <input type="tel" class="form-control" id="secondaryPhone" placeholder="Secondary Phone">
-                            </div>
-                        </div>
-                    </div>
 
                     <hr>
                     <!-- Payment Section -->
                     <h4 class="mt-4 mb-3">Payment</h4>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="online" checked>
                         <label class="form-check-label" for="creditCard">Pay with Debit or Credit Card</label>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer">
-                        <label class="form-check-label" for="bankTransfer">Bank Card / Bank Account</label>
-                    </div>
                     <div class="form-check mb-4">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cashOnDelivery" value="cod">
                         <label class="form-check-label" for="cashOnDelivery">Cash on Delivery (COD)</label>
                     </div>
 
                     <hr>
-                    <button type="submit" class="btn btn-success w-100">Place Order</button>
+                    <!-- <button type="submit" class="btn btn-success w-100">Place Order</button> -->
+                    <!-- <button type="button" class="btn btn-success w-100" onclick="handleOrder()">Place Order</button> -->
+
+                    <button type="button" class="btn btn-success w-100" onclick="handleOrder()" disabled>Place Order</button>
+
                 </form>
             </div>
 
@@ -339,7 +290,7 @@ include('database/config.php');
                 <div class="text-center">
                     <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
                         <h7 class="text mx-3" style="font-weight:700">TOTAL PRICE: </h7>
-                        <h7 class="price px-3" style="font-weight:700"> Rs.<?= number_format($totalPrice, 2) ?> </h7>
+                        <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($totalPrice, 2) ?> </h7>
                     </div>
                 </div>
             </div>
@@ -347,90 +298,44 @@ include('database/config.php');
     </div>
     </div>
 
-
-
     <script>
-        // Toggle visibility of billing address form
-        function toggleBillingAddress(isDifferentAddress) {
-            const differentBillingAddressForm = document.getElementById("differentBillingAddressForm");
-            const shippingFields = document.querySelectorAll("#firstName, #lastName, #district, #address-line1, #address-line2, #city, #postalCode, #phone");
-            const billingFields = document.querySelectorAll("#billingFirstName, #billingLastName, #district, #address-line1, #address-line2, #city, #postalCode, #phone");
 
-            if (isDifferentAddress) {
-                // Show the different billing address form
-                differentBillingAddressForm.classList.remove("d-none");
+        //check form is full fild or not then dicable or visible place order button
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            const placeOrderButton = document.querySelector('button[onclick="handleOrder()"]');
+            const requiredFields = form.querySelectorAll('input[required], select[required]');
 
-                // Hide the same as billing address form
-                sameasBillingAddressForm.classList.add("d-none");
+            // Disable the button initially
+            placeOrderButton.disabled = true;
 
-                // Clear the "Same as shipping address" fields
-                shippingFields.forEach(field => field.value = "");
-            } else {
-                // Hide the different billing address form
-                differentBillingAddressForm.classList.add("d-none");
+            const validateForm = () => {
+                // Check if all required fields are filled
+                const allFilled = Array.from(requiredFields).every(input => input.value.trim() !== '');
+                placeOrderButton.disabled = !allFilled; // Enable button if all fields are valid
+            };
 
-                // Show the same as billing address form
-                sameasBillingAddressForm.classList.remove("d-none");
+            // Add event listeners to all required fields
+            requiredFields.forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
 
-                // Clear the "Different billing address" fields
-                billingFields.forEach(field => field.value = "");
+            // Initial validation
+            validateForm();
+        });
 
-                // Automatically copy data from shipping to billing fields
-                const shippingData = {
-                    firstName: document.getElementById("firstName").value,
-                    lastName: document.getElementById("lastName").value,
-                    district: document.getElementById("district").value,
-                    addressLine1: document.getElementById("address-line1").value,
-                    addressLine2: document.getElementById("address-line2").value,
-                    city: document.getElementById("city").value,
-                    postalCode: document.getElementById("postalCode").value,
-                    phone: document.getElementById("phone").value,
-                };
 
-                document.getElementById("billingFirstName").value = shippingData.firstName;
-                document.getElementById("billingLastName").value = shippingData.lastName;
-                document.getElementById("district").value = shippingData.district;
-                document.getElementById("address-line1").value = shippingData.addressLine1;
-                document.getElementById("address-line2").value = shippingData.addressLine2;
-                document.getElementById("city").value = shippingData.city;
-                document.getElementById("postalCode").value = shippingData.postalCode;
-                document.getElementById("phone").value = shippingData.phone;
+        function handleOrder() {
+            // Get selected payment method
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            // Redirect based on selected payment method
+            if (paymentMethod === "online") {
+                window.location.href = "online-payment.php";
+            } else if (paymentMethod === "cod") {
+                window.location.href = "order-success.php";
             }
         }
-
-        // Handle form submission and provide confirmation alerts
-        function handleFormSubmission(event) {
-            // Prevent default form submission behavior
-            event.preventDefault();
-
-            // Check if "Same as shipping address" is selected
-            const isSameAddressChecked = document.getElementById("sameAddress").checked;
-
-            // Confirmation alert logic
-            if (isSameAddressChecked) {
-                alert("Your order has been placed successfully! Billing address is the same as the shipping address.");
-            } else {
-                // Ensure required fields for different billing address are filled
-                const billingFirstName = document.getElementById("billingFirstName").value;
-                const billingLastName = document.getElementById("billingLastName").value;
-                const billingCity = document.getElementById("city").value;
-                const billingPostalCode = document.getElementById("postalCode").value;
-
-                if (billingFirstName && billingLastName && billingCity && billingPostalCode) {
-                    alert("Your order has been placed successfully! Billing address is different from the shipping address.");
-                } else {
-                    alert("Please fill in all the required fields in the billing address form.");
-                    return; // Stop submission if form is incomplete
-                }
-            }
-
-            // Provide an additional forum confirmation for tracking purposes
-            console.log("Forum 1: Confirmation sent.");
-            console.log("Forum 2: Confirmation sent.");
-        }
-
-        // Attach form submission handler
-        document.querySelector(".btn-success").addEventListener("click", handleFormSubmission);
     </script>
 
     <!-- footer section -->
