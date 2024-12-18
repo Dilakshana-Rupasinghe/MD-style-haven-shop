@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 // include the database configureation file 
@@ -6,7 +6,7 @@ include('database/config.php');
 
 
 // check if the form is submited
-if(isset($_POST['customer-signup'])){
+if (isset($_POST['customer-signup'])) {
 
     // add user inputs
     $email = $_POST['email'];
@@ -22,17 +22,16 @@ if(isset($_POST['customer-signup'])){
 
 
     // check filds not empty 
-    if($email != '' and $username != '' and $password != '' and $firstname != '' and $lastname != '' and $phonenumber != '' and $addressline1 != '' and $addressline2 !='' and $addressline3 != '' and $city != '') {
+    if ($email != '' and $username != '' and $password != '' and $firstname != '' and $lastname != '' and $phonenumber != '' and $addressline1 != '' and $addressline2 != '' and $addressline3 != '' and $city != '') {
 
-        $customerinsertQuary = " INSERT INTO customer(cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4) VALUES ('$firstname' , '$lastname' , '$username' , '$password' , '$email' , '$phonenumber' , '$addressline1' , '$addressline2' , '$addressline3' , '$city') " ;
+        $customerinsertQuary = " INSERT INTO customer(cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4) VALUES ('$firstname' , '$lastname' , '$username' , '$password' , '$email' , '$phonenumber' , '$addressline1' , '$addressline2' , '$addressline3' , '$city') ";
 
         // insert user information in to database
         // check if the exicution of the SQL quary 
-        if(mysqli_query($con, $customerinsertQuary)){
+        if (mysqli_query($con, $customerinsertQuary)) {
             echo "<script>alert('sign-UP is succefully');</script>";
         }
     }
-
 }
 
 ?>
@@ -60,69 +59,69 @@ if(isset($_POST['customer-signup'])){
     include('includes/navbar.php');
     ?>
 
-    <div class="sign-up" >
+    <div class="sign-up">
         <div class="sign-up-bg col-md-10 mx-auto" style="background: url('images/log\ bg1.jpg') no-repeat; background-size: cover;  background-position: center; border-radius: 20px ">
 
-    
-        <!-- sign in form start -->
-        <div class="container row my-5 mx-auto ">
-            <div class="col-md-6 mx-auto my-4" >
 
-                <div class="wrapper">
-                    <form action="#" method="post">
-                        <h1 class="text-center">MD-Style Haven shop</h1>
-                        <h2 class="text-center"> Sign-UP </h2>
+            <!-- sign in form start -->
+            <div class="container row my-5 mx-auto ">
+                <div class="col-md-6 mx-auto my-4">
 
-                        <div class="input-box">
-                            <input type="email" name="email" placeholder="@Email" required>
-                        </div>
+                    <div class="wrapper">
+                        <form action="#" method="post">
+                            <h1 class="text-center">MD-Style Haven shop</h1>
+                            <h2 class="text-center"> Sign-UP </h2>
 
-                        <div class="input-box">
-                            <input type="text" name="username" placeholder="USERNAME" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="email" name="email" placeholder="@Email" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="password" name="password" placeholder="PASSWORD" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="username" placeholder="USERNAME" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="firstname" placeholder="FIRST NAME" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="password" name="password" placeholder="PASSWORD" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="lastname" placeholder="LAST NAME" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="firstname" placeholder="FIRST NAME" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="phonenumber" placeholder="PHONE NUMBER" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="lastname" placeholder="LAST NAME" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="addressline1" placeholder="ADDRESS LINE 1" required>
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="phonenumber" placeholder="PHONE NUMBER" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="addressline2" placeholder="ADDRESS LINE 2">
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="addressline1" placeholder="ADDRESS LINE 1" required>
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="addressline3" placeholder="AADDRESS LINE 3">
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="addressline2" placeholder="ADDRESS LINE 2">
+                            </div>
 
-                        <div class="input-box">
-                            <input type="text" name="city" placeholder="CITY">
-                        </div>
+                            <div class="input-box">
+                                <input type="text" name="addressline3" placeholder="AADDRESS LINE 3">
+                            </div>
 
-                        <button type="submit" class="submit btn-dark " name="customer-signup">Sign-up</button>
+                            <div class="input-box">
+                                <input type="text" name="city" placeholder="CITY">
+                            </div>
 
-                        <div class="register-link">
-                            <h5> have an account? <a class="ps-3" href="login.php"> Login </a></h5>
-                        </div>
-                    </form>
+                            <button type="submit" class="submit btn-dark " name="customer-signup">Sign-up</button>
+
+                            <div class="register-link">
+                                <h5> have an account? <a class="ps-3" href="login.php"> Login </a></h5>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- sign in form end -->
+            <!-- sign in form end -->
         </div>
     </div>
 
