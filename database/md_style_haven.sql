@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2024 at 11:53 AM
+-- Generation Time: Dec 20, 2024 at 03:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -48,6 +48,14 @@ CREATE TABLE `cart_item` (
   `fk_item_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cart_item`
+--
+
+INSERT INTO `cart_item` (`cart_id`, `item_qty`, `fk_cust_id`, `fk_item_id`) VALUES
+(19, 2, 3001, 24013),
+(20, 2, 3001, 24009);
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +66,18 @@ CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`) VALUES
+(4001, 'SHIRT'),
+(4002, 'T-SHIRT & POLO'),
+(4003, 'SHORTS'),
+(4008, 'PANTS'),
+(4009, 'HOODIES'),
+(4010, 'DENIM');
 
 -- --------------------------------------------------------
 
@@ -91,16 +111,20 @@ CREATE TABLE `customer` (
   `cust_add_line2` varchar(255) DEFAULT NULL,
   `cust_add_line3` varchar(255) DEFAULT NULL,
   `cust_add_line4` varchar(255) DEFAULT NULL,
-  `cust_is_active` tinyint(1) DEFAULT 1
+  `cust_is_active` tinyint(1) DEFAULT 1,
+  `otp` varchar(255) DEFAULT NULL,
+  `signup_time` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active_code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`, `cust_is_active`) VALUES
-(3001, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala', 1),
-(3002, 'GABELA', 'RUPASINGHE', 'Mal', 'mal123', 'malindudilak@gmail.com', '0770113944', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1);
+INSERT INTO `customer` (`cust_id`, `cust_fname`, `cust_lname`, `cust_username`, `cust_pwd`, `cust_email`, `cust_phone`, `cust_add_line1`, `cust_add_line2`, `cust_add_line3`, `cust_add_line4`, `cust_is_active`, `otp`, `signup_time`, `active_code`) VALUES
+(3001, 'Malindu', 'Dilakshana', 'Dila', 'dila123', 'malindudilak@gmail.com', '0770113944', 'F02', 'Noori road', 'hambanawela ', 'Deraniyagala', 1, '', '2024-12-20 13:35:44', ''),
+(3002, 'GABELA', 'RUPASINGHE', 'Mal', 'mal123', 'malindudilak@gmail.com', '0770113944', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1, '', '2024-12-20 13:35:44', ''),
+(20024, 'kisara ', 'helitha', 'kisara ', 'k2010', 'kisara@gmail.com', '0761046865', 'B09', 'lane 07', 'muhandiram ', 'Dera', 1, '', '2024-12-20 13:35:44', '');
 
 -- --------------------------------------------------------
 
@@ -204,6 +228,7 @@ CREATE TABLE `item` (
   `item_image1` varchar(255) DEFAULT NULL,
   `item_image2` varchar(255) DEFAULT NULL,
   `item_brand` varchar(100) DEFAULT NULL,
+  `item_material` varchar(100) DEFAULT NULL,
   `item_description` text DEFAULT NULL,
   `item_sell_price` decimal(10,2) DEFAULT NULL,
   `item_cost_price` decimal(10,2) DEFAULT NULL,
@@ -212,6 +237,21 @@ CREATE TABLE `item` (
   `item_date_added` date DEFAULT NULL,
   `fk_category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `item`
+--
+
+INSERT INTO `item` (`item_id`, `item_name`, `item_image1`, `item_image2`, `item_brand`, `item_material`, `item_description`, `item_sell_price`, `item_cost_price`, `item_stock_qty`, `item_discount`, `item_date_added`, `fk_category_id`) VALUES
+(24009, 'JOBBS WAFFLE T – SHIRT', 'JOBBS WAFFLE T – SHIRT 1.0.jpg', 'JOBBS WAFFLE T – SHIRT 1.1.jpg', 'JOBBS', 'Waffle Jersey', '        Waffle oversized T – shirt with short sleeves and round neck.\r\n\r\n                                                                                ', '3290.00', '2500.00', 28, '0.00', '2024-10-11', 4002),
+(24010, 'JOBBS LONG SLEEVE T – SHIRT', 'JOBBS LONG SLEEVE T – SHIRT.jpg', '', 'JOBBS', 'Single Jersey', '    Single jersey long sleeves T – shirt with round neck .\r\n\r\n                                        ', '3990.00', '3500.00', 1, '0.00', '2024-10-11', 4002),
+(24012, 'Jobbs mens long sleeve jersey flext shirt', 'Jobbs mens long sleeve jersey flext shirt 1.0.jpg', 'Jobbs mens long sleeve jersey flext shirt 1.1.jpg', 'JOBBS', 'Lightweight single jersey', '    Inspired to give smart casual comfort to formal and everyday wear made with soft and cotton spandex blended breathable lightweight single jersey with long sleeves, full front button fastening, and collar detail.\r\n\r\n                                        ', '4290.00', '3900.00', 19, '3.00', '2024-10-11', 4001),
+(24013, 'Moose Men’s Chino Pant- Dark May', 'Moose Men’s Chino Pant- Dark May.jpg', '', 'MOOSE', 'Cotton', '            Stylish and comfortable slim fit chino pant to suit any day, any occasion.\r\n,\r\nFabric pattern: Solid,\r\nFit type: Slim ,\r\nLength: Regular\r\n\r\n\r\n                                                                                                                        ', '3490.00', '3000.00', 21, '0.00', '2024-10-11', 4008),
+(24015, 'jobbs mens long sleeve hoodie', 'jobbs mens long sleeve hoodie 1.0.jpg', 'jobbs mens long sleeve hoodie 1.1.jpg', 'JOBBS', 'Single Jersey', 'Lightweight zip-through hoodie made with soft jersey with a fixed hood and typo graphic print detail.\r\n\r\n', '3990.99', '3450.00', 10, '10.00', '2024-10-11', 4009),
+(24016, 'JOBBS MENS CASUAL SHORT', 'JOBBS MENS CASUAL SHORT 1.0.jpg', 'JOBBS MENS CASUAL SHORT 1.1.jpg', 'MOOSE', 'Cotton', 'COTTON SHORT WITH SINGLE BUTTON FASTENING , TWO SIDES POCKETS AND BELT LOOPS .\r\n\r\n', '1990.00', '1650.00', 14, '0.00', '2024-10-11', 4003),
+(24017, 'Bolt Gear Mens Moisture Abdorbant Short', 'Bolt Gear Mens Moisture Abdorbant Short 1.0.jpg', 'Bolt Gear Mens Moisture Abdorbant Short 1.1.jpg', 'MAS', 'Polyester', 'This BOLT GEAR product made from lightweight moisture absorbing fabric to help keep you easy and comfortable during the workout.\r\n\r\n', '3490.00', '3000.00', 11, '15.00', '2024-10-11', 4003),
+(24018, 'Jobbs short sleeve polo t-shirt', 'Jobbs short sleeve polo t-shirt.jpg', '', 'JOBBS', 'COTTON BLEND', '    Short sleeve polo t-shirt with signature modify detail\r\n\r\n                                        ', '2290.00', '2500.00', 8, '0.00', '2024-10-13', 4002),
+(24019, 'MENS STRETCH DENIM PANT', 'MENS STRETCH DENIM PANT.jpg', '', 'MOOSE', 'DENIM', 'MENS STRETCH DENIM PANT WITH SINGLE BUTTON FASTENING , SIDES POCKETS AND BELT LOOPS .\r\n', '5990.00', '5500.00', 13, '5.00', '2024-10-13', 4010);
 
 -- --------------------------------------------------------
 
@@ -223,7 +263,17 @@ CREATE TABLE `order` (
   `order_id` int(11) NOT NULL,
   `order_date` date DEFAULT NULL,
   `order_total` decimal(10,2) DEFAULT NULL,
-  `order_address` varchar(200) DEFAULT NULL,
+  `order_fname` varchar(50) DEFAULT NULL,
+  `order_lname` varchar(50) DEFAULT NULL,
+  `order_email` varchar(100) DEFAULT NULL,
+  `discrict` varchar(100) DEFAULT NULL,
+  `order_address_line1` varchar(200) DEFAULT NULL,
+  `order_address_line2` varchar(255) DEFAULT NULL,
+  `order_address_line3` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `postal_code` varchar(15) DEFAULT NULL,
+  `order_contact1` varchar(15) DEFAULT NULL,
+  `order_contact2` varchar(15) DEFAULT NULL,
   `order_status` varchar(100) DEFAULT NULL,
   `order_deliver_option` varchar(100) DEFAULT NULL,
   `order_deliver_date` date DEFAULT NULL,
@@ -303,6 +353,7 @@ CREATE TABLE `staff` (
   `staff_pwd` varchar(100) DEFAULT NULL,
   `staff_email` varchar(100) DEFAULT NULL,
   `staff_phone` varchar(20) DEFAULT NULL,
+  `staff_nic` varchar(12) DEFAULT NULL,
   `staff_is_active` tinyint(1) DEFAULT 1,
   `staff_hire_date` date DEFAULT NULL,
   `staff_add_line1` varchar(255) DEFAULT NULL,
@@ -316,8 +367,16 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_username`, `staff_pwd`, `staff_email`, `staff_phone`, `staff_is_active`, `staff_hire_date`, `staff_add_line1`, `staff_add_line2`, `staff_add_line3`, `staff_add_line4`, `fk_staff_type_id`) VALUES
-(1, 'Malindu', 'Dilakshana', 'Dila', '1234', 'malindudilak@gmail.com', '0770113944', 1, '2024-10-01', 'F02', 'Noori road', 'hambanawela', 'Deraniyagala', 1001);
+INSERT INTO `staff` (`staff_id`, `staff_fname`, `staff_lname`, `staff_username`, `staff_pwd`, `staff_email`, `staff_phone`, `staff_nic`, `staff_is_active`, `staff_hire_date`, `staff_add_line1`, `staff_add_line2`, `staff_add_line3`, `staff_add_line4`, `fk_staff_type_id`) VALUES
+(1, 'Malindu', 'Dilakshana', 'Dila', '1234', 'malindudilak@gmail.com', '0770113944', '200133303039', 1, '2024-10-01', 'F02', 'sinha sewana ', 'noor road', 'Deraniyagala', 1001),
+(2, 'Amesh', 'Darshana', 'amesh', 'amesh123', 'a@gmail.com', '0767868764', '200008182838', 1, '2024-10-07', 'lane3', 'galla road', 'ambalangoda', 'galla', 1004),
+(3, 'Thejani', 'Pabasara', 'thejani', 'p123', 't@gmail.com', '0712582652', '200109122849', 1, '2024-10-07', 'B67', 'lane7', 'horana road', 'Piliyandala', 1002),
+(4, 'Nipuna', 'Damsara', 'nipuna', 'n123', 'n@gmail.com', '0756680425', '2001111213', 1, '2024-10-07', 'A63', 'na sewana', 'rathnapura road', 'avissawella', 1003),
+(5, 'parami', 'prabodha', 'parami', 'pasi123', 'psai@gmail.com', '0773918439', '180820041002', 1, '2024-10-07', 'Sinha sewana', 'Noori road', 'hambanawela', 'Deraniyagala', 1005),
+(6, 'Chamod', 'Migara', 'chamod', 'C102030', 'c@gmail.com', '0775858658', '20010824', 0, '2024-10-07', 'B21', 'lane2', 'dehiovita road', 'avissawella', 1006),
+(7, 'Shashila', 'Dulanjana', 'sashi', 's123', 's@gmail.com', '0772586721', '1999122150', 1, '2024-10-07', 'E01', 'sumana lane', 'rathnapura ', 'avissawella', 1006),
+(8, 'Nethmi', 'Nawodya', 'nethmi', 'n123', 'nethmi@gmail.com', '0772564568', '200112162636', 1, '2024-10-07', 'G03', 'samagi lane', 'rathnapura road', 'avissawella', 1006),
+(144, 'randima', 'dinuka', 'dinuka', 'd2024', 'dinuka@gmail.com', '0775858658', '200108258731', 0, '2024-10-13', 'B09', 'lane 07', 'muhandiram', 'Dera', 1001);
 
 -- --------------------------------------------------------
 
@@ -339,7 +398,8 @@ INSERT INTO `staff_type` (`staff_type_id`, `staff_type_name`) VALUES
 (1002, 'inventory manager'),
 (1003, 'Delivery person '),
 (1004, 'Cashier\r\n'),
-(1005, 'Customer care');
+(1005, 'Customer care'),
+(1006, 'Designer');
 
 -- --------------------------------------------------------
 
@@ -514,13 +574,13 @@ ALTER TABLE `cancellation`
 -- AUTO_INCREMENT for table `cart_item`
 --
 ALTER TABLE `cart_item`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4012;
 
 --
 -- AUTO_INCREMENT for table `cost_parameter`
@@ -532,7 +592,7 @@ ALTER TABLE `cost_parameter`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20024;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20048;
 
 --
 -- AUTO_INCREMENT for table `customization`
@@ -568,7 +628,7 @@ ALTER TABLE `inquiry`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24020;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -604,13 +664,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `staff_type`
 --
 ALTER TABLE `staff_type`
-  MODIFY `staff_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
+  MODIFY `staff_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1007;
 
 --
 -- AUTO_INCREMENT for table `user_loyalty`
