@@ -9,11 +9,70 @@ $otp = rand(100000, 999999);
 $otpTimestamp = time();
 $_SESSION['otp'] = $otp;
 
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
 // create function to send the mail 
 function sebdemail_verify($firstname, $lastname, $email, $otp)
 {
+    // Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
 
+    try {
+        //server setting 
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'malindudilak@gmail.com';               // SMTP username
+        $mail->Password   = 'bhmv fuxd amnl cqai';                  // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
+        $mail->Port       = 587;                                    // TCP port to connect to (587 for TLS)
+
+        // app password
+        // bhmv fuxd amnl cqai
+
+        // Optional: Disable strict SSL verification (Temporary for debugging)
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ];
+
+
+        // Recipients
+        $mail->setFrom('mdstylehaven@gmail.com', 'MD-Style Haven');
+        $mail->addAddress($email, $firstname . ' ' . $lastname);    // Add recipient with full name
+
+        // Content
+        $mail->isHTML(true);                                        // Set email format to HTML
+        $mail->Subject = 'Email Verification from MD-Style Haven';
+        $mail->Body    = "
+                <h2>Welcome to MD-Style Haven!</h2>
+                <p>Dear $firstname $lastname,</p>
+                <p>Thank you for registering with us. Your verification code is:</p>
+                <h1>$otp</h1>
+                <p>Please enter this code to complete your registration.</p>
+            ";
+
+        // Send email
+        $mail->send();
+        echo "<script>alert('Verification code has been sent to your email. Please check it!');</script>";
+        header("Location: verify-otp.php");
+        exit();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
+
 
 // check if the form is submited
 if (isset($_POST['customer-signup'])) {
@@ -51,17 +110,17 @@ if (isset($_POST['customer-signup'])) {
             if ($user_row_count > 0) {
                 echo "<script>alert('The username is already registered. Please use a different username.');</script>";
             } else {
-                  // insert user information into the database
-                  $customerInsertQuery = "INSERT INTO customer (cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4, otp, active_code) 
+                // insert user information into the database
+                $customerInsertQuery = "INSERT INTO customer (cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4, otp, active_code) 
                   VALUES ('$firstname', '$lastname', '$username', '$password', '$email', '$phonenumber', '$addressline1', '$addressline2', '$addressline3', '$city', '$otp', '$activation_code')";
-   
-                   if (mysqli_query($con, $customerInsertQuery)) {
-                       sebdemail_verify("$firstname", "$lastname", "$email", "$otp");
-                       echo "<script>alert('Sign-up successful! please verify your email ');</script>";
-                   } else {
-                       echo "<script>alert('Error occurred during sign-up. Please try again later.');</script>";
-                   }
-               }
+
+                if (mysqli_query($con, $customerInsertQuery)) {
+                    sebdemail_verify("$firstname", "$lastname", "$email", "$otp");
+                    echo "<script>alert('Sign-up successful! please verify your email ');</script>";
+                } else {
+                    echo "<script>alert('Error occurred during sign-up. Please try again later.');</script>";
+                }
+            }
         }
     } else {
         echo "<script>alert('All fields marked as required must be filled out.');</script>";
@@ -192,41 +251,6 @@ if (isset($_POST['customer-signup'])) {
             return ture;
         }
     </script>
-
-    <!-- <script type="text/javascript">
-        function registerValication() {
-
-            var email = document.getElementById("email").value.trim(); // trim is used to check if user enter only spasce to fields
-            var username = document.getElementById("username").value.trim();
-            var password = document.getElementById("password").value.trim();
-            var firstname = document.getElementById("firstname").value.trim();
-            var lastname = document.getElementById("lastname").value.trim();
-            var phonenumber = document.getElementById("phonenumber").value.trim();
-            var addressline1 = document.getElementById("addressline1").value.trim();
-            var addressline2 = document.getElementById("addressline2").value.trim();
-            var city = document.getElementById("city").value.trim();
-
-            // check if the related field are not empty
-            if (email == "" || username == "" || password == "" || firstname == "" || lastname == "" || phonenumber == "" ||
-                addressline1 == "" || addressline2 == "" || city == "") {
-                alert('Please fill in all required fields. No blank fields allowed.');
-                return false;
-            }
-
-            // Password validation
-            if (password.length < 4) {
-                alert("Password must be at least 4 characters long.");
-                return false;
-            }
-
-            // If all validations pass
-            return true;
-        }
-        //check phone number format 
-
-        
-    </script> -->
-
 
 
     <?php
