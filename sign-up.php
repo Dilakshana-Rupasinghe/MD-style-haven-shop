@@ -44,10 +44,12 @@ if (isset($_POST['customer-signup'])) {
                 // insert user information in to database
                 // check if the exicution of the SQL quary 
                 if (mysqli_query($con, $customerinsertQuary)) {
-                    echo "<script>alert('sign-UP is succefully');</script>";
+                    echo "<script>alert('Sign-up successful! please verify your email ');</script>";
                 }
             }
         }
+    } else {
+        echo "<script>alert('All fields marked as required must be filled out.');</script>";
     }
 }
 
@@ -85,48 +87,48 @@ if (isset($_POST['customer-signup'])) {
                 <div class="col-md-6 mx-auto my-4">
 
                     <div class="wrapper">
-                        <form action="#" method="post">
+                        <form action="#" method="post" onsubmit="return registerValication();">
                             <h1 class="text-center">MD-Style Haven shop</h1>
                             <h2 class="text-center"> Sign-UP </h2>
 
                             <div class="input-box">
-                                <input type="email" name="email" placeholder="@Email" required>
+                                <input type="email" id="email" name="email" placeholder="@Email" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="username" placeholder="USERNAME" required>
+                                <input type="text" id="username" name="username" placeholder="USERNAME" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="password" name="password" placeholder="PASSWORD" required>
+                                <input type="password" id="password" name="password" placeholder="PASSWORD" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="firstname" placeholder="FIRST NAME" required>
+                                <input type="text" id="firstname" name="firstname" placeholder="FIRST NAME" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="lastname" placeholder="LAST NAME" required>
+                                <input type="text" id="lastname" name="lastname" placeholder="LAST NAME" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="phonenumber" placeholder="PHONE NUMBER" required>
+                                <input type="text" id="phonenumber" name="phonenumber" placeholder="PHONE NUMBER" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="addressline1" placeholder="ADDRESS LINE 1" required>
+                                <input type="text" id="addressline1" name="addressline1" placeholder="ADDRESS LINE 1" required>
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="addressline2" placeholder="ADDRESS LINE 2">
+                                <input type="text" id="addressline2" name="addressline2" placeholder="ADDRESS LINE 2">
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="addressline3" placeholder="AADDRESS LINE 3">
+                                <input type="text" id="addressline3" name="addressline3" placeholder="AADDRESS LINE 3">
                             </div>
 
                             <div class="input-box">
-                                <input type="text" name="city" placeholder="CITY">
+                                <input type="text" id="city" name="city" placeholder="CITY">
                             </div>
 
                             <button type="submit" class="submit btn-dark " name="customer-signup">Sign-up</button>
@@ -142,6 +144,73 @@ if (isset($_POST['customer-signup'])) {
         </div>
     </div>
 
+    <script type="text/javascript">
+        function registerValication() {
+            var email = document.getElementById("email").value.trim(); // trim is used to check if user enter only spasce to fields
+            var username = document.getElementById("username").value.trim();
+            var password = document.getElementById("password").value.trim();
+            var firstname = document.getElementById("firstname").value.trim();
+            var lastname = document.getElementById("lastname").value.trim();
+            var phonenumber = document.getElementById("phonenumber").value.trim();
+            var addressline1 = document.getElementById("addressline1").value.trim();
+            var addressline2 = document.getElementById("addressline2").value.trim();
+            var city = document.getElementById("city").value.trim();
+
+            //check if the requred fields are not empty 
+            if (email == "" || username == "" || password == "" || firstname == "" || lastname == "" || phonenumber == "" ||
+                addressline1 == "" || addressline2 == "" || city == "") {
+                alert('Please fill in all required fields. No blank fields allowed.');
+                return false;
+            }
+
+            // Password validation
+            if (password.length < 4) {
+                alert("Password must be at least 3 characters long.");
+                return false;
+            }
+            // Check phone number format
+            const phoneRegex = /^\d{10}$/; // regex format 
+            if (!phoneRegex.test(phonenumber)) {
+                alert('Please enter a valid phone number (10 digits).');
+                return false;
+            }
+            return ture;
+        }
+    </script>
+
+    <!-- <script type="text/javascript">
+        function registerValication() {
+
+            var email = document.getElementById("email").value.trim(); // trim is used to check if user enter only spasce to fields
+            var username = document.getElementById("username").value.trim();
+            var password = document.getElementById("password").value.trim();
+            var firstname = document.getElementById("firstname").value.trim();
+            var lastname = document.getElementById("lastname").value.trim();
+            var phonenumber = document.getElementById("phonenumber").value.trim();
+            var addressline1 = document.getElementById("addressline1").value.trim();
+            var addressline2 = document.getElementById("addressline2").value.trim();
+            var city = document.getElementById("city").value.trim();
+
+            // check if the related field are not empty
+            if (email == "" || username == "" || password == "" || firstname == "" || lastname == "" || phonenumber == "" ||
+                addressline1 == "" || addressline2 == "" || city == "") {
+                alert('Please fill in all required fields. No blank fields allowed.');
+                return false;
+            }
+
+            // Password validation
+            if (password.length < 4) {
+                alert("Password must be at least 4 characters long.");
+                return false;
+            }
+
+            // If all validations pass
+            return true;
+        }
+        //check phone number format 
+
+        
+    </script> -->
 
 
 
