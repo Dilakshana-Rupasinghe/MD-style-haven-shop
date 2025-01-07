@@ -3,7 +3,7 @@
 session_start();
 
 // rederect user to the login if user not logingtothe system
-if(!isset($_SESSION['staffId'])){
+if (!isset($_SESSION['staffId'])) {
     header('location:../home pages/staff-login.php');
     exit();
 }
@@ -91,7 +91,7 @@ if (isset($_POST['staffRegister'])) {
                 <!-- Staff Register form section start -->
                 <div class="container  row my-5 mx-auto">
                     <div class="wrapper col-md-4 mx-auto">
-                        <form action="#" method="post">
+                        <form action="#" method="post" onsubmit="return registerValication();">
 
                             <!-- First name -->
                             <div class="input-box">
@@ -168,7 +168,42 @@ if (isset($_POST['staffRegister'])) {
         </div>
         <!--  -->
 
+        <script type="text/javascript">
+            function registerValication() {
+                var email = document.getElementById("email").value.trim(); // trim is used to check if user enter only spaces to fields
+                var userName = document.getElementById("userName").value.trim();
+                var password = document.getElementById("password").value.trim();
+                var fName = document.getElementById("fName").value.trim();
+                var lName = document.getElementById("lName").value.trim();
+                var contactNo = document.getElementById("contactNo").value.trim();
+                var nic = document.getElementById("nic").value.trim();
+                var addressLine1 = document.getElementById("addressLine1").value.trim();
+                var addressLine2 = document.getElementById("addressLine2").value.trim();
+                var city = document.getElementById("city").value.trim();
 
+                // Check if the required fields are not empty 
+                if (email == "" || userName == "" || password == "" || fName == "" || lName == "" || contactNo == "" ||
+                    nic == "" || addressLine1 == "" || addressLine2 == "" || city == "") {
+                    alert('Please fill in all required fields. No blank fields allowed.');
+                    return false;
+                }
+
+                // Password validation
+                if (password.length < 4) {
+                    alert("Password must be at least 4 characters long.");
+                    return false;
+                }
+
+                // Check phone number format
+                const phoneRegex = /^\d{10}$/; // regex format 
+                if (!phoneRegex.test(contactNo)) {
+                    alert('Please enter a valid phone number (10 digits).');
+                    return false;
+                }
+
+                return true; // Correctly spelled true
+            }
+        </script>
 
         <!-- footer section start -->
         <div>
