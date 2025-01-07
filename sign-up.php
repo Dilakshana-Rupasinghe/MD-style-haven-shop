@@ -4,6 +4,16 @@ session_start();
 // include the database configureation file 
 include('database/config.php');
 
+//generate random otp 
+$otp = rand(100000, 999999);
+$otpTimestamp = time();
+$_SESSION['otp'] = $otp;
+
+// create function to send the mail 
+function sebdemail_verify($firstname, $lastname, $email, $otp)
+{
+
+}
 
 // check if the form is submited
 if (isset($_POST['customer-signup'])) {
@@ -20,6 +30,8 @@ if (isset($_POST['customer-signup'])) {
     $addressline3 =  $_POST['addressline3'];
     $city =  $_POST['city'];
 
+    //create session for email to pass data to verify.php
+    $_SESSION['email'] = $email;
 
     // check filds not empty 
     if ($email != '' and $username != '' and $password != '' and $firstname != '' and $lastname != '' and $phonenumber != '' and $addressline1 != '' and $addressline2 != '' and $addressline3 != '' and $city != '') {
@@ -39,14 +51,17 @@ if (isset($_POST['customer-signup'])) {
             if ($user_row_count > 0) {
                 echo "<script>alert('The username is already registered. Please use a different username.');</script>";
             } else {
-                $customerinsertQuary = " INSERT INTO customer(cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4) VALUES ('$firstname' , '$lastname' , '$username' , '$password' , '$email' , '$phonenumber' , '$addressline1' , '$addressline2' , '$addressline3' , '$city') ";
-
-                // insert user information in to database
-                // check if the exicution of the SQL quary 
-                if (mysqli_query($con, $customerinsertQuary)) {
-                    echo "<script>alert('Sign-up successful! please verify your email ');</script>";
-                }
-            }
+                  // insert user information into the database
+                  $customerInsertQuery = "INSERT INTO customer (cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4, otp, active_code) 
+                  VALUES ('$firstname', '$lastname', '$username', '$password', '$email', '$phonenumber', '$addressline1', '$addressline2', '$addressline3', '$city', '$otp', '$activation_code')";
+   
+                   if (mysqli_query($con, $customerInsertQuery)) {
+                       sebdemail_verify("$firstname", "$lastname", "$email", "$otp");
+                       echo "<script>alert('Sign-up successful! please verify your email ');</script>";
+                   } else {
+                       echo "<script>alert('Error occurred during sign-up. Please try again later.');</script>";
+                   }
+               }
         }
     } else {
         echo "<script>alert('All fields marked as required must be filled out.');</script>";
