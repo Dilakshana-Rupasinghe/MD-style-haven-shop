@@ -24,12 +24,29 @@ if (isset($_POST['customer-signup'])) {
     // check filds not empty 
     if ($email != '' and $username != '' and $password != '' and $firstname != '' and $lastname != '' and $phonenumber != '' and $addressline1 != '' and $addressline2 != '' and $addressline3 != '' and $city != '') {
 
-        $customerinsertQuary = " INSERT INTO customer(cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4) VALUES ('$firstname' , '$lastname' , '$username' , '$password' , '$email' , '$phonenumber' , '$addressline1' , '$addressline2' , '$addressline3' , '$city') ";
+        // check for exist email 
+        $emailchechkQuary = "SELECT cust_email FROM customer WHERE cust_email = '$email'";
+        $emailresult = mysqli_query($con, $emailchechkQuary);
+        $emailrow_count = mysqli_num_rows($emailresult);
 
-        // insert user information in to database
-        // check if the exicution of the SQL quary 
-        if (mysqli_query($con, $customerinsertQuary)) {
-            echo "<script>alert('sign-UP is succefully');</script>";
+        if ($emailrow_count > 0) {
+            echo "<script>alert('The email address is already registered. Please use a different email.');</script>";
+        } else {  // check for exist user name 
+            $usernamecheckQuary = "SELECT cust_username FROM customer WHERE cust_username = '$username'";
+            $usernameresult = mysqli_query($con, $usernamecheckQuary);
+            $user_row_count = mysqli_num_rows($usernameresult);
+
+            if ($user_row_count > 0) {
+                echo "<script>alert('The username is already registered. Please use a different username.');</script>";
+            } else {
+                $customerinsertQuary = " INSERT INTO customer(cust_fname, cust_lname, cust_username, cust_pwd, cust_email, cust_phone, cust_add_line1, cust_add_line2, cust_add_line3, cust_add_line4) VALUES ('$firstname' , '$lastname' , '$username' , '$password' , '$email' , '$phonenumber' , '$addressline1' , '$addressline2' , '$addressline3' , '$city') ";
+
+                // insert user information in to database
+                // check if the exicution of the SQL quary 
+                if (mysqli_query($con, $customerinsertQuary)) {
+                    echo "<script>alert('sign-UP is succefully');</script>";
+                }
+            }
         }
     }
 }
