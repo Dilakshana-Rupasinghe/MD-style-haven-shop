@@ -66,8 +66,9 @@ function sebdemail_verify($firstname, $lastname, $email, $otp)
         // Send email
         $mail->send();
         echo "<script>alert('Verification code has been sent to your email. Please check it!');</script>";
-        header("Location: verify-otp.php");
-        exit();
+        echo "<script>window.location.href = 'verify-otp.php';</script>";
+        // header("Location: verify-otp.php");
+        // exit();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
@@ -164,6 +165,10 @@ if (isset($_POST['customer-signup'])) {
                         <form action="#" method="post" onsubmit="return registerValication();">
                             <h1 class="text-center">MD-Style Haven shop</h1>
                             <h2 class="text-center"> Sign-UP </h2>
+
+                            <!-- store otp and actication code in hidden inputfield -->
+                            <input type="hidden" name="otp" id="otp" value="<?php echo $otp; ?>">
+                            <input type="hidden" name="activation_code" id="activation_code" value="<?php echo $activation_code; ?>">
 
                             <div class="input-box">
                                 <input type="email" id="email" name="email" placeholder="@Email" required>
