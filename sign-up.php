@@ -141,8 +141,7 @@ if (isset($_POST['customer-signup'])) {
     <!-- material icons css link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- css links -->
-    <link rel="stylesheet" href="css/home.css">
-    <!-- <link rel="stylesheet" href="css/login.css"> -->
+    <link rel="stylesheet" href="css/home-all-style.css">
     <link rel="stylesheet" href="css/sign-up.css">
 
     <title>MD-Style Haven shop/online shoping-Sign-up page</title>

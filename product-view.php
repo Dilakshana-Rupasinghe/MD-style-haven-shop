@@ -18,7 +18,7 @@ include('database/config.php');
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- material icons css link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-all-style.css">
     <title>MD-Style Haven shop/online shoping-Home page</title>
 </head>
 
@@ -177,8 +177,8 @@ include('database/config.php');
                         <div class="<?php echo $showNoneQnty ?> d-flex mt3">
                             <input type="number" class="form-controle" min="1" max="<?php echo $item_stock_qty ?>" value="1" name="cartQnty" required>
                         </div>
-                        <div>
-                            <button class="btn btn-outline-dark btn-orange py-1 ms-2" type="submit" name="AddtoCart"> Add To Cart</button>
+                        <div class="col-8">
+                            <button class="btn btn-outline-dark btn-orange py-1 ms-2 " type="submit" name="AddtoCart"> Add To Cart</button>
                         </div>
                         <p class="mt-3 text-black bg-body-tertiary rounded-3"></p>
                     </form>

@@ -48,7 +48,7 @@ if (isset($_POST['customer-login'])) {
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- material icons css link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-all-style.css">
     <link rel="stylesheet" href="css/login.css">
     <title>MD-Style Haven shop/online shoping-login page</title>
 </head>
