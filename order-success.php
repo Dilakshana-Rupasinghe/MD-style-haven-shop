@@ -1,3 +1,56 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['custId'])) {
+    $custId = $_SESSION['custId'];
+    echo "<script>window.open('Login.php', '_self');</script>";
+    exit();
+}
+
+// Include the database configuration file
+include('database/config.php');
+
+if (isset($_POST['okaybtn'])) {
+
+    // reverse session data witch is sending checkout.php
+    $firstName = isset($_SESSION['firstName']) ? $_SESSION['firstName'] : "no input";
+    $lastName = isset($_SESSION['lastName']) ? $_SESSION['lastName'] : "error";
+    $email = isset($_SESSION['email']) ? $_SESSION['email'] : "error";
+    $district = isset($_SESSION['district']) ? $_SESSION['district'] : "error";
+    $addressline1 = isset( $_SESSION['address_line1']) ? $_SESSION['address_line1'] : "error";
+    $addressline2 = isset($_SESSION['address_line2']) ? $_SESSION['address_line2'] : "error";
+    $addressline3 = isset($_SESSION['address_line3']) ? $_SESSION['address_line3'] : "error";
+    $city = isset($_SESSION['city']) ? $_SESSION['city'] : "error";
+    $postalCode = isset($_SESSION['postalCode']) ? $_SESSION['postalCode'] : "error";
+    $billingCompanyName = isset($_SESSION['billingCompanyName']) ? $_SESSION['billingCompanyName'] : "error";
+    $phone = isset($_SESSION['phone']) ? $_SESSION['phone'] : "error";
+    $secondaryPhone = isset($_SESSION['secondaryPhone']) ? $_SESSION['secondaryPhone'] : "error";
+    $paymentMethod = isset($_SESSION['paymentMethod']) ? $_SESSION['paymentMethod'] : "error";
+    $Order_totle = isset($_SESSION['Order_totle']) ? $_SESSION['Order_totle'] : 0;
+    $custId = isset(  $_SESSION['custId'] ) ?   $_SESSION['custId']  : "no input";
+
+    //send data to database table which is order table 
+    $orderInsertQuary = "INSERT INTO `order` (order_date, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id)
+        VALUES (NOW(),'$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$paymentMethod', $custId)";
+
+    $result = mysqli_query($con, $orderInsertQuary);
+
+    if ($result) {
+        // after complete order 
+        $cart_deleteQuiry = "DELETE FROM cart_item WHERE fk_cust_id = $custId"; //detelet queiry
+
+        $cartdltresult = mysqli_query($con, $cart_deleteQuiry);
+
+        // echo "<script>alert('order successful! ');</script>";
+        header('Location: index.php');
+        exit();
+    } else {
+        echo "<script>alert('SQL error! ');</script>";
+    }
+}
+// }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +73,7 @@
             <h1 class="text-success">🎉 Order Successful!</h1>
             <p class="mt-3">Thank you for your order! We have received your details.</p>
             <div class="d-flex justify-content-center">
-                <button id="okay-btn" name="okaybtn" class="btn btn-primary mt-4 col-2">Okay</button>
+            <button type="submit" id="okay-btn" name="okaybtn" class="btn btn-primary mt-4 col-3">Okay</button>
             </div>
         </div>
     </div>
@@ -33,3 +86,7 @@
 </body>
 
 </html>
+<!-- close the DB connection -->
+<?php
+mysqli_close($con);
+?>
