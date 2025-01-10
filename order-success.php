@@ -11,13 +11,12 @@ if (!isset($_SESSION['custId'])) {
 include('database/config.php');
 
 if (isset($_POST['okaybtn'])) {
-
     // reverse session data witch is sending checkout.php
     $firstName = isset($_SESSION['firstName']) ? $_SESSION['firstName'] : "no input";
     $lastName = isset($_SESSION['lastName']) ? $_SESSION['lastName'] : "error";
     $email = isset($_SESSION['email']) ? $_SESSION['email'] : "error";
     $district = isset($_SESSION['district']) ? $_SESSION['district'] : "error";
-    $addressline1 = isset( $_SESSION['address_line1']) ? $_SESSION['address_line1'] : "error";
+    $addressline1 = isset($_SESSION['address_line1']) ? $_SESSION['address_line1'] : "error";
     $addressline2 = isset($_SESSION['address_line2']) ? $_SESSION['address_line2'] : "error";
     $addressline3 = isset($_SESSION['address_line3']) ? $_SESSION['address_line3'] : "error";
     $city = isset($_SESSION['city']) ? $_SESSION['city'] : "error";
@@ -27,7 +26,7 @@ if (isset($_POST['okaybtn'])) {
     $secondaryPhone = isset($_SESSION['secondaryPhone']) ? $_SESSION['secondaryPhone'] : "error";
     $paymentMethod = isset($_SESSION['paymentMethod']) ? $_SESSION['paymentMethod'] : "error";
     $Order_totle = isset($_SESSION['Order_totle']) ? $_SESSION['Order_totle'] : 0;
-    $custId = isset(  $_SESSION['custId'] ) ?   $_SESSION['custId']  : "no input";
+    $custId = isset($_SESSION['custId']) ?   $_SESSION['custId']  : "no input";
 
     //send data to database table which is order table 
     $orderInsertQuary = "INSERT INTO `order` (order_date, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id)
@@ -36,10 +35,33 @@ if (isset($_POST['okaybtn'])) {
     $result = mysqli_query($con, $orderInsertQuary);
 
     if ($result) {
-        // after complete order 
-        $cart_deleteQuiry = "DELETE FROM cart_item WHERE fk_cust_id = $custId"; //detelet queiry
+        // Retrieve purchased items and quantities
+        $cartItemsQuery = "SELECT fk_item_id, item_qty FROM cart_item WHERE fk_cust_id = $custId";
+        $cartItemsResult = mysqli_query($con, $cartItemsQuery);
 
-        $cartdltresult = mysqli_query($con, $cart_deleteQuiry);
+        if ($cartItemsResult && mysqli_num_rows($cartItemsResult) > 0) {
+            while ($row = mysqli_fetch_assoc($cartItemsResult)) {
+                $itemId = $row['fk_item_id'];
+                $purchasedQty = $row['item_qty'];
+
+                // Update item stock quantity
+                $updateStockQuery = "UPDATE item SET item_stock_qty = item_stock_qty - $purchasedQty WHERE item_id = $itemId";
+                $updateStockResult = mysqli_query($con, $updateStockQuery);
+
+                if (!$updateStockResult) {
+                    echo "<script>alert('Error updating stock for item ID: $itemId');</script>";
+                }
+            }
+        } else {
+            echo "<script>alert('No items found in cart for this customer.');</script>";
+        }
+
+        // Delete cart items after stock update
+        $cartDeleteQuery = "DELETE FROM cart_item WHERE fk_cust_id = $custId";
+        $cartDeleteResult = mysqli_query($con, $cartDeleteQuery);
+
+        if ($cartdltresult) {
+        }
 
         // echo "<script>alert('order successful! ');</script>";
         header('Location: index.php');
