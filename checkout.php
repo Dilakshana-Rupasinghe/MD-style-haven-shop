@@ -54,6 +54,7 @@ if (mysqli_num_rows($result) > 0) {
 // Store data in session
 $_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
 $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
+$_SESSION['Order_totle'] = $totalPrice; // Convert to cents
 
 
 ?>
@@ -93,8 +94,8 @@ $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
             <div class="col-md-6 bg-light p-4 " style="border-radius: 30px 0 0 30px ">
                 <h4 class="mb-3 text-center">BILLING DETAILS</h4>
                 <hr>
-                
-                <form action="" method="post" id="checkoutForm" >
+
+                <form action="" method="post" id="checkoutForm">
                     <div id="sameasBillingAddressForm">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -113,32 +114,31 @@ $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
                         <div class="mb-3">
                             <label for="district" class="form-label">District </label>
                             <select class="form-select" id="district" required>
-                                <option value="Dictrict" >Select Destrict</option>
-                                <option value="LK52">Ampara</option>
-                                <option value="LK71">Anuradhapura</option>
-                                <option value="LK81">Badulla</option>
-                                <option value="LK51">Batticaloa</option>
-                                <option value="LK11">Colombo</option>
-                                <option value="LK31">Galle</option>
-                                <option value="LK12">Gampaha</option>
-                                <option value="LK33">Hambantota</option>
-                                <option value="LK41">Jaffna</option>
-                                <option value="LK13">Kalutara</option>
-                                <option value="LK21">Kandy</option>
-                                <option value="LK92">Kegalla</option>
-                                <option value="LK42">Kilinochchi</option>
-                                <option value="LK61">Kurunegala</option>
-                                <option value="LK43">Mannar</option>
-                                <option value="LK22">Matale</option>
-                                <option value="LK32">Matara</option>
-                                <option value="LK82">Monaragala</option>
-                                <option value="LK45">Mullaittivu</option>
-                                <option value="LK23">Nuwara Eliya</option>
-                                <option value="LK72">Polonnaruwa</option>
-                                <option value="LK62">Puttalam</option>
-                                <option value="LK91">Ratnapura</option>
-                                <option value="LK53">Trincomalee</option>
-                                <option value="LK44">Vavuniya</option>
+                                <option value="" selected>Select Destrict</option>
+                                <option value="Ampara">Ampara</option>
+                                <option value="Anuradhapura">Anuradhapura</option>
+                                <option value="Badulla">Badulla</option>
+                                <option value="Batticaloa">Batticaloa</option>
+                                <option value="Colombo">Colombo</option>
+                                <option value="Galle">Galle</option>
+                                <option value="Gampaha">Gampaha</option>
+                                <option value="Hambantota">Hambantota</option>
+                                <option value="Jaffna">Jaffna</option>
+                                <option value="Kalutara">Kalutara</option>
+                                <option value="Kegalla">Kegalla</option>
+                                <option value="Kilinochchi">Kilinochchi</option>
+                                <option value="Kurunegala">Kurunegala</option>
+                                <option value="Mannar">Mannar</option>
+                                <option value="Matale">Matale</option>
+                                <option value="Matara">Matara</option>
+                                <option value="Monaragala">Monaragala</option>
+                                <option value="Mullaittivu">Mullaittivu</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <option value="Polonnaruwa">Polonnaruwa</option>
+                                <option value="Puttalam">Puttalam</option>
+                                <option value="Ratnapura">Ratnapura</option>
+                                <option value="Trincomalee">Trincomalee</option>
+                                <option value="Vavuniya">Vavuniya</option>
                             </select>
                         </div>
 
@@ -199,7 +199,7 @@ $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
                     <!-- <button type="submit" class="btn btn-success w-100">Place Order</button> -->
                     <!-- <button type="button" class="btn btn-success w-100" onclick="handleOrder()">Place Order</button> -->
 
-                    <button type="button" class="btn btn-success w-100" onclick="handleOrder()" disabled>Place Order</button>
+                    <button type="submit" name="placeorder" class="btn btn-success w-100">Place Order</button>
 
                 </form>
             </div>
@@ -299,7 +299,6 @@ $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
     </div>
 
     <script>
-
         //check form is full fild or not then dicable or visible place order button
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.querySelector('form');
@@ -323,19 +322,6 @@ $_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
             // Initial validation
             validateForm();
         });
-
-
-        function handleOrder() {
-            // Get selected payment method
-            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-
-            // Redirect based on selected payment method
-            if (paymentMethod === "online") {
-                window.location.href = "online-payment.php";
-            } else if (paymentMethod === "cod") {
-                window.location.href = "order-success.php";
-            }
-        }
     </script>
 
     <!-- footer section -->
