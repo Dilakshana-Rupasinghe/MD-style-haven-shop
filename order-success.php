@@ -51,6 +51,8 @@ if (isset($_POST['okaybtn'])) {
 // }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,15 +70,18 @@ if (isset($_POST['okaybtn'])) {
 </head>
 
 <body class="d-flex align-items-center justify-content-center">
-    <div class="container text-center">
-        <div class="card shadow-lg p-4">
-            <h1 class="text-success">🎉 Order Successful!</h1>
-            <p class="mt-3">Thank you for your order! We have received your details.</p>
-            <div class="d-flex justify-content-center">
-            <button type="submit" id="okay-btn" name="okaybtn" class="btn btn-primary mt-4 col-3">Okay</button>
+    <form method="POST" action="" class="col-8">
+        <div class="container text-center">
+            <div class="card shadow-lg p-4">
+                <h1 class="text-success">🎉 Order Successful!</h1>
+                <p class="mt-3">Thank you for your order! We have received your details.</p>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" id="okay-btn" name="okaybtn" class="btn btn-primary mt-4 col-3">Okay</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+
 
     <script>
         document.getElementById("okay-btn").addEventListener("click", function() {
