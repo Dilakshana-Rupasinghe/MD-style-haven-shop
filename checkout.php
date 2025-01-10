@@ -9,6 +9,45 @@ if (!isset($_SESSION['custId'])) {
     $custId = $_SESSION['custId'];
 }
 
+if (isset($_POST['placeorder'])) {
+
+    // get form data when user enter data and validate inputs
+    $firstName = htmlspecialchars($_POST['firstName']);
+    $lastName = htmlspecialchars($_POST['lastName']);
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $district = htmlspecialchars($_POST['district']);
+    $addressline1 = htmlspecialchars($_POST['address-line1']);
+    $addressline2 = htmlspecialchars($_POST['address-line2']);
+    $addressline3 = htmlspecialchars($_POST['address-line3']);
+    $city = htmlspecialchars($_POST['city']);
+    $postalCode = htmlspecialchars($_POST['postalCode']);
+    $billingCompanyName = htmlspecialchars($_POST['billingCompanyName']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $secondaryPhone = htmlspecialchars($_POST['secondaryPhone']);
+    $paymentMethod = htmlspecialchars($_POST['paymentMethod']);
+
+    // Store in session to pass data to another page 
+    $_SESSION['firstName'] = $firstName;
+    $_SESSION['lastName'] = $lastName;
+    $_SESSION['email'] = $email;
+    $_SESSION['district'] = $district;
+    $_SESSION['address_line1'] = $addressline1;
+    $_SESSION['address_line2'] = $addressline2;
+    $_SESSION['address_line3'] = $addressline3;
+    $_SESSION['city'] = $city;
+    $_SESSION['postalCode'] = $postalCode;
+    $_SESSION['billingCompanyName'] = $billingCompanyName;
+    $_SESSION['phone'] = $phone;
+    $_SESSION['secondaryPhone'] = $secondaryPhone;
+    $_SESSION['paymentMethod'] = $paymentMethod;
+
+    // rederect page related to user choose payment systems 
+    if ($paymentMethod === "online") {
+        header('Location: online-payment.php ');
+    } else if ($paymentMethod === "cod") {
+        header('Location: order-success.php ');
+    }
+}
 
 // Include the database configuration file
 include('database/config.php');
