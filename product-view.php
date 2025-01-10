@@ -211,6 +211,8 @@ include('database/config.php');
 
         // check if item alrady existe
         if(mysqli_num_rows($cartResult) > 0 ) {
+            $row_data = mysqli_fetch_assoc($cartResult);
+            $_SESSION['CartId'] = $row_data['cart_id'];
             echo "<script>alert('This item already exists in your cart.');</script>";
             echo "<script>window.open('cart.php', '_self')</script>";
             exit();
