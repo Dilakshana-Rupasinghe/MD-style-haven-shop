@@ -139,20 +139,20 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                                <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First name" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last name" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="district" class="form-label">District </label>
-                            <select class="form-select" id="district" required>
+                            <select class="form-select" name="district" id="district" required>
                                 <option value="" selected>Select Destrict</option>
                                 <option value="Ampara">Ampara</option>
                                 <option value="Anuradhapura">Anuradhapura</option>
@@ -184,38 +184,38 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
 
                         <div class="mb-3">
                             <label for="address-line1" class="form-label">Address-line1</label>
-                            <input type="text" class="form-control" id="address-line1" placeholder="line1" required>
+                            <input type="text" class="form-control" name="address-line1" id="address-line1" placeholder="line1" required>
                         </div>
                         <div class="mb-3">
                             <label for="address-line2" class="form-label">Address-line2</label>
-                            <input type="text" class="form-control" id="address-line2" placeholder="line2" required>
+                            <input type="text" class="form-control" name="address-line2" id="address-line2" placeholder="line2" required>
                         </div>
                         <div class="mb-3">
                             <label for="address-line3" class="form-label">Address-line3 (If any)</label>
-                            <input type="text" class="form-control" id="address-line3" placeholder="line3 ">
+                            <input type="text" class="form-control" name="address-line3" id="address-line3" placeholder="line3 ">
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="city" class="form-label">City</label>
-                                <input type="text" class="form-control" id="city" placeholder="City" required>
+                                <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="postalCode" class="form-label">Postcode / ZIP</label>
-                                <input type="text" class="form-control" id="postalCode" placeholder="Postcode" required>
+                                <input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="Postcode" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="billingCompanyName" class="form-label">Company (optional)</label>
-                            <input type="text" class="form-control" id="billingCompanyName" placeholder="Company">
+                            <input type="text" class="form-control" name="billingCompanyName" id="billingCompanyName" placeholder="Company">
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Primary Phone" required>
+                                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Primary Phone" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="secondaryPhone" class="form-label">Secondary Phone</label>
-                                <input type="tel" class="form-control" id="secondaryPhone" placeholder="Secondary Phone">
+                                <input type="tel" class="form-control" name="secondaryPhone" id="secondaryPhone" placeholder="Secondary Phone">
                             </div>
                         </div>
                     </div>
@@ -238,7 +238,8 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
                     <!-- <button type="submit" class="btn btn-success w-100">Place Order</button> -->
                     <!-- <button type="button" class="btn btn-success w-100" onclick="handleOrder()">Place Order</button> -->
 
-                    <button type="submit" name="placeorder" class="btn btn-success w-100">Place Order</button>
+                    <!-- <button type="button" name="placeorder" class="btn btn-success w-100" onclick="handleOrder();" disabled>Place Order</button> -->
+                    <button type="submit" name="placeorder" class="btn btn-success w-100" onclick="handleOrder()" disabled>Place Order</button>
 
                 </form>
             </div>
@@ -360,6 +361,13 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
 
             // Initial validation
             validateForm();
+
+            function handleOrder() {
+                // Get selected payment method
+                // const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            
+            }
         });
     </script>
 
