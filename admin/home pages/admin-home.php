@@ -18,7 +18,7 @@ if (!isset($_SESSION['staffId'])) {
     <!-- Google Material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../css/home.css">
-    <link rel="stylesheet" href="../../css/back-home.css">
+    <link rel="stylesheet" href="../../css/back-home-style.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/manage-button.css">
