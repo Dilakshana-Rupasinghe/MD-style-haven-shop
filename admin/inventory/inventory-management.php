@@ -22,11 +22,12 @@ include('../../database/config.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Google Material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../../css/home.css">
+    <link rel="stylesheet" href="../../css/home-all-style.css">
     <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/manage-button.css">
+    <link rel="stylesheet" href="../../css/manage-button1.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -52,10 +53,15 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-                    <div class="date ms-4" style=" line-height: 2rem;">
+                    <div class="date ms-0" style="padding: 0px 35px 0px 0px; line-height: 1.5rem;">
                         <input type="date" style=" padding: 0px 10px;">
                     </div>
-                    <a href="item-management.php" class="manage-item-button" >
+                    <a href="fabric-management.php" class="manage-fabric-button">
+                        Manage Fabrics
+                        <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px; ">
+                            styler
+                        </span></a>
+                    <a href="item-management.php" class="manage-item-button">
                         Manage item
                         <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px; ">
                             inventory_2
@@ -71,7 +77,7 @@ include('../../database/config.php');
                 <h1>Inventory management</h1>
 
 
-                <div class="charts ">
+                <div class="charts">
                     <!-- <div class="d-flex"> -->
                     <div class="edit " style="margin-top: 1rem;">
                         <div class="change  " style="height: fit-content; width: 60rem">
