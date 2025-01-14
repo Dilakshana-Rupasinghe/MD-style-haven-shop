@@ -5,6 +5,10 @@ if (!isset($_SESSION['staffId'])) {
     header('location:staff-login.php');
     exit();
 }
+
+// include the database configaration file
+include('../../database/config.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +68,25 @@ if (!isset($_SESSION['staffId'])) {
                     <div class="chart" style="width: 33rem;">
                         <h3>Earning (2024)</h3>
                         <canvas id="barChart"></canvas>
+                        <?php
+                        // Get data from DB to staff doughnut-chart
+                        $sqlTotalStaff = "SELECT st.staff_type_name, COUNT(s.staff_id) AS staff_count
+    FROM staff_type st
+    INNER JOIN staff s ON st.staff_type_id = s.fk_staff_type_id
+    GROUP BY st.staff_type_name;
+";
+
+                        $resultTotalStaff = mysqli_query($con, $sqlTotalStaff);
+
+                        $staff_labels = [];
+                        $staff_data = [];
+                        while ($rowTotalStaff = mysqli_fetch_assoc($resultTotalStaff)) {
+                            $staff_labels[] = $rowTotalStaff['staff_type_name'];
+                            $staff_data[] = $rowTotalStaff['staff_count'];
+                        }
+                        ?>
+
+
 
                     </div>
                     <div class="chart" id="pie-cahrt">
@@ -208,7 +231,11 @@ if (!isset($_SESSION['staffId'])) {
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../script/chart1.js"></script>
-    <script src="../../script/chart2.js"></script>
+    <script>
+        var staffLabels = <?php echo json_encode($staff_labels); ?>; //convert array (staff_type_name) to json
+        var staffData = <?php echo json_encode($staff_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/staffchart.js"></script>
 
 
     <!--Bootstrap JS link -->
