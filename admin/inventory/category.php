@@ -114,7 +114,22 @@ if (isset($_GET['categoryId'])) {
                         </form>
                     </div>
 
+                    <?php
+                    // Get data from DB to prepare category-wise item count for the chart
+                    $sqlCategoryItemCount = "SELECT c.category_name, COUNT(i.item_id) AS item_count
+    FROM category c
+    INNER JOIN item i ON c.category_id = i.fk_category_id
+    GROUP BY c.category_name;";
 
+                    $resultCategoryItemCount = mysqli_query($con, $sqlCategoryItemCount);
+
+                    $category_labels = [];
+                    $category_data = [];
+                    while ($rowCategoryItemCount = mysqli_fetch_assoc($resultCategoryItemCount)) {
+                        $category_labels[] = $rowCategoryItemCount['category_name'];
+                        $category_data[] = $rowCategoryItemCount['item_count'];
+                    }
+                    ?>
                     <div class="change ms-5" style="width: 25rem;">
                         <h3>Strock by Category</h3>
                         <canvas id="pie-chart"></canvas>
@@ -183,8 +198,11 @@ if (isset($_GET['categoryId'])) {
 
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../script/categorychart.js"></script>
-
+    <script>
+        var category_labels = <?php echo json_encode($category_labels); ?>; //convert array (staff_type_name) to json
+        var category_data = <?php echo json_encode($category_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/category.js"></script>
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
