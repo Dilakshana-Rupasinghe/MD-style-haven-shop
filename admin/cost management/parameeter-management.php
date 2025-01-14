@@ -9,40 +9,47 @@ if (!isset($_SESSION['staffId'])) {
 // include the database configaration file
 include('../../database/config.php');
 
-// // check if user click the button or not
-// if (isset($_POST['categoryAdd'])) {
+// check if user click the button or not
+if (isset($_POST['costAdd'])) {
 
-//     // get user input
-//     $categoryname = $_POST['Categoryname'];
+    // get user input
+    $costname = $_POST['costname'];
+    $costprice = $_POST['costprice'];
+    $is_percentage = $_POST['is_percentage'];
+    $percentage_rate = $_POST['percentage_rate'];
 
-//     //check fild is not empty
-//     if ($categoryname != '') {
-//         // check if category alrady exists
-//         $categorySelectQuiry = "SELECT * FROM category WHERE category_name = '$categoryname'";
-//         $result = (mysqli_query($con, $categorySelectQuiry));
-//         if (mysqli_num_rows($result) > 0) {
-//             echo "<script>alert('{$categoryname} already exists');</script>";
-//         } else {
+    //check fild is not empty
+    if ($costname != '') {
+        // check if category alrady exists
+        $costSelectQuiry = "SELECT * FROM additional_cost WHERE cost_type = '$costname'";
+        $result = (mysqli_query($con, $costSelectQuiry));
+        if (mysqli_num_rows($result) > 0) {
+            echo "<script>alert('{$costname} already exists');</script>";
+        } else {
 
-//             //insert new catagory into DB
-//             $addcategoryQuory = "INSERT INTO category(category_name) VALUES('$categoryname')";
+            //insert new catagory into DB
+            $addcostQuory = "INSERT INTO additional_cost(cost_type, amount, is_percentage, percentage_rate	) VALUES('$costname', '$costprice', '$is_percentage', '$percentage_rate')";
 
-//             if (mysqli_query($con, $addcategoryQuory)) {
-//                 echo "<script>alert('New Category is added Successfully')</script>";
-//             }
-//         }
-//     }
-// }
+            if (mysqli_query($con, $addcostQuory)) {
+                echo "<script>alert('New cost details is added Successfully')</script>";
+                echo "<script>window.open('parameeter-management.php', '_self');</script>";
+            }else{
+                echo 'error';
+            }
+        }
+    }
+}
 
-// // delete category if user click delete button
-// if (isset($_GET['categoryId'])) {
-//     $categoryId = $_GET['categoryId'];
+// delete category if user click delete button
+if (isset($_GET['costId'])) {
+    $costId = $_GET['costId'];
 
-//     $categoryDeleteQuire = "DELETE FROM category WHERE category_id = $categoryId"; //delete quary
-//     if (mysqli_query($con, $categoryDeleteQuire)) {
-//         echo "<script>alert('Category is deleted successfully');</script>";
-//     }
-// }
+    $costDeleteQuire = "DELETE FROM additional_cost WHERE cost_id = $costId"; //delete quary
+    if (mysqli_query($con, $costDeleteQuire)) {
+        echo "<script>alert('Cost type is deleted successfully');</script>";
+        echo "<script>window.open('parameeter-management.php', '_self');</script>";
+    }
+}
 ?>
 
 
@@ -62,7 +69,7 @@ include('../../database/config.php');
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/fuck.css">
-    <link rel="stylesheet" href="../../css/manage-button1.css">
+    <link rel="stylesheet" href="../../css/manage-button-1.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -95,57 +102,80 @@ include('../../database/config.php');
                 <!--  BACK & Register button end -->
                 <h1>Cost management - Add new parameeter Type</h1>
 
-                <div class="edit ms-1" style="margin-top: 3rem; width: 68rem">
-                    <div class="change ms-1 col-8 " style="height: fit-content; width: 25rem">
-                        <h3 class="text-center">Add new fabric here</h3>
+                <div class="edit" style="margin-top: 3rem; width: 69rem">
+                    <div class="change  col-8 " style="height: fit-content; width: 22rem">
+                        <h3 class="text-center">Add new additional costs here</h3>
 
                         <form action="#" method="post" id="categoryAddForm">
                             <!-- Category name -->
                             <div>
-                                <label for="fabrictype">cost parameeter Type</label> <br>
-                                <input type="fabrictype" id="fabrictype" name="fabrictype" required>
+                                <label for="costname">cost name/type</label> <br>
+                                <input type="text" id="costname" name="costname" required>
                             </div>
-                        
-                            <div style="margin:0 40px;">
-                                <button type="submit" name="fabricAdd" id="update"> Add </button>
+                            <div>
+                                <label for="costprice">cost price</label> <br>
+                                <input type="numebr" id="costprice" name="costprice">
+                            </div>
+                            <div>
+                                <label for="is_percentage">Is Percentage Based:</label>
+                                <select id="is_percentage" name="is_percentage" class="bg-white col-4">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="percentage_rate">Percentage Rate:</label>
+                                <input type="number" id="percentage_rate" name="percentage_rate" step="0.01" placeholder="e.g., 5.00">
+                            </div>
+                            <div style="margin:10px 40px;">
+                                <button type="submit" name="costAdd" id="update"> Add </button>
                             </div>
                         </form>
                     </div>
                     <div>
                         <table>
                             <tr>
-                                <th>Fabric Type ID</th>
-                                <th>Fabric Type name</th>
-                                <th>Action</th>
+                                <th>ID</th>
+                                <th>Cost Type</th>
+                                <th>Amount</th>
+                                <th>Is Percentage</th>
+                                <th>Percentage Rate</th>
+                                <th>Actions</th>
                             </tr>
                             <?php
-                            // $get_fabricDetail = "SELECT * FROM fabric_type ";
+                            $get_costDetail = "SELECT * FROM additional_cost ";
 
-                            // $result = mysqli_query($con, $get_fabricDetail);
-                            // $row_count = mysqli_num_rows($result);
+                            $result = mysqli_query($con, $get_costDetail);
+                            $row_count = mysqli_num_rows($result);
 
-                            // if ($row_count == 0) {
-                            //     echo "<h2 class='bg-danger text-center mt-5'>Np user yet </h2>";
-                            // } else {
-                            //     while ($row_date = mysqli_fetch_assoc($result)) {
-                            //         $fabrictypeid = $row_date['fabric_type_id'];
-                            //         $fabricTypename = $row_date['fabric_Type_name'];
-                            //         $fabriccost = $row_date['fabric_cost'];
+                            if ($row_count == 0) {
+                                echo "<h2 class='bg-danger text-center mt-5'>Np user yet </h2>";
+                            } else {
+                                while ($row_date = mysqli_fetch_assoc($result)) {
+                                    $costId = $row_date['cost_id'];
+                                    $costname = $row_date['cost_type'];
+                                    $amount = $row_date['amount'];
+                                    $is_percentage = $row_date['is_percentage'];
+                                    $percentage_rate = $row_date['percentage_rate'];
 
-                            //         echo "<tr>
-                
-                            //          <td> $fabrictypeid </td>
-                            //          <td> $fabricTypename </td>
-                            //         <td> $fabriccost </td>
+                                    echo "<tr>
 
-                            //         <td class='action-links'>
-                            //         <a href='add-fabric.php?fabrictypeId=$fabrictypeid' class='deactivate'> Delete </a> 
-                            //         </td>
-                
-                            //          </tr>";
-                            //     }
-                            // }
-                            // ?>
+                                     <td> $costId </td>
+                                     <td> $costname </td>
+                                    <td> $amount </td>
+                                    <td> $is_percentage </td>
+                                    <td> $percentage_rate </td>
+
+                                    <td class='action-links'>
+                                    <a href='parameeter-management.php?costId=$costId' class='deactivate'> Delete </a> 
+                                    </td>
+
+                                     </tr>";
+                                }
+                            }
+                            
+                            ?>
 
                         </table>
                     </div>
