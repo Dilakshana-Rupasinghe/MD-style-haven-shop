@@ -1,0 +1,59 @@
+/* manage item/ category button */
+.manage-item-button{
+    /* text-align: left;
+    display: flex;
+    float: inline-start; */
+    padding: 12px 18px;
+    margin-right: 22px;
+    background-color: rgb(34, 126, 34);
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid #000000;
+}
+
+.manage-fabric-button{
+    /* text-align: left;
+    display: flex;
+    float: inline-start; */
+    padding: 12px 18px;
+    margin-right: 22px;
+    background-color: rgb(233, 118, 41);
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid #000000;
+}
+
+.manage-category-button{
+    padding: 12px 18px;
+    margin-right: 22px;
+    background-color: rgb(43, 167, 180);
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid #000000;
+}
+
+.manage-item-button:hover{
+background-color: rgb(126, 199, 126);
+}
+
+.manage-category-button:hover{
+    background-color: rgb(123, 210, 219);
+}
+
+.date{
+    text-align: left;
+    display: flex;
+    float: inline-start;
+}
