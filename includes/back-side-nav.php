@@ -1,6 +1,4 @@
-
-
-<h3 class="ms-4 mt-2"> MENU
+<h3 class="ms-4 mt-1"> MENU
     <span class="material-symbols-outlined">
         menu
     </span>
@@ -66,10 +64,17 @@
     <a href="#"> feedbacks </a>
 
 </div>
+
+<div class="menu">
+    <span class="material-symbols-outlined">
+        price_change
+    </span>
+    <a href="../cost management/cost-manage.php">Cost manage</a>
+</div>
+
 <div class="menu mb-2">
     <span class="material-symbols-outlined">
         local_shipping
     </span>
     <a href="#"> Dilivery </a>
-
 </div>
