@@ -71,41 +71,38 @@ include('../../database/config.php');
                 <h1>Inventory management</h1>
 
 
-                <div class="charts">
-                    <div class="chart" style="width: 90%;">
-                        <h3>Stock Turnover Rate (2024)</h3>
-                        <canvas id="lineChart"></canvas>
+                <div class="charts ">
+                    <!-- <div class="d-flex"> -->
+                    <div class="edit " style="margin-top: 1rem;">
+                        <div class="change  " style="height: fit-content; width: 60rem">
+                            <!-- <div class="chart" style="width: 90%;"> -->
 
+
+                            <?php
+                            // Get data from DB to prepare item quantity data for the chart
+                            $sqlItemQuantity = "SELECT item_id, item_stock_qty
+                                    FROM item
+                                    ORDER BY item_name;
+                                ";
+
+                            $resultItemQuantity = mysqli_query($con, $sqlItemQuantity);
+
+                            $item_labels = [];
+                            $item_data = [];
+                            while ($rowItemQuantity = mysqli_fetch_assoc($resultItemQuantity)) {
+                                $item_labels[] = $rowItemQuantity['item_id'];
+                                $item_data[] = $rowItemQuantity['item_stock_qty'];
+                            }
+                            ?>
+
+                            <h3>Strock by item</h3>
+                            <canvas id="pie-chart"></canvas>
+
+                        </div>
+                    
                     </div>
                 </div>
 
-                <!-- start recent order -->
-                <div class="recent_order mt-4">
-                    <hr>
-                    <h2 class="ms-5 ps-5 mb-3"> Product list</h2>
-                    <hr>
-                    <table>
-                        <tr>
-                            <th>item ID</th>
-                            <th>category</th>
-                            <th>item name</th>
-                            <th>Brand</th>
-                            <th>sell Price </th>
-                            <th>Discount </th>
-                            <th>Quntity </th>
-                        </tr>
-                        <tr>
-                            <td>25001</td>
-                            <td>T-shirt</td>
-                            <td>POLO T-SHIRT SIGNATURE V NECK</td>
-                            <td>MAS</td>
-                            <td>Rs : 3299.99</td>
-                            <td class="warring" style="color: darkred;">5%</td>
-                            <td>69</td>
-                            
-                        </tr>
-                    </table>
-                </div>
             </main>
         </div>
     </div>
@@ -127,6 +124,13 @@ include('../../database/config.php');
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../script/strockchart.js"></script>
+
+    <script>
+        var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
+        var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/strockitem.js"></script>
+
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
