@@ -158,13 +158,18 @@ if (isset($_GET['costId'])) {
                                     $amount = $row_date['amount'];
                                     $is_percentage = $row_date['is_percentage'];
                                     $percentage_rate = $row_date['percentage_rate'];
+                                    if($is_percentage == 1){
+                                        $status = 'Yes';
+                                    }else{
+                                        $status = 'No';
+                                    }
 
                                     echo "<tr>
 
                                      <td> $costId </td>
                                      <td> $costname </td>
                                     <td> $amount </td>
-                                    <td> $is_percentage </td>
+                                    <td> $status </td>
                                     <td> $percentage_rate </td>
 
                                     <td class='action-links'>
