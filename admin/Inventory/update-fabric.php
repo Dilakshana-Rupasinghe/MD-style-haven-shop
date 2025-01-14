@@ -47,11 +47,11 @@ if (isset($_POST['fabricupdate'])) {
     <!-- Google Material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../css/home-all-style.css">
-    <link rel="stylesheet" href="../../css/back-home-style.css">
+    <link rel="stylesheet" href="../../css/back-home.css">
     <link rel="stylesheet" href="../../css/back-style.css">
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/fuck.css">
-    <link rel="stylesheet" href="../../css/manage-button-1.css">
+    <link rel="stylesheet" href="../../css//manage-button1.css">
 
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
