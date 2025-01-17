@@ -34,7 +34,7 @@
     <span class="material-symbols-outlined">
         support_agent
     </span>
-    <a href="#"> Inquary </a>
+    <a href="../Inquary management/inquary-manage.php"> Inquary </a>
 </div>
 <div class="menu">
     <span class="material-symbols-outlined">
