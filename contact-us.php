@@ -1,12 +1,35 @@
 <?php
 session_start();
+if (isset($_SESSION['custId'])) {
+    $custId = $_SESSION['custId'];
+}
 
 // Include the database configuration file
 include('database/config.php');
 
+//get data form inquary form using post method
+if (isset($_POST['sendinquary'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $messege = $_POST['message'];
+        $custId = isset($_SESSION['custId']) ? $_SESSION['custId'] : NULL; //get session data to pass data to DB
+        if ($name !='' and $email !='' and $messege !='') {
 
+            //if user not registerd then the Cust ID should be null
+            $custIdValue = $custId !== NULL ? $custId : 'NULL';
+            // insert quary
+            $inquaryInsertQary = "INSERT INTO inquiry(inquiry_date,sender_name,email,inquiry_msg,fk_cust_id) VALUES (NOW(), '$name', '$email', '$messege', $custIdValue)";
 
+            $result = mysqli_query($con, $inquaryInsertQary);
 
+            if ($result) {
+                echo "<script>alert('Inquary successful Send!');</script>";
+                echo "<script>window.open('contact-us.php', '_self');</script>";
+            } else {
+                echo "<script>alert('SQL error!');</script>";
+            }
+        }
+} 
 
 ?>
 
@@ -21,6 +44,7 @@ include('database/config.php');
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- material icons css link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- <link rel="stylesheet" href="css/home-style.css"> -->
     <link rel="stylesheet" href="css/home-all-style.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>MD-Style Haven shop/online shoping-Home page</title>
@@ -61,7 +85,7 @@ include('database/config.php');
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <button type="submit" name="sendinquary" class="submit-btn">Send Message</button>
                 </form>
             </div>
         </div>
@@ -79,3 +103,7 @@ include('database/config.php');
 </body>
 
 </html>
+<!-- close the DB connection -->
+<?php
+mysqli_close($con);
+?>
