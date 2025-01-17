@@ -14,7 +14,7 @@ $totalPrice = isset($_SESSION['checkout_total_price']) ? $_SESSION['checkout_tot
 try {
     // Create Stripe checkout session
     $checkout_session = $stripe->checkout->sessions->create([
-        "success_url" => "http://localhost/project-payment-test-v1/order-success-cutomize.php",
+        "success_url" => "http://localhost/MD-style-haven-shop/order-success-cutomize.php",
         "cancel_url" => "http://localhost/Payments%20test/cancel.php",
         "mode" => "payment",
         "line_items" => [
