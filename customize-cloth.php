@@ -157,7 +157,6 @@ if (isset($_POST['custome_confirm'])) {
     // customization type store session data 
     $_SESSION['sizeOption'] = $sizeOption;
     $_SESSION['fabricTypename'] = $fabric;
-    $_SESSION['neckTypename'] = $neckTypename;
     $_SESSION['fitStyle'] = $fitStyle;
     $_SESSION['quantity'] = $quantity;
     $_SESSION['logo'] = $logo;
@@ -188,6 +187,7 @@ if (isset($_POST['custome_confirm'])) {
 
 //store data in session 
 $_SESSION['clothingTypename'] = $clothingTypename;
+$_SESSION['neckTypename'] = $neckTypename;
 $_SESSION['size'] = $size;
 $Descriptions[] = $clothingTypename . ' ' . $fabricTypename . ' ' . $neckTypename . ' ' . " (Qty: $quantity)";
 $_SESSION['checkout_items'] = implode(", ", $Descriptions);
