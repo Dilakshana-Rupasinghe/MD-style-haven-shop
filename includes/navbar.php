@@ -47,14 +47,21 @@ include('function/commen-function.php');
 
                     </ul>
                 </li>
-                <li class=" nav-item ">
-                    <a class="nav-link " href="#">CUSTOMIZE </a>
-                </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="about-us.php">ABOUT-US </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="contact-us.php">CONTACT-US </a>
+                </li>
+                <?php
+                    if (!isset($_SESSION['custId'])) {
+                        $displayNonecustom = "d-none";
+                    } else {
+                        $displayNonecustom = "";
+                    }
+                    ?>
+                <li class="<?php echo $displayNonecustom; ?> nav-item">                    
+                    <a class="nav-link " href="customize-cloth.php">CUSTOMIZE </a>
                 </li>
             </ul>
 
