@@ -57,6 +57,7 @@ include('database/config.php');
 // Add this where the total price and items are calculated:
 $itemDescriptions = []; // Array to hold item names
 $totalPrice = 0;
+$totalCost = 0;
 
 // Fetch data from the cart query
 // $getCartItemSelectQuiry = "SELECT item_name, item_sell_price, item_discount, item_qty FROM item
@@ -85,15 +86,31 @@ if (mysqli_num_rows($result) > 0) {
         $subtotal = $discountPrice * $item_qty;
         $totalPrice += $subtotal;
 
+
         // Add item name to descriptions
         $itemDescriptions[] = $item_name . " (Qty: $item_qty)";
     }
 }
 
+// Fetch delivery cost from the database
+$deliveryCost = 0;
+$getDeliveryCostQuery = "SELECT * FROM additional_cost WHERE cost_type = 'delivery'";
+$deliveryCostResult = mysqli_query($con, $getDeliveryCostQuery);
+
+if (mysqli_num_rows($deliveryCostResult) > 0) {
+    $deliveryCostData = mysqli_fetch_assoc($deliveryCostResult);
+
+    $deliveryCost = $deliveryCostData['amount'];
+}
+
+// Calculate final total price
+$finalTotalPrice = $totalPrice + $deliveryCost;
+
+
 // Store data in session
 $_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
-$_SESSION['checkout_total_price'] = $totalPrice * 100; // Convert to cents
-$_SESSION['Order_totle'] = $totalPrice; // Convert to cents
+$_SESSION['checkout_total_price'] = $finalTotalPrice * 100; // Convert to cents
+$_SESSION['Order_totle'] = $finalTotalPrice; // Convert to cents
 
 
 ?>
@@ -289,8 +306,22 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
                                 // get subtotle price
                                 $subtotal = $item_qty * $discountPrice;
 
-                                // get total price
                                 $totalPrice += $subtotal;
+
+                                // Fetch delivery cost from the database
+                                $deliveryCost = 0;
+                                $getDeliveryCostQuery = "SELECT * FROM additional_cost WHERE cost_type = 'delivery'";
+                                $deliveryCostResult = mysqli_query($con, $getDeliveryCostQuery);
+
+                                if (mysqli_num_rows($deliveryCostResult) > 0) {
+                                    $deliveryCostData = mysqli_fetch_assoc($deliveryCostResult);
+
+                                    $deliveryCost = $deliveryCostData['amount'];
+                                }
+
+                                // Calculate final total price
+                                $finalTotalPrice = $totalPrice + $deliveryCost;
+
 
                             ?>
 
@@ -329,8 +360,12 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
 
                 <div class="text-center">
                     <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
+                        <h7 class="text mx-3" style="font-weight:700">DELIVERY COST : </h7>
+                        <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($deliveryCost, 2) ?> </h7>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
                         <h7 class="text mx-3" style="font-weight:700">TOTAL PRICE: </h7>
-                        <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($totalPrice, 2) ?> </h7>
+                        <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($finalTotalPrice, 2) ?> </h7>
                     </div>
                 </div>
             </div>
@@ -366,7 +401,7 @@ $_SESSION['Order_totle'] = $totalPrice; // Convert to cents
                 // Get selected payment method
                 // const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-            
+
             }
         });
     </script>
