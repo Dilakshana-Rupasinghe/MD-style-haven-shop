@@ -22,7 +22,7 @@ try {
                 "price_data" => [
                     "currency" => "LKR",
                     "product_data" => [
-                        "name" => "Total Amount",
+                        "name" => "Advance Amount",
                         "description" => $itemDescription,
                     ],
                     "unit_amount" => $totalPrice,
