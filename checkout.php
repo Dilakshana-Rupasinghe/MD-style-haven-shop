@@ -74,6 +74,7 @@ $result = mysqli_query($con, $getCartItemSelectQuiry);
 
 if (mysqli_num_rows($result) > 0) {
     while ($row_data = mysqli_fetch_assoc($result)) {
+        $item_id = $row_data['item_id'];
         $item_name = $row_data['item_name'];
         $item_qty = $row_data['item_qty'];
         $item_price = $row_data['item_sell_price'];
@@ -84,11 +85,13 @@ if (mysqli_num_rows($result) > 0) {
 
         // Add subtotal to total price
         $subtotal = $discountPrice * $item_qty;
+
+        // Add the subtotal to the total price
         $totalPrice += $subtotal;
 
 
         // Add item name to descriptions
-        $itemDescriptions[] = $item_name . " (Qty: $item_qty)";
+        $itemDescriptions[] = $item_id . '-'. $item_name . '-'. " (Qty: $item_qty)";
     }
 }
 
@@ -110,7 +113,8 @@ $finalTotalPrice = $totalPrice + $deliveryCost;
 // Store data in session
 $_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
 $_SESSION['checkout_total_price'] = $finalTotalPrice * 100; // Convert to cents
-$_SESSION['Order_totle'] = $finalTotalPrice; // Convert to cents
+$_SESSION['Order_totle'] = $finalTotalPrice; 
+$_SESSION['item_id '] =  $item_id ; 
 
 
 ?>
