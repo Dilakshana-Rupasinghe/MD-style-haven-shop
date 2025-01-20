@@ -64,6 +64,24 @@ if (isset($_POST['saveChanges'])) {
     <link rel="stylesheet" href="css/style.css">
 
 
+    <style>
+        .view {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .view {
+            background-color: #1316b1;
+        }
+    </style>
 
 </head>
 
@@ -154,13 +172,13 @@ if (isset($_POST['saveChanges'])) {
 
                             <label for="address1">Address</label>
                             <input type="text" id="address" name="address1" value="<?php echo $cust_address1; ?>" required>
-                           
+
                             <label for="address2">Address</label>
                             <input type="text" id="address" name="address2" value="<?php echo $cust_address2; ?>" required>
-                           
+
                             <label for="address3">Address</label>
                             <input type="text" id="address" name="address3" value="<?php echo $cust_address3; ?>" required>
-                           
+
                             <label for="address4">Address</label>
                             <input type="text" id="address" name="address4" value="<?php echo $cust_address4; ?>" required>
 
@@ -179,8 +197,68 @@ if (isset($_POST['saveChanges'])) {
     <section class="order-history">
         <h2>Order History</h2>
         <div class="no-orders">
-            You haven't placed any orders yet.
-        </div>
+            <div class="px-3">
+                <table class="table table-bordered table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th>Order_Id </th>
+                            <th>Placeorder_Date</th>
+                            <th>Item_ID</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($_SESSION['custId']))
+                            $CustId = $_SESSION['custId'];
+
+                        $selectOrderDetails = "SELECT * FROM `order` WHERE fk_cust_id= $CustId";
+                        $Orderresult = mysqli_query($con, $selectOrderDetails);
+                        $row_count = mysqli_num_rows($Orderresult);
+
+                        if ($row_count > 0) {
+                            while ($row_data = mysqli_fetch_assoc($Orderresult)) {
+                                $order_id = $row_data['order_id'];
+                                $order_date = $row_data['order_date'];
+                                $fk_item_id = $row_data['fk_item_id'];
+                                $order_total = $row_data['order_total'];
+                                $order_status = $row_data['order_status'];
+
+                        ?>
+
+                                <tr>
+                                    <td>
+                                        <?php echo $order_id; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $order_date; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $fk_item_id; ?>
+                                    </td>
+                                    <td>
+                                        <?= number_format($order_total, 2); ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $order_status; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo  "<a href='order-details.php?order_id=$order_id' class='view'>More Details</a>" ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+
+                    </tbody>
+                </table>
+            <?php
+                        } else {
+                            echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any Orders yet </h2>";
+                        }
+
+            ?>
+            </div>
     </section>
 
 
