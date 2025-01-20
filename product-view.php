@@ -146,6 +146,16 @@ if (isset($_POST['feddback'])) {
                     $statusAvailabal = 'In stock';
                     $showItemQntyColor = 'text-success';
                 }
+
+                  // Fetch average rating for the product
+                  $avgRatingQuery = "SELECT AVG(rating_value) AS average_rating FROM rating WHERE fk_item_id = $itemId";
+                  //AS mean create tempory attibutr to store average rating
+                  //execute quary
+                  $avgRatingResult = mysqli_query($con, $avgRatingQuery);
+                  if ($avgRatingResult) {
+                      $avgRatingRow = mysqli_fetch_assoc($avgRatingResult);
+                      $average_rating = $avgRatingRow['average_rating'];
+                  }
             ?>
 
 
@@ -175,6 +185,7 @@ if (isset($_POST['feddback'])) {
                     <h5 class='text-body-secondary'> <span>Brand : </span><?php echo $item_brand; ?></h5>
                     <p><span>Matirial : </span><?php echo $item_material; ?></p>
                     <p><span>Discription : </span><?php echo $item_description; ?></p>
+                    <h4 class="text-success"><strong><span class="text-dark">Ratings :</span><?php echo number_format($average_rating, 1); ?> / 5 </strong></h4>
                     <h5>Size</h5>
                     <div class="size d-flex px-2">
 
