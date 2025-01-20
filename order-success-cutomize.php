@@ -34,6 +34,14 @@ if (isset($_POST['okay_btn'])) {
     VALUES ('$clothingTypename', '$sizeValve ', '$neckTypename', '$fabricTypename', '$logo', '$image', '$quantity', NOW(), '$additionalText', '$totalCost', ' $downPayment', '$balance ', '$ideadetails', 'Pending', '$dateRequired ', $custId)";
 
     $result = mysqli_query($con, $orderInsertQuary);
+    if($result)
+    // Get the last inserted customization ID
+    $customization_id = mysqli_insert_id($con);
+    //send data in to payment table 
+    $paymentInsertQuary = "INSERT INTO payment (payment_date, payment_amount, payment_method, payment_status, fk_order_id, fk_customization_id) 
+VALUES (NOW(), '$downPayment', 'online', 'Downpayment_success', NULL, $customization_id)";
+
+    $paymentresult = mysqli_query($con, $paymentInsertQuary);
     echo "<script>window.open('customize-cloth.php', '_self');</script>";
 
 } 
