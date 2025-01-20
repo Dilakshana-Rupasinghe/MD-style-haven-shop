@@ -5,6 +5,76 @@ session_start();
 include('database/config.php');
 
 
+// Check if the feedback form is submitted
+if (isset($_POST['feddback'])) {
+    if (!isset($_SESSION['custId'])) {
+        echo "<script>window.open('Login.php', '_self');</script>";
+        exit();
+    }
+    // Store customer ID session data in a variable
+    $cust_id = $_SESSION['custId'];
+
+    // Get user input from the form
+    $ratings = $_POST['rating'] ?? null; // If user wants to send only feedback, ratings can be null
+    $feedback = trim($_POST['feedback']) ?? null; // If user wants to send only ratings, feedback can be null
+
+    // Get product ID to identify which product the feedback and ratings refer to
+    if (isset($_GET['productId'])) {
+        $productId = $_GET['productId'];
+    }
+
+    // Check if the user has already given ratings for this product
+    $checkRatingQuery = "SELECT * FROM rating WHERE fk_cust_id = $cust_id AND fk_item_id = $productId";
+    $checkRatingResult = mysqli_query($con, $checkRatingQuery);
+
+    if ($ratings) {
+        if (mysqli_num_rows($checkRatingResult) > 0) {
+            // If a rating exists, update it
+            $updateRatingQuery = "UPDATE rating SET rating_date = NOW(), rating_value = '$ratings' WHERE fk_cust_id = $cust_id AND fk_item_id = $productId";
+            $updateRatingResult = mysqli_query($con, $updateRatingQuery);
+
+            if ($updateRatingResult) {
+                echo "<script>alert('Rating updated successfully!');</script>";
+            } else {
+                echo "<script>alert('Error updating rating!');</script>";
+            }
+        } else {
+            // If no rating exists, insert a new rating
+            $insertRatingQuery = "INSERT INTO rating(rating_date, rating_value, fk_cust_id, fk_item_id) VALUES(NOW(), '$ratings', $cust_id, $productId)";
+            $insertRatingResult = mysqli_query($con, $insertRatingQuery);
+
+            if ($insertRatingResult) {
+                echo "<script>alert('Rating sent successfully!');</script>";
+            } else {
+                echo "<script>alert('Error sending rating!');</script>";
+            }
+        }
+    }
+    //check if the usre has already submit feedback for this product 
+    $checkfedbackQuery = "SELECT * FROM feedback WHERE fk_cust_id = $cust_id AND fk_item_id = $productId";
+    $checkfedbackresult = mysqli_query($con, $checkfedbackQuery);
+
+    // Insert feedback into the DB
+    if ($feedback) {
+        //check if DB hase row of 
+        if (mysqli_num_rows($checkfedbackresult) > 0) {
+            echo "<script>alert('You have already submit feedback message for this product.Thank you!');</script>";
+            echo "<script>window.open('Index.php', '_self');</script>";
+            exit();
+        } else {
+            $feedbackInsert = "INSERT INTO feedback (feedback_date, feedback_msg, feedback_status, fk_cust_id, fk_item_id) VALUES (NOW(), '$feedback', 'Pending', $cust_id, $productId)";
+            $feedbackResult = mysqli_query($con, $feedbackInsert);
+
+            if ($feedbackResult) {
+                echo "<script>alert('Feedback sent successfully!');</script>";
+            } else {
+                echo "<script>alert('Error sending feedback!');</script>";
+            }
+        }
+    }
+    echo "<script>window.open('Index.php', '_self');</script>";
+}
+
 ?>
 
 
@@ -239,6 +309,85 @@ include('database/config.php');
 
     <!-- add to the cart end-->
 
+
+    <form class="feedback-form" method="post" action="#">
+        <h2>Rate & Feedback</h2>
+
+        <!-- Star Rating -->
+        <div class="rating">
+            <input type="radio" id="star1" name="rating" value="5">
+            <label for="star1" title="5 star">★</label>
+
+            <input type="radio" id="star2" name="rating" value="4">
+            <label for="star2" title="4 stars">★</label>
+
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 stars">★</label>
+
+            <input type="radio" id="star4" name="rating" value="2">
+            <label for="star4" title="2 stars">★</label>
+
+            <input type="radio" id="star5" name="rating" value="1">
+            <label for="star5" title="1 stars">★</label>
+        </div>
+
+        <!-- Feedback Text Area -->
+        <textarea rows="3" name="feedback" placeholder="Write your feedback here..."></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit" name="feddback">Submit Feedback</button>
+    </form>
+
+    <!-- Feedback Card -->
+    <div class="d-flex  justify-content-around">
+
+        <?php
+        if (isset($_GET['productId'])) {
+            $productId = $_GET['productId'];
+
+            //get data feedback table data form DB
+            $selectFeedback = "SELECT * FROM feedback WHERE fk_item_id =  $productId and feedback_status='Accept' ";
+            $feedbackResult = mysqli_query($con, $selectFeedback);
+
+            if (mysqli_num_rows($feedbackResult) > 0) {
+                while ($row_data = mysqli_fetch_assoc($feedbackResult)) {
+                    $feedback_date = $row_data['feedback_date'];
+                    $feedback_msg = $row_data['feedback_msg'];
+                    $fk_cust_id = $row_data['fk_cust_id'];
+                    $feedback_status = $row_data['feedback_status'];
+
+                    //get customer name 
+                    $selectName = "SELECT * FROM customer WHERE cust_id=  $fk_cust_id ";
+                    $resultCustomer = mysqli_query($con, $selectName);
+                    $row_count = mysqli_num_rows($resultCustomer);
+
+                    if ($row_count > 0) {
+                        while ($row_data = mysqli_fetch_assoc($resultCustomer)) {
+                            $cust_fname = $row_data['cust_fname'];
+
+
+
+        ?>
+
+
+                            <div class="col-md-3  m-4">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo  $cust_fname ?></h5>
+                                        <p class="card-text"><?php echo  $feedback_msg ?></p>
+                                        <small class="text-muted">Submitted on: <?php echo  $feedback_date ?></small>
+                                    </div>
+                                </div>
+                            </div>
+
+        <?php
+                        }
+                    }
+                }
+            }
+        }
+        ?>
+    </div>
 
     <!-- footer section -->
     <?php
