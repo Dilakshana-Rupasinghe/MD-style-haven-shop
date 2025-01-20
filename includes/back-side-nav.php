@@ -61,7 +61,7 @@
     <span class="material-symbols-outlined">
         feedback
     </span>
-    <a href="#"> feedbacks </a>
+    <a href="../feedback-management/feedback-manage.php"> feedbacks </a>
 
 </div>
 
