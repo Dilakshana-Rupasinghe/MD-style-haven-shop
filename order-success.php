@@ -27,14 +27,24 @@ if (isset($_POST['okaybtn'])) {
     $paymentMethod = isset($_SESSION['paymentMethod']) ? $_SESSION['paymentMethod'] : "error";
     $Order_totle = isset($_SESSION['Order_totle']) ? $_SESSION['Order_totle'] : 0;
     $custId = isset($_SESSION['custId']) ?   $_SESSION['custId']  : "no input";
+    $orderItemDetails = isset($_SESSION['checkout_items']) ?   $_SESSION['checkout_items']  : "no input";
+    $item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
 
-    //send data to database table which is order table 
-    $orderInsertQuary = "INSERT INTO `order` (order_date, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id)
-        VALUES (NOW(),'$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$paymentMethod', $custId)";
+    // //send data to database table which is order table 
+    $orderInsertQuary = "INSERT INTO `order` (order_date, order_details, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id, fk_item_id)
+        VALUES (NOW(),'$orderItemDetails', '$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$paymentMethod', $custId, '$item_id' )";
 
     $result = mysqli_query($con, $orderInsertQuary);
 
     if ($result) {
+        // Get the last inserted order ID
+        $orderId = mysqli_insert_id($con);
+        //send data in to payment table 
+        $paymentInsertQuary = "INSERT INTO payment (payment_date, payment_amount, payment_method, payment_status,fk_order_id) 
+           VALUES (NOW(), '$Order_totle', '$paymentMethod', 'Success', $orderId)";
+
+        $paymentresult = mysqli_query($con, $paymentInsertQuary);
+
         // Retrieve purchased items and quantities
         $cartItemsQuery = "SELECT fk_item_id, item_qty FROM cart_item WHERE fk_cust_id = $custId";
         $cartItemsResult = mysqli_query($con, $cartItemsQuery);
