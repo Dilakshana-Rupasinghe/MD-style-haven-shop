@@ -30,6 +30,28 @@ include('database/config.php');
 
     <!-- <link rel="stylesheet" href="css/home.css"> -->
     <link rel="stylesheet" href="css/home-all-style.css">
+    <link rel="stylesheet" href="css/my-profile.css">
+
+
+    <style>
+        .view{
+            padding: 8px 16px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .view {
+            background-color: #1316b1;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -37,113 +59,117 @@ include('database/config.php');
     <?php
     include('includes/navbar.php');
     ?>
-
-    <h3 class="text-center my-3">CUSTOMIZATION HISTORY</h3>
-
-    <?php
-    if (isset($_SESSION['custId'])) {
-        $custId = $_SESSION['custId'];
-
-        $dataSelectQary = "SELECT * FROM customization WHERE fk_cust_id =  $custId ";
-        $result = mysqli_query($con, $dataSelectQary);
-
-        $row_count = mysqli_num_rows($result);
-
-        if ($row_count > 0) {
-
-    ?>
-
-            <div class="px-3">
-                <table class="table table-bordered table-striped mt-4">
-                    <thead>
-                        <tr>
-                            <th>Placeorder Date</th>
-                            <th>Cloth Type</th>
-                            <th>Measurement</th>
-                            <th>Fabric</th>
-                            <th>Neck Type</th>
-                            <th>QTY</th>
-                            <th>Total Price</th>
-                            <th>Advance Payment</th>
-                            <th>Remaining Balance</th>
-                            <th>Pickup Date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        while ($row_data = mysqli_fetch_assoc($result)) {
-                            $orderdate = $row_data['customization_date'];
-                            $clothtype = $row_data['Cloth_type'];
-                            $measurement = $row_data['measurement'];
-                            $fabric = $row_data['fabric'];
-                            $neck_type = $row_data['neck_type'];
-                            $qty = (int)$row_data['cust_qty'];
-                            $totalprice = (float)$row_data['total_price'];
-                            $advance = (float)$row_data['advance_pay_amount'];
-                            $balance = (float)$row_data['balance'];
-                            $pickupdate = $row_data['pickup_date'];
-                            $status = $row_data['customize_status'];
-
-
-                        ?>
-                            <tr>
-                                <td>
-                                    <?php echo $orderdate; ?>
-                                </td>
-                                <td>
-                                    <?php echo $clothtype; ?>
-                                </td>
-                                <td>
-                                    <?php echo $measurement; ?>
-                                </td>
-                                <td>
-                                    <?php echo $fabric; ?>
-                                </td>
-                                <td>
-                                    <?php echo $neck_type; ?>
-                                </td>
-                                <td>
-                                    <?php echo $qty; ?>
-                                </td>
-                                <td>
-                                    <?= number_format($totalprice, 2); ?>
-                                </td>
-                                <td>
-                                    <?= number_format($advance, 2); ?>
-                                </td>
-                                <td>
-                                    <?= number_format($balance, 2); ?>
-                                </td>
-                                <td>
-                                    <?php echo $pickupdate; ?>
-                                </td>
-                                <td>
-                                    <?php echo $status; ?>
-                                </td>
-                                <td>
-
-                                </td>
-                            </tr>
-
-                        <?php } ?>
-
-                    </tbody>
-                </table>
-
-        <?php
-        }else {
-            echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any customization yet </h2>";
-    } 
-    } ?>
-
-            </div>
-            <!-- footer section -->
+    <section class="order-history">
+        <h2>Customization Order History</h2>
+        <div class="no-orders">
             <?php
-            include('includes/footer.php');
+            if (isset($_SESSION['custId'])) {
+                $custId = $_SESSION['custId'];
+
+                $dataSelectQary = "SELECT * FROM customization WHERE fk_cust_id =  $custId ";
+                $result = mysqli_query($con, $dataSelectQary);
+
+                $row_count = mysqli_num_rows($result);
+
+                if ($row_count > 0) {
+
             ?>
-            <!-- footer end -->
+
+
+                    <div class="px-3">
+                        <table class="table table-bordered table-striped mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Placeorder Date</th>
+                                    <th>Cloth Type</th>
+                                    <th>Measurement</th>
+                                    <th>Fabric</th>
+                                    <th>Neck Type</th>
+                                    <th>QTY</th>
+                                    <th>Total Price</th>
+                                    <th>Advance Payment</th>
+                                    <th>Remaining Balance</th>
+                                    <th>Pickup Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                while ($row_data = mysqli_fetch_assoc($result)) {
+                                    $customization_id = $row_data['customization_id'];
+                                    $orderdate = $row_data['customization_date'];
+                                    $clothtype = $row_data['Cloth_type'];
+                                    $measurement = $row_data['measurement'];
+                                    $fabric = $row_data['fabric'];
+                                    $neck_type = $row_data['neck_type'];
+                                    $qty = (int)$row_data['cust_qty'];
+                                    $totalprice = (float)$row_data['total_price'];
+                                    $advance = (float)$row_data['advance_pay_amount'];
+                                    $balance = (float)$row_data['balance'];
+                                    $pickupdate = $row_data['pickup_date'];
+                                    $status = $row_data['customize_status'];
+
+
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $orderdate; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $clothtype; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $measurement; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fabric; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $neck_type; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $qty; ?>
+                                        </td>
+                                        <td>
+                                            <?= number_format($totalprice, 2); ?>
+                                        </td>
+                                        <td>
+                                            <?= number_format($advance, 2); ?>
+                                        </td>
+                                        <td>
+                                            <?= number_format($balance, 2); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $pickupdate; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $status; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo  "<a href='order-details-customize.php?customization_id=$customization_id' class='view'>More Details</a>" ?>
+                                        </td>
+                                    </tr>
+
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+
+                <?php
+                } else {
+                    echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any customization yet </h2>";
+                }
+            } ?>
+                    </div>
+        </div>
+    </section>
+    </div>
+    <!-- footer section -->
+    <?php
+    include('includes/footer.php');
+    ?>
+    <!-- footer end -->
 
 </body>
 
