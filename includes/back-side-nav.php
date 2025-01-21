@@ -13,7 +13,7 @@
     <span class="material-symbols-outlined">
         orders
     </span>
-    <a href="#"> Orders</a>
+    <a href="../order-management/order-manage.php"> Orders</a>
 
 </div>
 <div class="menu">
