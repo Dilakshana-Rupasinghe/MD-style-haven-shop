@@ -102,17 +102,17 @@ $custId = $_SESSION['custId'];
      
  </tr>
 <tr>
-    <th>Address</th>
+    <th>QTY</th>
     <td>$qty</td>
      
 </tr>
 <tr>
-    <th>Order Detail</th>
+    <th>Mesurment</th>
     <td>$measurement</td>
 
 </tr>
 <tr>
-    <th>Email</th>
+    <th>Nek Type</th>
     <td>$neck_type</td>
 
 </tr>
@@ -126,7 +126,7 @@ $custId = $_SESSION['custId'];
 </tr>
 
 <tr>
-    <th>Design Template</th>
+    <th> Print Image</th>
     <td>$image_design  <img class='object-fit-contain' id='mainimage' src='images/$image_design' height='140' width='auto'>
 </td>
 
