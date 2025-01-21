@@ -36,7 +36,6 @@ body {
 
 .main {
     display: grid;
-    grid-template-columns: auto 10rem;
 }
 
 

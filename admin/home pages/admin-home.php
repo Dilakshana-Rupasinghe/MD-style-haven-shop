@@ -27,6 +27,71 @@ include('../../database/config.php');
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/manage-button.css">
 
+    <style>
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-content {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .number {
+            font-size: 40px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .card-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .icon-box {
+            font-size: 15px;
+            color: #4CAF50;
+        }
+
+
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+
     <!-- material icons CSS link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -46,172 +111,188 @@ include('../../database/config.php');
         </aside>
     </div>
 
-    <div class="middle-side">
 
-        <!-- main section start -->
+    <!-- main section start -->
+    <div class="middle-side">
+        <div class="d-flex justify-content-between">
+
+            <!--  BACK & Register button end -->
+            <h1 class="mt-5 ms-3">Dashboard</h1>
+            <!-- BACK & Register button start -->
+            <div class="back-button-container mt-0">
+                <div class="date ms-5" style=" line-height: 2rem;">
+                    <input type="date" style=" padding: 0px 10px;">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="cards">
+            <?php
+            $sqlCateCount = "SELECT COUNT(category_name) as category_count FROM category;";
+            $resultCateCount = mysqli_query($con, $sqlCateCount);
+            $rowCateCount = mysqli_fetch_assoc($resultCateCount);
+            $categoryCount = $rowCateCount['category_count'];
+            ?>
+            <div class="card bg-info">
+                <div class="card-content">
+                    <div class="card-name text-white">Category</div>
+                    <div class="number"><?php echo $categoryCount; ?></div>
+                    <span class="material-symbols-outlined">
+                        category
+                    </span>
+                </div>
+            </div>
+            <div class="card">
+                <?php
+                $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
+                $resulCustCount = mysqli_query($con, $sqlclothCustCount);
+                $rowShoeCustCount = mysqli_fetch_assoc($resulCustCount);
+                $clothCustomizationCount = $rowShoeCustCount['customization_count'];
+                ?>
+
+                <div class="card-content">
+                    <div class="card-name">Customization</div>
+                    <div class="number"><?php echo $clothCustomizationCount; ?></div>
+                    <span class="material-symbols-outlined">
+                        apparel
+                    </span>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+            </div>
+            <div class="card">
+                <?php
+                $sqlOrdersCount = "SELECT COUNT(*) AS pending_order_count FROM `order`
+                                       WHERE order_status = 'Pending';";
+                $resulOrdersCount = mysqli_query($con, $sqlOrdersCount);
+                $rowOrdersCount = mysqli_fetch_assoc($resulOrdersCount);
+                $ordersCount = $rowOrdersCount['pending_order_count'];
+                ?>
+                <div class="card-content">
+
+                    <div class="card-name">Total Pending Orders</div>
+                    <div class="number"><?php echo $ordersCount; ?></div>
+                    <span class="material-symbols-outlined">
+                        pending_actions
+                    </span>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+            </div>
+        </div>
+
         <div class="main">
 
             <main class="mx-2" style="height: fit-content;">
-                  <!-- BACK & Register button start -->
-                  <div class="back-button-container mt-0">
-                <div class="date ms-5" style=" line-height: 2rem;">
-                        <input type="date" style=" padding: 0px 10px;">
+
+
+                <div class="chart m-3">
+                    <!-- <div class="d-flex"> -->
+                    <div class="edit " style="margin-top: 1rem;">
+                        <div class="change  " style="height: fit-content; width: 60rem">
+                            <!-- <div class="chart" style="width: 90%;"> -->
+
+
+                            <?php
+                            // Get data from DB to prepare item quantity data for the chart
+                            $sqlItemQuantity = "SELECT item_id, item_stock_qty
+                                    FROM item
+                                    ORDER BY item_name;
+                                ";
+
+                            $resultItemQuantity = mysqli_query($con, $sqlItemQuantity);
+
+                            $item_labels = [];
+                            $item_data = [];
+                            while ($rowItemQuantity = mysqli_fetch_assoc($resultItemQuantity)) {
+                                $item_labels[] = $rowItemQuantity['item_id'];
+                                $item_data[] = $rowItemQuantity['item_stock_qty'];
+                            }
+                            ?>
+
+                            <h3>Strock by item</h3>
+                            <canvas id="pie-chart"></canvas>
+
+                        </div>
+
                     </div>
                 </div>
+                <div class="d-flex">
 
-                <!--  BACK & Register button end -->
-                <h1 class="mt-5 ms-3">Dashboard</h1>
+                    <?php
+                    // Get data from DB to staff doughnut-chart
+                    $sqlTotalStaff = "SELECT st.staff_type_name, COUNT(s.staff_id) AS staff_count
+              FROM staff_type st
+             INNER JOIN staff s ON st.staff_type_id = s.fk_staff_type_id
+             GROUP BY st.staff_type_name;
+                ";
 
-                
+                    $resultTotalStaff = mysqli_query($con, $sqlTotalStaff);
 
-                <div class="charts">
-                    <div class="chart" style="width: 33rem;">
-                        <h3>Earning (2024)</h3>
-                        <canvas id="barChart"></canvas>
-                        <?php
-                        // Get data from DB to staff doughnut-chart
-                        $sqlTotalStaff = "SELECT st.staff_type_name, COUNT(s.staff_id) AS staff_count
-    FROM staff_type st
-    INNER JOIN staff s ON st.staff_type_id = s.fk_staff_type_id
-    GROUP BY st.staff_type_name;
-";
+                    $staff_labels = [];
+                    $staff_data = [];
+                    while ($rowTotalStaff = mysqli_fetch_assoc($resultTotalStaff)) {
+                        $staff_labels[] = $rowTotalStaff['staff_type_name'];
+                        $staff_data[] = $rowTotalStaff['staff_count'];
+                    }
+                    ?>
 
-                        $resultTotalStaff = mysqli_query($con, $sqlTotalStaff);
-
-                        $staff_labels = [];
-                        $staff_data = [];
-                        while ($rowTotalStaff = mysqli_fetch_assoc($resultTotalStaff)) {
-                            $staff_labels[] = $rowTotalStaff['staff_type_name'];
-                            $staff_data[] = $rowTotalStaff['staff_count'];
-                        }
-                        ?>
-
-
-
-                    </div>
-                    <div class="chart" id="pie-cahrt">
+                    <div class="chart m-3" id="pie-cahrt" style="width: 30rem;">
                         <h3>Employes</h3>
                         <canvas id="pieChart"></canvas>
 
                     </div>
+
+
+                    <?php
+                    // Get data from DB to prepare category-wise item count for the chart
+                    $sqlCategoryItemCount = "SELECT c.category_name, COUNT(i.item_id) AS item_count
+        FROM category c
+        INNER JOIN item i ON c.category_id = i.fk_category_id
+        GROUP BY c.category_name;";
+
+                    $resultCategoryItemCount = mysqli_query($con, $sqlCategoryItemCount);
+
+                    $category_labels = [];
+                    $category_data = [];
+                    while ($rowCategoryItemCount = mysqli_fetch_assoc($resultCategoryItemCount)) {
+                        $category_labels[] = $rowCategoryItemCount['category_name'];
+                        $category_data[] = $rowCategoryItemCount['item_count'];
+                    }
+                    ?>
+                    <div class="chart ms-5 mt-3" style="width: 29rem;">
+                        <h3>Strock by Category</h3>
+                        <canvas id="pie-chart"></canvas>
+
+                    </div>
                 </div>
-
-                <div class="insights mt-5 ms-1">
-
-                    <!-- start sessing -->
-                    <div class="seals text-center">
-                        <span class="material-symbols-outlined">
-                            trending_up
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5>total seals</h5>
-                                <h4>Rs. 45,840.50</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">75%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-                    </div>
-                    <!-- end selling -->
-
-
-                    <!-- start expensess -->
-                    <div class="expenses text-center">
-                        <span class="material-symbols-outlined">
-                            local_mall
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5> total expenses</h5>
-                                <h4>Rs. 25,480.99</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">85%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-
-                    </div>
-                    <!-- end expensess -->
-
-                    <!-- start income -->
-                    <div class="income text-center">
-                        <span class="material-symbols-outlined">
-                            monitoring
-                        </span>
-                        <div class="middle">
-                            <div class="left">
-                                <h5> total income</h5>
-                                <h4>Rs. 128,980.19</h4>
-                            </div>
-                            <div class="progoss">
-                                <svg>
-                                    <circle r="30" cy="40" cx="9.3rem"> </circle>
-                                </svg>
-                                <div class="number">65%</div>
-                            </div>
-                            <small>Last 24 Hours</small>
-                        </div>
-
-                    </div>
-
-                    <!-- end income -->
-                   
-
-                </div>
-
             </main>
-
-            <!-- main section end -->
-
-
-
-            <!-- right section start -->
-            <div class="right me-4 mb-5">
-                <h1></h1>
-            </div>
-            <!-- right cestion end -->
         </div>
 
 
-        <!-- start recent order -->
-        <div class="recent_order mt-4">
-            <hr>
-            <h2 class="ms-5 ps-5 mb-3">Recent orders</h2>
-            <hr>
-            <table>
-                <tr>
-                    <th>item name</th>
-                    <th>item code</th>
-                    <th>Price </th>
-                    <th>Payment Method </th>
-                    <th>Status </th>
-                </tr>
-                <tr>
-                    <td>POLO T-SHIRT SIGNATURE V NECK</td>
-                    <td>25001</td>
-                    <td>Rs : 3299.99</td>
-                    <td>COD</td>
-                    <td class="warring" style="color: darkred;">Pending</td>
-                </tr>
-                <tr>
-                    <td>GRAPHIC T-SHIRT Tropic Night Tee</td>
-                    <td>25052</td>
-                    <td>Rs : 5900.00</td>
-                    <td>Bank payment</td>
-                    <td class="warring" style="color: green;">Delivering</td>
-                </tr>
-            </table>
-        </div>
-        <!-- end recent order -->
+
+
+
+
+    </div>
+
+
+
+    <!-- main section end -->
+
+
+
+    <!-- right section start -->
+    <div class="right me-4 mb-5">
+        <h1></h1>
+    </div>
+    <!-- right cestion end -->
+    </div>
+
+
 
     </div>
 
@@ -237,6 +318,19 @@ include('../../database/config.php');
     </script>
     <script src="../../script/staffchart.js"></script>
 
+    <script src="../../script/strockchart.js"></script>
+
+    <script>
+        var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
+        var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/strockitem.js"></script>
+
+    <script>
+        var category_labels = <?php echo json_encode($category_labels); ?>; //convert array (staff_type_name) to json
+        var category_data = <?php echo json_encode($category_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/category.js"></script>
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
