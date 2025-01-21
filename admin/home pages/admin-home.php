@@ -143,7 +143,7 @@ include('../../database/config.php');
                     </span>
                 </div>
             </div>
-            <div class="card">
+            <div class="card bg-secondary">
                 <?php
                 $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
                 $resulCustCount = mysqli_query($con, $sqlclothCustCount);
@@ -152,7 +152,7 @@ include('../../database/config.php');
                 ?>
 
                 <div class="card-content">
-                    <div class="card-name">Customization</div>
+                    <div class="card-name text-dark">Customization</div>
                     <div class="number"><?php echo $clothCustomizationCount; ?></div>
                     <span class="material-symbols-outlined">
                         apparel
@@ -162,7 +162,7 @@ include('../../database/config.php');
                     <i class="fas fa-shoe-prints"></i>
                 </div>
             </div>
-            <div class="card">
+            <div class="card bg-warning">
                 <?php
                 $sqlOrdersCount = "SELECT COUNT(*) AS pending_order_count FROM `order`
                                        WHERE order_status = 'Pending';";
@@ -172,7 +172,7 @@ include('../../database/config.php');
                 ?>
                 <div class="card-content">
 
-                    <div class="card-name">Total Pending Orders</div>
+                    <div class="card-name text-dark">Total Pending Orders</div>
                     <div class="number"><?php echo $ordersCount; ?></div>
                     <span class="material-symbols-outlined">
                         pending_actions
