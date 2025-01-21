@@ -1,3 +1,5 @@
+<h3 class="text-center">Complet Order Report</h3>
+
 <?php
 
 // $getStaffDetails = 

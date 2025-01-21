@@ -1,3 +1,6 @@
+<h3 class="text-center">Pending Orders Report</h3>
+
+
 <?php
 
 // $getStaffDetails = 

@@ -27,7 +27,7 @@
     <span class="material-symbols-outlined">
         tune
     </span>
-    <a href="#"> Customization </a>
+    <a href="../customization/customization-management.php"> Customization </a>
 
 </div>
 <div class="menu">

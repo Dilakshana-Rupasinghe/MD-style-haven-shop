@@ -1,3 +1,4 @@
+<h3 class="text-center">Deactive Staff Report</h3>
 <?php
 
 // $getStaffDetails = 

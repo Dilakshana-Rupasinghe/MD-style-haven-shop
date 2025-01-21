@@ -1,3 +1,4 @@
+<h3 class="text-center">Active Staff Report</h3>
 <?php
 
 // $getStaffDetails = 

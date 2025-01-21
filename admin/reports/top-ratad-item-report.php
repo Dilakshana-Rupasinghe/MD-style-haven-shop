@@ -1,3 +1,6 @@
+<h3 class="text-center">Top Rated Product Report</h3>
+
+
 <?php
 
 $SelectQuary = "SELECT fk_item_id, item_name,item_brand,

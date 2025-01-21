@@ -1,3 +1,5 @@
+<h3 class="text-center">Loyalty Customer Report</h3>
+
 <?php
 
 // $getStaffDetails = 

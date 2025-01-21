@@ -1,3 +1,5 @@
+<h3 class="text-center">Product Offers Report</h3>
+
 <?php
 
 // $getStaffDetails = 
