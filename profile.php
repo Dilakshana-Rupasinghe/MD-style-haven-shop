@@ -209,56 +209,57 @@ if (isset($_POST['saveChanges'])) {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
                         <?php
-                        if (isset($_SESSION['custId']))
+                        if (isset($_SESSION['custId'])) {
                             $CustId = $_SESSION['custId'];
 
-                        $selectOrderDetails = "SELECT * FROM `order` WHERE fk_cust_id= $CustId";
-                        $Orderresult = mysqli_query($con, $selectOrderDetails);
-                        $row_count = mysqli_num_rows($Orderresult);
+                            $selectOrderDetails = "SELECT * FROM `order` WHERE fk_cust_id= $CustId";
+                            $Orderresult = mysqli_query($con, $selectOrderDetails);
+                            $row_count = mysqli_num_rows($Orderresult);
 
-                        if ($row_count > 0) {
-                            while ($row_data = mysqli_fetch_assoc($Orderresult)) {
-                                $order_id = $row_data['order_id'];
-                                $order_date = $row_data['order_date'];
-                                $fk_item_id = $row_data['fk_item_id'];
-                                $order_total = $row_data['order_total'];
-                                $order_status = $row_data['order_status'];
+                            if ($row_count > 0) {
+                                while ($row_data = mysqli_fetch_assoc($Orderresult)) {
+                                    $order_id = $row_data['order_id'];
+                                    $order_date = $row_data['order_date'];
+                                    $fk_item_id = $row_data['fk_item_id'];
+                                    $order_total = $row_data['order_total'];
+                                    $order_status = $row_data['order_status'];
 
                         ?>
 
-                                <tr>
-                                    <td>
-                                        <?php echo $order_id; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $order_date; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $fk_item_id; ?>
-                                    </td>
-                                    <td>
-                                        <?= number_format($order_total, 2); ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $order_status; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo  "<a href='order-details.php?order_id=$order_id' class='view'>More Details</a>" ?>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $order_id; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $order_date; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fk_item_id; ?>
+                                        </td>
+                                        <td>
+                                            <?= number_format($order_total, 2); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $order_status; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo  "<a href='order-details.php?order_id=$order_id' class='view'>More Details</a>" ?>
+                                        </td>
+                                    </tr>
+                       
 
-                    </tbody>
-                </table>
-            <?php
-                        } else {
-                            echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any Orders yet </h2>";
+                    <?php
+                            }
+                     } else {
+                        echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any Orders yet </h2>";
                         }
+                    }
+                    ?>
+                </table>
 
-            ?>
             </div>
+        </div>
     </section>
 
 
@@ -267,7 +268,6 @@ if (isset($_POST['saveChanges'])) {
     include('includes/footer.php');
     ?>
 
-    <script src="script.js"></script>
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
