@@ -209,24 +209,24 @@ if (isset($_POST['saveChanges'])) {
                             <th>Action</th>
                         </tr>
                     </thead>
-                        <?php
-                        if (isset($_SESSION['custId'])) {
-                            $CustId = $_SESSION['custId'];
+                    <?php
+                    if (isset($_SESSION['custId'])) {
+                        $CustId = $_SESSION['custId'];
 
-                            $selectOrderDetails = "SELECT * FROM `order` WHERE fk_cust_id= $CustId";
-                            $Orderresult = mysqli_query($con, $selectOrderDetails);
-                            $row_count = mysqli_num_rows($Orderresult);
+                        $selectOrderDetails = "SELECT * FROM `order` WHERE fk_cust_id= $CustId";
+                        $Orderresult = mysqli_query($con, $selectOrderDetails);
+                        $row_count = mysqli_num_rows($Orderresult);
 
-                            if ($row_count > 0) {
-                                while ($row_data = mysqli_fetch_assoc($Orderresult)) {
-                                    $order_id = $row_data['order_id'];
-                                    $order_date = $row_data['order_date'];
-                                    $fk_item_id = $row_data['fk_item_id'];
-                                    $order_total = $row_data['order_total'];
-                                    $order_status = $row_data['order_status'];
+                        if ($row_count > 0) {
+                            while ($row_data = mysqli_fetch_assoc($Orderresult)) {
+                                $order_id = $row_data['order_id'];
+                                $order_date = $row_data['order_date'];
+                                $fk_item_id = $row_data['fk_item_id'];
+                                $order_total = $row_data['order_total'];
+                                $order_status = $row_data['order_status'];
 
-                        ?>
-
+                    ?>
+                                <tbody>
                                     <tr>
                                         <td>
                                             <?php echo $order_id; ?>
@@ -247,12 +247,12 @@ if (isset($_POST['saveChanges'])) {
                                             <?php echo  "<a href='order-details.php?order_id=$order_id' class='view'>More Details</a>" ?>
                                         </td>
                                     </tr>
-                       
+                                </tbody>
 
                     <?php
                             }
-                     } else {
-                        echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any Orders yet </h2>";
+                        } else {
+                            echo "<h2 class='bg-danger text-center m-5 py-2 '> Not any Orders yet </h2>";
                         }
                     }
                     ?>
