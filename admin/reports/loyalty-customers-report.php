@@ -10,12 +10,11 @@ $SelectQuary = "SELECT fk_cust_id , order_total,order_date,order_status,
 FROM 
     `order`
 WHERE 
-    order_status = 'pending'
-    OR order_status = 'complete' -- Include only completed orders
+   order_status = 'complete'-- Include only completed orders
 GROUP BY 
     fk_cust_id
 HAVING 
-    COUNT(order_id) > 5 -- Customers with more than 5 orders
+    COUNT(order_id) > 0 -- Customers with more than 5 orders
 ORDER BY 
     COUNT(order_id) DESC, -- Sort by the number of orders
     SUM(order_total) DESC; -- Secondary sort by total spent";

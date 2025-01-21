@@ -1,4 +1,4 @@
-<h3 class="text-center">Out of stock Report</h3>
+<h3 class="text-center">Low stock Report</h3>
 
 
 <?php

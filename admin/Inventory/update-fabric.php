@@ -27,8 +27,8 @@ if (isset($_POST['fabricupdate'])) {
         // insert new item to DB
         if (mysqli_query($con, $fabricUpdateQuiry)) {
             echo "<script>alert('new fabric is Update successfully');</script>";
-            echo "<script>window.open('add-fabric.php', '_self');</script>";
-
+            echo "<script>window.open('fabric-management.php', '_self');</script>";
+            exit();
         }
     }
 }

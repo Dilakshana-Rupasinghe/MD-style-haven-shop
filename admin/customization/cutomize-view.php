@@ -138,7 +138,7 @@ include('../../database/config.php');
                 
                 </tr>
                 <tr>
-                    <th>Email</th>
+                    <th>Nek Type</th>
                     <td>$neck_type</td>
                 
                 </tr>

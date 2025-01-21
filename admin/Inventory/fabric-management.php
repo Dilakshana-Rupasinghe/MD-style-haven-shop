@@ -30,7 +30,7 @@ if (isset($_POST['fabricAdd'])) {
 
             if (mysqli_query($con, $addfabricQuory)) {
                 echo "<script>alert('New fabric is added Successfully')</script>";
-                echo "<script>window.open('add-fabric.php', '_self');</script>";
+                echo "<script>window.open('fabric-management.php', '_self');</script>";
             }
         }
     }
@@ -43,7 +43,8 @@ if (isset($_GET['fabrictypeId'])) {
     $fabricDeleteQuire = "DELETE FROM fabric_type WHERE fabric_type_id = $fabrictypeId"; //delete quary
     if (mysqli_query($con, $fabricDeleteQuire)) {
         echo "<script>alert('fabric type is deleted successfully');</script>";
-        echo "<script>window.open('add-fabric.php', '_self');</script>";
+        echo "<script>window.open('fabric-management.php', '_self');</script>";
+        exit();
     }
 }
 
@@ -150,7 +151,7 @@ if (isset($_GET['fabrictypeId'])) {
 
                                 <td class='action-links'>
                                 <a href='update-fabric.php?fabrictypeId=$fabrictypeid' class='update'> Update </a> 
-                                <a href='add-fabric.php?fabrictypeId=$fabrictypeid' class='deactivate'> Delete </a> 
+                                <a href='fabric-management.php?fabrictypeId=$fabrictypeid' class='deactivate'> Delete </a> 
                                 </td>
                                 
                                 </tr>";

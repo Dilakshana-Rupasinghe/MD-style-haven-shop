@@ -60,7 +60,7 @@ if (!isset($_SESSION['staffId'])) {
                         <select name="report" id="report" style="width: 20rem;">
                             <option value="0">Select Report</option>
                             <option value="1">Active Staff Report</option>
-                            <option value="2">Out of Stock Items Report</option>
+                            <option value="2">Low Stock Items Report</option>
                             <option value="3">Top rated Items Report</option>
                             <option value="4">Highest Offers Items Report</option>
                             <option value="5">Loyalty customers Report</option>

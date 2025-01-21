@@ -18,7 +18,7 @@ if (isset($_POST['sendinquary'])) {
             //if user not registerd then the Cust ID should be null
             $custIdValue = $custId !== NULL ? $custId : 'NULL';
             // insert quary
-            $inquaryInsertQary = "INSERT INTO inquiry(inquiry_date,sender_name,email,inquiry_msg,fk_cust_id) VALUES (NOW(), '$name', '$email', '$messege', $custIdValue)";
+            $inquaryInsertQary = "INSERT INTO inquiry(inquiry_date,sender_name,email,inquiry_msg,inquary_status,fk_cust_id) VALUES (NOW(), '$name', '$email', '$messege','pending', $custIdValue)";
 
             $result = mysqli_query($con, $inquaryInsertQary);
 
