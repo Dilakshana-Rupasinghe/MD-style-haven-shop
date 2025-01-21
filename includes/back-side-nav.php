@@ -40,7 +40,7 @@
     <span class="material-symbols-outlined">
         report
     </span>
-    <a href="#"> Reports </a>
+    <a href="../reports/report-manage.php"> Reports </a>
 
 </div>
 <div class="menu">
@@ -72,9 +72,3 @@
     <a href="../cost management/cost-manage.php">Cost manage</a>
 </div>
 
-<div class="menu mb-2">
-    <span class="material-symbols-outlined">
-        local_shipping
-    </span>
-    <a href="#"> Dilivery </a>
-</div>
