@@ -200,7 +200,7 @@ include('../../database/config.php');
                             // Get data from DB to prepare item quantity data for the chart
                             $sqlItemQuantity = "SELECT item_id, item_stock_qty
                                     FROM item
-                                    ORDER BY item_name;
+                                    ORDER BY item_id;
                                 ";
 
                             $resultItemQuantity = mysqli_query($con, $sqlItemQuantity);
