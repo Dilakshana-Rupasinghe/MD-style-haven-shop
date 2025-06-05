@@ -147,15 +147,15 @@ if (isset($_POST['feddback'])) {
                     $showItemQntyColor = 'text-success';
                 }
 
-                  // Fetch average rating for the product
-                  $avgRatingQuery = "SELECT AVG(rating_value) AS average_rating FROM rating WHERE fk_item_id = $itemId";
-                  //AS mean create tempory attibutr to store average rating
-                  //execute quary
-                  $avgRatingResult = mysqli_query($con, $avgRatingQuery);
-                  if ($avgRatingResult) {
-                      $avgRatingRow = mysqli_fetch_assoc($avgRatingResult);
-                      $average_rating = $avgRatingRow['average_rating'];
-                  }
+                // Fetch average rating for the product
+                $avgRatingQuery = "SELECT AVG(rating_value) AS average_rating FROM rating WHERE fk_item_id = $itemId";
+                //AS mean create tempory attibutr to store average rating
+                //execute quary
+                $avgRatingResult = mysqli_query($con, $avgRatingQuery);
+                if ($avgRatingResult) {
+                    $avgRatingRow = mysqli_fetch_assoc($avgRatingResult);
+                    $average_rating = $avgRatingRow['average_rating'];
+                }
             ?>
 
 
@@ -279,6 +279,8 @@ if (isset($_POST['feddback'])) {
 
     <!-- add to the cart start-->
     <?php
+
+
     if (isset($_POST['AddtoCart'])) {
         //rederect to the login page if user is not login
         if (!isset($_SESSION['custId'])) {
@@ -293,30 +295,31 @@ if (isset($_POST['feddback'])) {
         $cartResult = mysqli_query($con, $cartSelectQuiry);
 
         // check if item alrady existe
-        if(mysqli_num_rows($cartResult) > 0 ) {
+        if (mysqli_num_rows($cartResult) > 0) {
             $row_data = mysqli_fetch_assoc($cartResult);
             $_SESSION['CartId'] = $row_data['cart_id'];
             echo "<script>alert('This item already exists in your cart.');</script>";
-            echo "<script>window.open('cart.php', '_self')</script>";
             exit();
         }
 
         // add item to cart item
-        $cartInsertQuiry = "INSERT INTO cart_item (item_qty, fk_cust_id, fk_item_id) VALUES ($addingItemQTY, $cust_id, $itemId)";
-
-        if(mysqli_query($con, $cartInsertQuiry)){
-            echo "<script>alert('Add item to cart successfully');</script>";
+        if (isset($_GET['productId'])) {
+            $cartInsertQuiry = "INSERT INTO cart_item (item_qty, fk_cust_id, fk_item_id) VALUES ($addingItemQTY, $cust_id, $itemId)";
+            if (mysqli_query($con, $cartInsertQuiry)) {
+                echo "<script>alert('Add item to cart successfully');</script>";
+                echo "<script>window.open('product-view.php?productId=$itemId', '_self')</script>";
+                exit();
+            }
         }
 
         // Update the stock quantity of the item after add to cart
-        $newStockQTY = $item_stock_qty - $addingItemQTY;
+        // $newStockQTY = $item_stock_qty - $addingItemQTY;
 
-        $updateItemQuiry = "UPDATE cart_item SET item_stock_qty= $newStockQTY WHERE item_id = $itemId ";
-        if(mysqli_query($con, $updateItemQuiry)){
-            echo "<script>window.open('product.php', '_self');</script>";
-            exit();
-        }
-
+        // $updateItemQuiry = "UPDATE cart_item SET item_stock_qty= $newStockQTY WHERE item_id = $itemId ";
+        // if (mysqli_query($con, $updateItemQuiry)) {
+        //     echo "<script>window.open('product-view.php', '_self');</script>";
+        //     exit();
+        // }
     }
     ?>
 
