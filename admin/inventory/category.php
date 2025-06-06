@@ -131,8 +131,8 @@ if (isset($_GET['categoryId'])) {
                     }
                     ?>
                     <div class="change ms-5" style="width: 25rem;">
-                        <h3>Strock by Category</h3>
-                        <canvas id="pie-chart"></canvas>
+                        <h3>Categories</h3>
+                        <canvas id='pie-chart'></canvas>
 
                     </div>
                 </div>
@@ -169,6 +169,8 @@ if (isset($_GET['categoryId'])) {
                                 </tr>";
                             }
                         }
+
+
                         ?>
 
                     </table>
