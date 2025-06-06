@@ -86,9 +86,9 @@ include('../../database/config.php');
 
                             <?php
                             // Get data from DB to prepare item quantity data for the chart
-                            $sqlItemQuantity = "SELECT item_id, item_stock_qty
+                            $sqlItemQuantity = "SELECT item_id, item_name, item_stock_qty
                                     FROM item
-                                    ORDER BY item_name;
+                                    ORDER BY item_id;
                                 ";
 
                             $resultItemQuantity = mysqli_query($con, $sqlItemQuantity);
@@ -96,13 +96,13 @@ include('../../database/config.php');
                             $item_labels = [];
                             $item_data = [];
                             while ($rowItemQuantity = mysqli_fetch_assoc($resultItemQuantity)) {
-                                $item_labels[] = $rowItemQuantity['item_id'];
+                                $item_labels[] = $rowItemQuantity['item_name'];
                                 $item_data[] = $rowItemQuantity['item_stock_qty'];
                             }
                             ?>
 
                             <h3>Strock by item</h3>
-                            <canvas id="pie-chart"></canvas>
+                            <canvas id="bar-chart"></canvas>
 
                         </div>
                     
@@ -135,7 +135,7 @@ include('../../database/config.php');
         var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
         var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
     </script>
-    <script src="../../script/strockitem.js"></script>
+    <script src="../../script/stockcount.js"></script>
 
 
     <!--Bootstrap JS link -->
