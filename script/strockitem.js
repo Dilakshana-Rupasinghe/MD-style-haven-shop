@@ -1,10 +1,10 @@
-var ctx = document.getElementById('pie-chart').getContext('2d');
+var ctx = document.getElementById('stockChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar', // Type of chart (bar, line, pie, etc.)
     data: {
         labels: item_labels, // X-axis labels
         datasets: [{
-            label: 'Item',
+            label: 'Product',
             data: item_data, // Data for the graph
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
