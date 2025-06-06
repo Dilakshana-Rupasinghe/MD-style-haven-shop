@@ -32,16 +32,17 @@ include('../../database/config.php');
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 20px;
-            padding: 10px;
+            gap: 5px;
+            padding: 5px;
         }
 
         .card {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 5px;
+            width: 220px;
+            height: 150px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -55,24 +56,23 @@ include('../../database/config.php');
 
         .card-content {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .number {
             font-size: 40px;
             font-weight: bold;
-            color: #4CAF50;
+            color: rgb(17, 136, 136);
         }
 
         .card-name {
-            font-size: 24px;
-            font-weight: 600;
-            color: #555;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .icon-box {
-            font-size: 15px;
-            color: #4CAF50;
+            font-size: 20px;
+            color: rgb(20, 19, 19);
         }
 
 
@@ -87,7 +87,18 @@ include('../../database/config.php');
             }
 
             .card {
-                width: 90%;
+                width: 50%;
+                height: 20%;
+            }
+
+            .number {
+                font-size: 15px;
+                align-items: center;
+            }
+
+            .card-name {
+                font-size: 15px;
+                align-items: center;
             }
         }
     </style>
@@ -134,16 +145,17 @@ include('../../database/config.php');
             $rowCateCount = mysqli_fetch_assoc($resultCateCount);
             $categoryCount = $rowCateCount['category_count'];
             ?>
-            <div class="card bg-info">
+            <div class="card " style="background-color:rgb(204, 221, 255)
+">
                 <div class="card-content">
-                    <div class="card-name text-white">Category</div>
+                    <div class="card-name">CATEGORY</div>
                     <div class="number"><?php echo $categoryCount; ?></div>
                     <span class="material-symbols-outlined">
                         category
                     </span>
                 </div>
             </div>
-            <div class="card bg-secondary">
+            <div class="card" style="background-color:rgb(243, 230, 255)">
                 <?php
                 $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
                 $resulCustCount = mysqli_query($con, $sqlclothCustCount);
@@ -152,7 +164,7 @@ include('../../database/config.php');
                 ?>
 
                 <div class="card-content">
-                    <div class="card-name text-dark">Customization</div>
+                    <div class="card-name text-dark">CUSTOMIZATION</div>
                     <div class="number"><?php echo $clothCustomizationCount; ?></div>
                     <span class="material-symbols-outlined">
                         apparel
@@ -162,7 +174,28 @@ include('../../database/config.php');
                     <i class="fas fa-shoe-prints"></i>
                 </div>
             </div>
-            <div class="card bg-warning">
+
+            <div class="card" style="background-color:rgb(230, 255, 255)">
+                <?php
+                $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
+                $resulCustCount = mysqli_query($con, $sqlclothCustCount);
+                $rowShoeCustCount = mysqli_fetch_assoc($resulCustCount);
+                $clothCustomizationCount = $rowShoeCustCount['customization_count'];
+                ?>
+
+                <div class="card-content">
+                    <div class="card-name text-dark">SALSE</div>
+                    <div class="number"><?php echo $clothCustomizationCount; ?></div>
+                    <span class="material-symbols-outlined">
+                        finance_mode
+                    </span>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+            </div>
+
+            <div class="card" style="background-color:rgb(255, 230, 230)">
                 <?php
                 $sqlOrdersCount = "SELECT COUNT(*) AS pending_order_count FROM `order`
                                        WHERE order_status = 'Pending';";
@@ -172,7 +205,7 @@ include('../../database/config.php');
                 ?>
                 <div class="card-content">
 
-                    <div class="card-name text-dark">Total Pending Orders</div>
+                    <div class="card-name text-dark">PENDING ORDER</div>
                     <div class="number"><?php echo $ordersCount; ?></div>
                     <span class="material-symbols-outlined">
                         pending_actions
@@ -198,7 +231,7 @@ include('../../database/config.php');
 
                             <?php
                             // Get data from DB to prepare item quantity data for the chart
-                            $sqlItemQuantity = "SELECT item_id, item_stock_qty
+                            $sqlItemQuantity = "SELECT item_id,item_name, item_stock_qty
                                     FROM item
                                     ORDER BY item_id;
                                 ";
@@ -208,12 +241,12 @@ include('../../database/config.php');
                             $item_labels = [];
                             $item_data = [];
                             while ($rowItemQuantity = mysqli_fetch_assoc($resultItemQuantity)) {
-                                $item_labels[] = $rowItemQuantity['item_id'];
+                                $item_labels[] = $rowItemQuantity['item_name'];
                                 $item_data[] = $rowItemQuantity['item_stock_qty'];
                             }
                             ?>
 
-                            <h3>Strock by item</h3>
+                            <h3>Stock by Item</h3>
                             <canvas id="pie-chart"></canvas>
 
                         </div>
@@ -240,14 +273,37 @@ include('../../database/config.php');
                     }
                     ?>
 
-                    <div class="chart m-3" id="pie-cahrt" style="width: 30rem;">
+                    <div class="chart m-3 text-center" id="pie-cahrt" style="width: 29rem; height:31rem">
                         <h3>Employes</h3>
                         <canvas id="pieChart"></canvas>
 
                     </div>
 
+                    <?php
+                    // Get data from DB to Payment type line-chart
+                    $sqlTotalPaymentType = "SELECT order_payment_option , COUNT(order_id) AS payment_count
+              FROM `order` WHERE order_status = 'Complete' 
+             GROUP BY order_payment_option;
+                ";
 
-                   
+                    $resultTotalpaymentType = mysqli_query($con, $sqlTotalPaymentType);
+
+                    $payment_type_labels = [];
+                    $payment_type_data = [];
+                    while ($rowTotalpayment_type = mysqli_fetch_assoc($resultTotalpaymentType)) {
+                        $payment_type_labels[] = $rowTotalpayment_type['order_payment_option'];
+                        $payment_type_data[] = $rowTotalpayment_type['payment_count'];
+                    }
+                    ?>
+
+                    <div class="chart m-3 mt-5 text-center " id="line-chart" style="width: 36rem; height: 26rem;">
+                        <h3>Payments</h3>
+                        <canvas id="lineChart" class="mt-5"></canvas>
+
+                    </div>
+
+
+
                 </div>
             </main>
         </div>
@@ -291,20 +347,25 @@ include('../../database/config.php');
 
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../../script/chart1.js"></script>
     <script>
         var staffLabels = <?php echo json_encode($staff_labels); ?>; //convert array (staff_type_name) to json
         var staffData = <?php echo json_encode($staff_data); ?>; //convert array (staff_count) to json
     </script>
     <script src="../../script/staffchart.js"></script>
 
-    <script src="../../script/strockchart.js"></script>
 
     <script>
         var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
         var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
     </script>
     <script src="../../script/strockitem.js"></script>
+
+    <!-- for payment type chart -->
+    <script>
+        var Payment_Type_labels = <?php echo json_encode($payment_type_labels); ?>; //convert array (staff_type_name) to json
+        var Payment_Type_data = <?php echo json_encode($payment_type_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/PaymentTypeLineChart.JS"></script>
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -29,7 +29,7 @@ var myChart = new Chart(ctx, {
         responsive: true, // Make the chart responsive
         scales: {
             y: {
-                beginAtZero: true // Start the y-axis at zero
+                beginAtZero: false // Start the y-axis at zero
             }
         }
     }
