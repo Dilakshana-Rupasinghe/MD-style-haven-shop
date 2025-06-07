@@ -139,6 +139,27 @@ include('../../database/config.php');
 
 
         <div class="cards">
+
+            <div class="card" style="background-color:rgb(230, 255, 255)">
+                <?php
+                $sqlclothCustCount = "SELECT COUNT(cust_id) AS customer_count FROM customer WHERE cust_is_active= 1";
+                $resulCustomerCount = mysqli_query($con, $sqlclothCustCount);
+                $rowCustomerCount = mysqli_fetch_assoc($resulCustomerCount);
+                $customersCount = $rowCustomerCount['customer_count'];
+                ?>
+
+                <div class="card-content">
+                    <div class="card-name text-dark">TOTLE CUSTOMERS</div>
+                    <div class="number"><?php echo $customersCount; ?></div>
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+            </div>
+
             <?php
             $sqlCateCount = "SELECT COUNT(category_name) as category_count FROM category;";
             $resultCateCount = mysqli_query($con, $sqlCateCount);
@@ -175,25 +196,6 @@ include('../../database/config.php');
                 </div>
             </div>
 
-            <div class="card" style="background-color:rgb(230, 255, 255)">
-                <?php
-                $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
-                $resulCustCount = mysqli_query($con, $sqlclothCustCount);
-                $rowShoeCustCount = mysqli_fetch_assoc($resulCustCount);
-                $clothCustomizationCount = $rowShoeCustCount['customization_count'];
-                ?>
-
-                <div class="card-content">
-                    <div class="card-name text-dark">SALSE</div>
-                    <div class="number"><?php echo $clothCustomizationCount; ?></div>
-                    <span class="material-symbols-outlined">
-                        finance_mode
-                    </span>
-                </div>
-                <div class="icon-box">
-                    <i class="fas fa-shoe-prints"></i>
-                </div>
-            </div>
 
             <div class="card" style="background-color:rgb(255, 230, 230)">
                 <?php
@@ -247,8 +249,7 @@ include('../../database/config.php');
                             ?>
 
                             <h3>Stock by Item</h3>
-                            <canvas id="pie-chart"></canvas>
-
+                            <canvas id="bar-chart"></canvas>
                         </div>
 
                     </div>
@@ -348,17 +349,19 @@ include('../../database/config.php');
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
+        var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
+    </script>
+    <script src="../../script/stockcount.js"></script>
+
+
+    <script>
         var staffLabels = <?php echo json_encode($staff_labels); ?>; //convert array (staff_type_name) to json
         var staffData = <?php echo json_encode($staff_data); ?>; //convert array (staff_count) to json
     </script>
     <script src="../../script/staffchart.js"></script>
 
 
-    <script>
-        var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
-        var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
-    </script>
-    <script src="../../script/strockitem.js"></script>
 
     <!-- for payment type chart -->
     <script>
