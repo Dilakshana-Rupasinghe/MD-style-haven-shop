@@ -1,5 +1,6 @@
 <?php
 include('function/commen-function.php');
+$current_page = basename($_SERVER['PHP_SELF']); // to idintifi current loded page 
 ?>
 <nav class="navbar navbar-expand-lg bg-body-secondary  sticky-top py-0">
     <div class="container-fluid">
@@ -12,7 +13,7 @@ include('function/commen-function.php');
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item ms-3 ">
-                    <a class="nav-link " href="Index.php">HOME</a>
+                    <a class="nav-link <?php echo($current_page == 'Index.php')? 'fw-bold text-decoration-underline': ''; ?> " href="Index.php">HOME</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> CATEGORY </a>
@@ -48,20 +49,21 @@ include('function/commen-function.php');
                     </ul>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="about-us.php">ABOUT-US </a>
+                    <a class="nav-link <?php echo($current_page == 'about-us.php')? 'fw-bold text-decoration-underline':''; ?> " href="about-us.php">ABOUT-US </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link " href="contact-us.php">CONTACT-US </a>
+                    <a class="nav-link <?php echo ($current_page == 'contact-us.php') ? 'fw-bold text-decoration-underline' : ''; ?>" href="contact-us.php">CONTACT-US </a>
                 </li>
                 <?php
-                    if (!isset($_SESSION['custId'])) {
-                        $displayNonecustom = "d-none";
-                    } else {
-                        $displayNonecustom = "";
-                    }
-                    ?>
-                <li class="<?php echo $displayNonecustom; ?> nav-item">                    
-                    <a class="nav-link " href="customize-cloth.php">CUSTOMIZE </a>
+                if (!isset($_SESSION['custId'])) {
+                    $displayNonecustom = "d-none";
+                } else {
+                    $displayNonecustom = "";
+                }
+                ?>
+                <li class="<?php echo $displayNonecustom; ?> nav-item">
+                    <a class="nav-link <?php echo ($current_page == 'customize-cloth.php') ? 'fw-bold text-decoration-underline' : ''; ?>" href="customize-cloth.php">CUSTOMIZE</a>
+
                 </li>
             </ul>
 
@@ -75,14 +77,14 @@ include('function/commen-function.php');
                 }
                 ?>
                 <li class="<?php echo $displayNone; ?> nav-item">
-                    <a class="nav-link " href="sign-up.php">Sign up</a>
+                    <a class="nav-link <?php echo($current_page == 'sign-up.php')? 'fw-bold text-decoration-underline' : '';?> " href="sign-up.php">Sign up</a>
                 </li>
                 <li class="<?php echo $displayNone; ?> nav-item me-2">
-                    <a class="nav-link " href="login.php">Login</a>
+                    <a class="nav-link <?php echo($current_page == 'login.php')? 'fw-bold text-decoration-underline' : '';?> " href="login.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="cart.php" style="color:black;">
-                        <span class="material-symbols-outlined">
+                    <a class="nav-link" href="cart.php" style="color:black;">
+                        <span class="material-symbols-outlined <?php echo($current_page == 'cart.php')? 'text-decoration-underline' : '';?>">
                             shopping_cart
                         </span>
                         <?php
@@ -97,7 +99,7 @@ include('function/commen-function.php');
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="profile.php" style="font-size: 19px; color:black;">
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined <?php echo($current_page == 'profile.php')? 'text-decoration-underline' : '';?>">
                             account_circle
                         </span>
                     </a>
