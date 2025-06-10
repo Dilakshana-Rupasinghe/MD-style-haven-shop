@@ -87,7 +87,7 @@ include('database/config.php');
         </div>
         <div class="row">
             <?php
-            $itemSelectQuairy = "SELECT * FROM item ORDER BY item_date_added DESC LIMIT 4,5";
+            $itemSelectQuairy = "SELECT * FROM item ORDER BY item_date_added DESC LIMIT 5";
             getItemCard($con, $itemSelectQuairy);
             ?>
         </div>
