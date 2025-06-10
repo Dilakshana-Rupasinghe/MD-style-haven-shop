@@ -79,6 +79,7 @@ include('database/config.php');
                             $item_discount = (float)$row_data['item_discount'];
                             $item_stock_qty = (int)$row_data['item_stock_qty'];
 
+                            //get fetch data from cart_item table
                             $cart_id = $row_data['cart_id'];
                             $item_qty = (int)$row_data['item_qty'];
 
