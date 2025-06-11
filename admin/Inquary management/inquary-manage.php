@@ -54,7 +54,7 @@ include('../../database/config.php');
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
 
-                <a href="inventory-management.php" class="back-button">Back</a>
+                <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 </div>
                 <!--  BACK & Register button end -->
 
