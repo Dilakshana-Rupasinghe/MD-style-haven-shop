@@ -110,7 +110,7 @@ $row_count = mysqli_num_rows($result);
                 ?>
 
                 <!-- Orders Table -->
-                <table class="table table-bordered table-striped mt-3">
+                <table>
                     <thead>
                         <tr>
                             <th>Order ID</th>
