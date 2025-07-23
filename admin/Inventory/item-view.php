@@ -53,7 +53,6 @@ include('../../database/config.php');
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
                     <div class="date ms-4" style=" line-height: 2rem;">
-                        <input type="date" style=" padding: 0px 10px;">
                     </div>
                     <a href="add-item.php" class="manage-item-button" style="font-size: 16px; padding:11px 22px">
                         Add Item
