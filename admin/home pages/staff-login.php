@@ -33,28 +33,28 @@ if (isset($_POST['staff-login'])) {
                     header("location:admin-home.php");
                     exit();
                 } elseif ($staff_type_id == 1002) {
-                     header('location:inventorymanager-home.php');
-                     exit();
-                 }elseif($staff_type_id == 1003){
-                     header('location:deliver-home.php');
-                     exit();
-                    }elseif($staff_type_id == 1004){
-                        header('location:accountant-home.php');
-                        exit();
-                    }elseif($staff_type_id == 1005){
-                     header('location:customerservice-home.php');
-                     exit();
-                 }elseif($staff_type_id == 1006){
-                     header('location:designer-home.php');
-                     exit();
-                 }
-            }else{
-                echo "<script> alart('User is Deactive'); </script>" ;
+                    header('location:../Inventory/inventory-management.php');
+                    exit();
+                } elseif ($staff_type_id == 1003) {
+                    header('location:deliver-home.php');
+                    exit();
+                } elseif ($staff_type_id == 1004) {
+                    header('location:accountant-home.php');
+                    exit();
+                } elseif ($staff_type_id == 1005) {
+                    header('location:customerservice-home.php');
+                    exit();
+                } elseif ($staff_type_id == 1006) {
+                    header('location:designer-home.php');
+                    exit();
+                }
+            } else {
+                echo "<script> alart('User is Deactive'); </script>";
             }
-        }else{
+        } else {
             echo "<script>alert('Invalid Password');</script>";
         }
-    }else{
+    } else {
         echo "<script>alert('Invalid Credentials');</script>";
     }
 }
