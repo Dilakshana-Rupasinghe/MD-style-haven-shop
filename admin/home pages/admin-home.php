@@ -131,9 +131,7 @@ include('../../database/config.php');
             <h1 class="mt-5 ms-3">Dashboard</h1>
             <!-- BACK & Register button start -->
             <div class="back-button-container mt-0">
-                <div class="date ms-5" style=" line-height: 2rem;">
-                    <input type="date" style=" padding: 0px 10px;">
-                </div>
+               
             </div>
         </div>
 
