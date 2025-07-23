@@ -72,10 +72,10 @@ if (isset($_GET['search_input'])) {
 
                 <!-- Search Form -->
                 <form method="GET" class="mb-3">
-                    <div class="row g-3 align-items-center">
+                    <div class="row g-5 align-items-center">
                         <div class="col-auto d-flex">
                             <label for="search_input" class="col-form-label fw-bold">Search:</label>
-                            <input type="text" name="search_input" class="col-form-label py-2 ms-2" placeholder="Search by Category or Item ID" value="<?= htmlspecialchars($search_input) ?>">
+                            <input type="text" name="search_input" class="col-12 col-form-label py-2 ms-2" placeholder="Search by Category or Item ID" value="<?= htmlspecialchars($search_input) ?>">
                         </div>
                         <div class="col-auto d-flex">
                             <button type="submit" class="btn btn-primary ms-4">Apply</button>
