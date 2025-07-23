@@ -54,7 +54,6 @@ include('../../database/config.php');
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
                     <div class="date ms-0" style="padding: 0px 35px 0px 0px; line-height: 1.5rem;">
-                        <input type="date" style=" padding: 0px 10px;">
                     </div>
                     <a href="fabric-management.php" class="manage-fabric-button">
                         Manage Fabrics
