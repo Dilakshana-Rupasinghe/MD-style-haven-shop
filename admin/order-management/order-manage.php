@@ -92,11 +92,11 @@ $row_count = mysqli_num_rows($result);
                         <!-- Customer search -->
                         <div class="col-auto d-flex">
                             <label for="status" class="col-form-label fw-bold">Search:</label>
-                            <input type="text" name="search_customer" class="col-form-label py-2" placeholder="Search by Customer Name" value="<?= htmlspecialchars($search_customer) ?>">
+                            <input type="text" name="search_customer" class="col-10 col-form-label py-2" placeholder="Search by Customer Name" value="<?= htmlspecialchars($search_customer) ?>">
                         </div>
 
                         <div class="col-auto d-flex">
-                            <button type="submit" class="btn btn-primary ms-4">Apply</button>
+                            <button type="submit" class="btn btn-primary ms-5">Apply</button>
                             <a href="order-manage.php" class="btn btn-secondary ms-3">Reset</a>
                         </div>
                     </div>
