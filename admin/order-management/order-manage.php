@@ -137,6 +137,15 @@ $row_count = mysqli_num_rows($result);
                                 $order_payment_option = $row_data['order_payment_option'];
                                 $order_status = $row_data['order_status'];
 
+                                 // check the order complete or not
+                                if ($order_status == 'Complete' ) {
+                                    $status = "Deactive";
+                                    $invisible = "invisible";
+                                } else {
+                                    $status = "Active";
+                                    $invisible = "";
+                                }
+
                                 echo "
                                 <tr>
                                     <td>$order_id</td>
@@ -148,8 +157,8 @@ $row_count = mysqli_num_rows($result);
                                     <td>$order_status</td>
                                     <td class='action-links'>
                                         <a href='order-view.php?orderId=$order_id' class='view'>View</a> 
-                                        <a href='update-order.php?orderId=$order_id' class='update'>Status</a>
-                                        <a href='#' class='deactivate'>Cancel</a>
+                                        <a href='update-order.php?orderId=$order_id' class='$invisible update'>Status</a>
+                                        <a href='#' class='$invisible deactivate'>Cancel</a>
                                     </td>
                                 </tr>";
                             }
