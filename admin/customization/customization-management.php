@@ -58,6 +58,37 @@ include('../../database/config.php');
                 <!--  BACK & Register button end -->
                 <h1 class="mt-2">Order management</h1>
 
+                <!-- filter section -->
+                <!-- filter by status -->
+                <form method="GET" class="mb-3">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="status" class="col-form-label fw-bold">Filter By Status</label>
+                        </div>
+                        <div class="col-auto">
+                            <select name="status" id="status" class="form-select">
+                                <option value=""> All Orders </option>
+                                <option value="Pending"> Pending </option>
+                                <option value="Processing"> Processing </option>
+                                <option value="Ready for Fiton"> Ready for Fiton </option>
+                                <option value="Complete"> Complete </option>
+                            </select>
+                        </div>
+
+                        <!-- customer search -->
+                         <div class="col-auto d-flex">
+                            <label for="status" class="col-form-lable fw-bold"> Search:</label>
+                            <input type="text" name="search_customer" class="col-form-label py-2" placeholder="Search by cust name" value="">
+                         </div>
+
+                         <div class="col-auto d-flex">
+                            <button type="submit" class="btn btn-primary ms-4">Apply</button>
+                            <a href="customization-management.php" class="btn btn-secondary ms-3">Reset</a>
+                        </div>
+                    </div>
+                </form>
+
+
                 <h2 class="text-center">Order Details</h2>
 
 
@@ -102,7 +133,7 @@ include('../../database/config.php');
                             $row_count = mysqli_num_rows($customerResult);
                             $row_data = mysqli_fetch_assoc($customerResult);
 
-                            $customer = $row_data['cust_fname']. ' '. $row_data['cust_lname'];
+                            $customer = $row_data['cust_fname'] . ' ' . $row_data['cust_lname'];
                             echo "
               <tr>
         <td> $customization_id </td>
