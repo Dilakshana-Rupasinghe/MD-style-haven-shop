@@ -40,6 +40,11 @@ if (!empty($status_filter) && !empty($search_customer)) {
 // Run the query
 $result = mysqli_query($con, $get_itemDetails);
 $row_count = mysqli_num_rows($result);
+
+
+if (!$result) {
+    die("Query Error: " . mysqli_error($con));
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +67,16 @@ $row_count = mysqli_num_rows($result);
     <link rel="stylesheet" href="../../css/commen.css">
     <link rel="stylesheet" href="../../css/fuck.css">
     <link rel="stylesheet" href="../../css/manage-button-1.css">
+    <!-- Material icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 </head>
 
 <body>
     <?php include('../../includes/admin-navigation.php'); ?>
     <div class="container-body">
         <!-- Sidebar -->
-        <aside class="left-menu" style="height: fit-content;">
+        <aside class="left-menu" style="height: 100%;">
             <?php include('../../includes/back-side-nav.php'); ?>
         </aside>
 
@@ -76,10 +84,22 @@ $row_count = mysqli_num_rows($result);
         <div class="middle-side">
             <main class="ms-4">
                 <div class="back-button-container mt-1">
-                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                    <?php
+                    $invisible = '';
+                    $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+                    // Admin has staff_type_id = 1001, Designer = 1006
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
+                        echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
+                    } else {
+                        echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+                    }
+                    ?>
                 </div>
 
-                <h1 class="mt-2">Order Management</h1>
+
+
+                <h1 class="mt-2">Customize Order Management</h1>
 
                 <!-- Filter Form -->
                 <form method="GET" class="mb-3">
@@ -125,7 +145,6 @@ $row_count = mysqli_num_rows($result);
                         <tr>
                             <th>Custom ID</th>
                             <th>Order Date</th>
-                            <th>Customer ID</th>
                             <th>Customer</th>
                             <th>Type</th>
                             <th>Quantity</th>
@@ -137,54 +156,40 @@ $row_count = mysqli_num_rows($result);
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php
+                        $result = mysqli_query($con, $get_itemDetails);
+
+                        // Check query success
+                        if (!$result) {
+                            die("Query Failed: " . mysqli_error($con));
+                        }
+
+                        $row_count = mysqli_num_rows($result);
+
+
                         if ($row_count == 0) {
-                            echo "<tr><td colspan='11' class='text-center text-danger'>No records found</td></tr>";
+                            echo "<tr><td colspan='11' class='text-center'>No customization requests found.</td></tr>";
                         } else {
-                            while ($row_data = mysqli_fetch_assoc($result)) {
-                                $customization_id = $row_data['customization_id'];
-                                $customization_date = $row_data['customization_date'];
-                                $fk_cust_id = $row_data['fk_cust_id'];
-                                $Cloth_type = $row_data['Cloth_type'];
-                                $cust_qty = $row_data['cust_qty'];
-                                $total_price = $row_data['total_price'];
-                                $advance_pay_amount = $row_data['advance_pay_amount'];
-                                $pickup_date = $row_data['pickup_date'];
-                                $customize_status = $row_data['customize_status'];
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $row['customization_id'] . "</td>";
+                                echo "<td>" . $row['customization_date'] . "</td>";
+                                echo "<td>" . $row['cust_fname'] . " " . $row['cust_lname'] . "</td>";
+                                echo "<td>" . $row['Cloth_type'] . "</td>";
+                                echo "<td>" . $row['cust_qty'] . "</td>";
+                                echo "<td>" . $row['total_price'] . "</td>";
+                                echo "<td>" . $row['advance_pay_amount'] . "</td>";
+                                echo "<td>" . $row['pickup_date'] . "</td>";
+                                echo "<td>" . $row['customize_status'] . "</td>";
 
-                                // Get customer name
-                                $get_customer = "SELECT * FROM customer WHERE cust_id = $fk_cust_id";
-                                $customerResult = mysqli_query($con, $get_customer);
-                                $customer_data = mysqli_fetch_assoc($customerResult);
-                                $customer = $customer_data['cust_fname'] . ' ' . $customer_data['cust_lname'];
+                                $invisible = ($row['customize_status'] == 'Complete') ? 'invisible' : '';
 
-                                // check the order complete or not
-                                if ($customize_status == 'Complete' ) {
-                                    $status = "Deactive";
-                                    $invisible = "invisible";
-                                } else {
-                                    $status = "Active";
-                                    $invisible = "";
-                                }
-
-                                echo "
-                                    <tr>
-                                        <td>$customization_id</td>
-                                        <td>$customization_date</td>
-                                        <td>$fk_cust_id</td>
-                                        <td>$customer</td>
-                                        <td>$Cloth_type</td>
-                                        <td>$cust_qty</td>
-                                        <td>$total_price</td>
-                                        <td>$advance_pay_amount</td>
-                                        <td>$pickup_date</td>
-                                        <td>$customize_status</td>
-                                        <td class='action-links'>
-                                            <a href='cutomize-view.php?customizationId=$customization_id' class='view'>View</a> 
-                                            <a href='update-customize.php?customizationId=$customization_id' class='$invisible update'>Status</a>
-                                            <a href='#' class='$invisible deactivate'>Cancel</a>
-                                        </td>
-                                    </tr>";
+                                echo "<td class='action-links'>
+                            <a href='cutomize-view.php?customizationId=" . $row['customization_id'] . "' class='view'>View</a>
+                            <a href='update-customize.php?customizationId=" . $row['customization_id'] . "' class='$invisible update'>Status</a>
+                            <a href='#' class='$invisible deactivate'>Cancel</a></td>";
+                                echo "</tr>";
                             }
                         }
                         ?>
