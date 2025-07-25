@@ -62,6 +62,7 @@ if (isset($_GET['staffId'])) {
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
+                    <a href="staff-registration.php" class="Registration">Register</a>
                     <?php
                     $invisible = '';
                     $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
