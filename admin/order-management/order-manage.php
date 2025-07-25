@@ -45,6 +45,10 @@ $row_count = mysqli_num_rows($result);
     <title>Order management</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts & Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+
     <link rel="stylesheet" href="../../css/home-all-style.css">
     <link rel="stylesheet" href="../../css/back-home-style.css">
     <link rel="stylesheet" href="../../css/back-style.css">
@@ -60,7 +64,7 @@ $row_count = mysqli_num_rows($result);
 
     <div class="container-body">
         <!-- menu section -->
-        <aside class="left-menu" style="height: fit-content;">
+        <aside class="left-menu" style="height: 100%;">
             <?php include('../../includes/back-side-nav.php'); ?>
         </aside>
 
@@ -68,7 +72,17 @@ $row_count = mysqli_num_rows($result);
             <main class="ms-4">
                 <!-- Back button -->
                 <div class="back-button-container mt-1">
-                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                    <?php
+                    $invisible = '';
+                    $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+                    // Admin has staff_type_id = 1001, Designer = 1006
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
+                        echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
+                    } else {
+                        echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+                    }
+                    ?>
                 </div>
 
                 <h1 class="mt-2">Order Management</h1>
@@ -125,42 +139,37 @@ $row_count = mysqli_num_rows($result);
                     </thead>
                     <tbody>
                         <?php
+
+                        $result = mysqli_query($con, $get_itemDetails);
+
+                        // Check query success
+                        if (!$result) {
+                            die("Query Failed: " . mysqli_error($con));
+                        }
+
+                        $row_count = mysqli_num_rows($result);
+
+
                         if ($row_count == 0) {
-                            echo "<tr><td colspan='8' class='text-center text-danger'>No orders found.</td></tr>";
+                            echo "<tr><td colspan='11' class='text-center'>No orders found.</td></tr>";
                         } else {
-                            while ($row_data = mysqli_fetch_assoc($result)) {
-                                $order_id = $row_data['order_id'];
-                                $order_date = $row_data['order_date'];
-                                $customer = $row_data['order_fname'] . ' ' . $row_data['order_lname'];
-                                $order_details = $row_data['order_details'];
-                                $order_total = $row_data['order_total'];
-                                $order_payment_option = $row_data['order_payment_option'];
-                                $order_status = $row_data['order_status'];
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . $row['order_id'] . "</td>";
+                                echo "<td>" . $row['order_date'] . "</td>";
+                                echo "<td>" . $row['order_fname'] . " " . $row['order_lname'] . "</td>";
+                                echo "<td>" . $row['order_details'] . "</td>";
+                                echo "<td>" . $row['order_total'] . "</td>";
+                                echo "<td>" . $row['order_payment_option'] . "</td>";
+                                echo "<td>" . $row['order_status'] . "</td>";
 
-                                 // check the order complete or not
-                                if ($order_status == 'Complete' ) {
-                                    $status = "Deactive";
-                                    $invisible = "invisible";
-                                } else {
-                                    $status = "Active";
-                                    $invisible = "";
-                                }
+                                $invisible = ($row['order_status'] == 'Complete') ? 'invisible' : '';
 
-                                echo "
-                                <tr>
-                                    <td>$order_id</td>
-                                    <td>$order_date</td>
-                                    <td>$customer</td>
-                                    <td>$order_details</td>
-                                    <td>$order_total</td>
-                                    <td>$order_payment_option</td>
-                                    <td>$order_status</td>
-                                    <td class='action-links'>
-                                        <a href='order-view.php?orderId=$order_id' class='view'>View</a> 
-                                        <a href='update-order.php?orderId=$order_id' class='$invisible update'>Status</a>
-                                        <a href='#' class='$invisible deactivate'>Cancel</a>
-                                    </td>
-                                </tr>";
+                                echo "<td class='action-links'>
+                            <a href='order-view.php?orderId=" . $row['order_id'] . "' class='view'>View</a>
+                            <a href='update-order.php?orderId=" . $row['order_id'] . "' class='$invisible update'>Status</a>
+                            <a href='#' class='$invisible deactivate'>Cancel</a></td>";
+                                echo "</tr>";
                             }
                         }
                         ?>
