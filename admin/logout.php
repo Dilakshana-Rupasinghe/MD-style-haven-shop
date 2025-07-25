@@ -34,6 +34,10 @@ if (isset($_POST['staffLogout'])) {
     <link rel="stylesheet" href="../css/home-all-style.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/back-style.css">
+    <link rel="stylesheet" href="../../css/back-home.css">
+    <!-- Google Material icons CSS link -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 </head>
 
 <body>
@@ -65,7 +69,25 @@ if (isset($_POST['staffLogout'])) {
 
     <!-- BACK button start -->
     <div class="back-button-container">
-        <a href="home pages/admin-home.php" class="back-button">Back</a>
+        <?php
+        $invisible = '';
+        $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+        // Admin has staff_type_id = 1001, Designer = 1006
+        $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+        if ($_SESSION['fk_staff_type_id'] == 1001) {
+            echo '<a href="home pages/admin-home.php" class="back-button">Back</a>';
+        } elseif($_SESSION['fk_staff_type_id'] == 1002) {
+            echo '<a href="inventory/inventory-management.php" class="back-button">Back</a>';
+        } elseif($_SESSION['fk_staff_type_id'] == 1003) {
+            echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+        } elseif($_SESSION['fk_staff_type_id'] == 1004) {
+            echo '<a href="order-management/order-manage.php" class="back-button">Back</a>';
+        } elseif($_SESSION['fk_staff_type_id'] == 1005) {
+            echo '<a href="Inquary management/inquary-manage.php" class="back-button">Back</a>';
+        } elseif($_SESSION['fk_staff_type_id'] == 1006) {
+            echo '<a href="customization/customization-management.php" class="back-button">Back</a>';
+        }
+        ?>
     </div>
     <!-- BACK button end -->
 
