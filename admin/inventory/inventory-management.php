@@ -69,7 +69,17 @@ include('../../database/config.php');
                         <span class="material-symbols-outlined" style="font-size:18px; padding-left: 7px;">
                             category
                         </span></a>
-                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                    <?php
+                    $invisible = '';
+                    $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+                    // Admin has staff_type_id = 1001, Designer = 1006
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
+                        echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
+                    } else {
+                        echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+                    }
+                    ?>
                 </div>
 
                 <!--  BACK & Register button end -->
@@ -104,7 +114,7 @@ include('../../database/config.php');
                             <canvas id="bar-chart"></canvas>
 
                         </div>
-                    
+
                     </div>
                 </div>
 

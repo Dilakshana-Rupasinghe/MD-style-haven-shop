@@ -5,21 +5,21 @@ session_start();
 if (!isset($_SESSION['staffId'])) {
     header('location:../home pages/staff-login.php');
     exit();
-}else{
+} else {
     $staffId = $_SESSION['staffId'];
 }
 // include the database configaration file
 include('../../database/config.php');
 
 
-if(isset($_GET['FeedbackIdaccept'])){
+if (isset($_GET['FeedbackIdaccept'])) {
     $feedback_id = $_GET['FeedbackIdaccept'];
 
     $updateFeedback = "UPDATE feedback SET feedback_status= 'Accept' , fk_staff_id =$staffId WHERE feedback_id = $feedback_id ";
     $Updateresult = mysqli_query($con, $updateFeedback);
 }
 
-if(isset($_GET['FeedbackIdcancle'])){
+if (isset($_GET['FeedbackIdcancle'])) {
     $feedback_id = $_GET['FeedbackIdcancle'];
 
     $updateFeedback = "UPDATE feedback SET feedback_status= 'reject' , fk_staff_id =$staffId WHERE feedback_id = $feedback_id ";
@@ -78,7 +78,8 @@ if(isset($_GET['FeedbackIdcancle'])){
                     $invisible = '';
                     $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
                     // Admin has staff_type_id = 1001, Designer = 1006
-                    if ($_SESSION['staffId'] == 1001) {
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
                         echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
                     } else {
                         echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';

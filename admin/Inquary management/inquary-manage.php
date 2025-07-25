@@ -49,16 +49,16 @@ include('../../database/config.php');
         <div class="middle-side">
 
 
-             <!-- main section start -->
-             <main class="ms-4">
+            <!-- main section start -->
+            <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-
                     <?php
                     $invisible = '';
                     $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
                     // Admin has staff_type_id = 1001, Designer = 1006
-                    if ($_SESSION['staffId'] == 1001) {
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
                         echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
                     } else {
                         echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
@@ -79,21 +79,21 @@ include('../../database/config.php');
                         <th>Action </th>
                     </tr>
 
-                <?php
-                
-                $getInquaryData = "SELECT * FROM inquiry ";
+                    <?php
 
-                $result = mysqli_query($con, $getInquaryData);
-                $row_count = mysqli_num_rows($result);
+                    $getInquaryData = "SELECT * FROM inquiry ";
 
-                if($row_count > 0){
-                    while($row_data = mysqli_fetch_assoc($result)){
-                        $inquiry_id = $row_data['inquiry_id'];
-                        $sender_name = $row_data['sender_name'];
-                        $email = $row_data['email'];
-                        $inquiry_msg = $row_data['inquiry_msg'];
-                        $inquary_status = $row_data['inquary_status'];
-                        echo "
+                    $result = mysqli_query($con, $getInquaryData);
+                    $row_count = mysqli_num_rows($result);
+
+                    if ($row_count > 0) {
+                        while ($row_data = mysqli_fetch_assoc($result)) {
+                            $inquiry_id = $row_data['inquiry_id'];
+                            $sender_name = $row_data['sender_name'];
+                            $email = $row_data['email'];
+                            $inquiry_msg = $row_data['inquiry_msg'];
+                            $inquary_status = $row_data['inquary_status'];
+                            echo "
                         <tr>
                   <td> $inquiry_id </td>
                   <td> $sender_name </td>
@@ -106,20 +106,20 @@ include('../../database/config.php');
                   
                   </td>
               </tr>";
-                  }
-              }
+                        }
+                    }
 
-              ?>
+                    ?>
 
 
-          </table>
+                </table>
 
             </main>
         </div>
     </div>
 
 
-    
+
     <!-- footer section start -->
     <div>
         <footer class="copyr fixed-bottom  ">

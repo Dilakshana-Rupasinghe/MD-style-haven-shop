@@ -10,13 +10,13 @@ if (!isset($_SESSION['staffId'])) {
 include('../../database/config.php');
 
 //deactivate user 
-if(isset($_GET['staffId'])){
+if (isset($_GET['staffId'])) {
     $staff_id = $_GET['staffId'];
 
     //delete query
     $staffDeleteQuiry = "UPDATE staff SET staff_is_active = 0 WHERE staff_id = '$staff_id'";
 
-    if(mysqli_query($con, $staffDeleteQuiry)){
+    if (mysqli_query($con, $staffDeleteQuiry)) {
         header('location:staff-management.php');
     }
 }
@@ -62,12 +62,12 @@ if(isset($_GET['staffId'])){
             <main class="ms-4">
                 <!-- BACK & Register button start -->
                 <div class="back-button-container mt-1">
-                    <a href="staff-registration.php" class="Registration">Register</a>
                     <?php
                     $invisible = '';
                     $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
                     // Admin has staff_type_id = 1001, Designer = 1006
-                    if ($_SESSION['staffId'] == 1001) {
+                    $logged_in_staff_id = isset($_SESSION['fk_staff_type_id']) ? $_SESSION['fk_staff_type_id'] : null; // Here's the mismatch
+                    if ($_SESSION['fk_staff_type_id'] == 1001) {
                         echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
                     } else {
                         echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
@@ -117,7 +117,6 @@ if(isset($_GET['staffId'])){
                             if ($staff_is_active == 1) {
                                 $status = "Active";
                                 $invisible = "";
-
                             } else {
                                 $status = "Deactive";
                                 $invisible = "invisible";
