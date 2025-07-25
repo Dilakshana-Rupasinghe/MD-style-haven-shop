@@ -77,7 +77,7 @@ if (isset($_POST['itemAdd'])) {
     <div class="container-body">
 
         <!-- menu section start -->
-        <aside class="left-menu" style="height: fit-content;">
+        <aside class="left-menu" style="height: 100%;">
             <?php
             include('../../includes/back-side-nav.php');
             ?>

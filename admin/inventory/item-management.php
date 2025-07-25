@@ -52,7 +52,7 @@ if (isset($_GET['search_input'])) {
 
     <div class="container-body">
         <!-- Side Navigation -->
-        <aside class="left-menu" style="height: fit-content;">
+        <aside class="left-menu" style="height: 100%;">
             <?php include('../../includes/back-side-nav.php'); ?>
         </aside>
 
