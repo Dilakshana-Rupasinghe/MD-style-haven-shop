@@ -70,7 +70,16 @@ if (!isset($_SESSION['staffId'])) {
                         </select>
                         <input type="submit" name="submit" value="Generate Report" class="deactivate bg-warning text-dark">
                     </form>
-                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                    <?php
+                    $invisible = '';
+                    $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+                    // Admin has staff_type_id = 1001, Designer = 1006
+                    if ($_SESSION['staffId'] == 1001) {
+                        echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
+                    } else {
+                        echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+                    }
+                    ?>
                 </div>
                 <!--  BACK & Register button end -->
                 <div class="container row my-2 mx-auto">

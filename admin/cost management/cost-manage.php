@@ -28,7 +28,7 @@ if (isset($_POST['parameeterAdd'])) {
         } else {
 
             $parameterInsertQary = "INSERT INTO cost_parameter (para_type, para_name, para_cost) VALUES ('$paratype', '$paraname', '$price')";
-        
+
             if (mysqli_query($con, $parameterInsertQary)) {
                 echo "<script>alert('New parameeter is added Successfully')</script>";
                 echo "<script>window.open('cost-manage.php', '_self');</script>";
@@ -99,7 +99,16 @@ if (isset($_GET['paraId'])) {
                             request_quote
                         </span></a>
 
-                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
+                    <?php
+                    $invisible = '';
+                    $invisible = ($_SESSION['staffId'] != 1001) ? 'invisible' : '';
+                    // Admin has staff_type_id = 1001, Designer = 1006
+                    if ($_SESSION['staffId'] == 1001) {
+                        echo '<a href="../home pages/admin-home.php" class="back-button">Back</a>';
+                    } else {
+                        echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+                    }
+                    ?>
                 </div>
 
                 <h1>Cost management</h1>
@@ -131,30 +140,30 @@ if (isset($_GET['paraId'])) {
                 </div>
 
                 <div>
-                        <table>
-                            <tr>
-                                <th>Parameter Type ID</th>
-                                <th>Parameter Type name</th>
-                                <th>Parameter name</th>
-                                <th>Price</th>
-                                <th>Action</th>
-                            </tr>
-                            <?php
-                            $get_paraDetail = "SELECT * FROM cost_parameter ";
+                    <table>
+                        <tr>
+                            <th>Parameter Type ID</th>
+                            <th>Parameter Type name</th>
+                            <th>Parameter name</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php
+                        $get_paraDetail = "SELECT * FROM cost_parameter ";
 
-                            $result = mysqli_query($con, $get_paraDetail);
-                            $row_count = mysqli_num_rows($result);
+                        $result = mysqli_query($con, $get_paraDetail);
+                        $row_count = mysqli_num_rows($result);
 
-                            if ($row_count == 0) {
-                                echo "<h2 class='bg-danger text-center mt-5'>Np user yet </h2>";
-                            } else {
-                                while ($row_date = mysqli_fetch_assoc($result)) {
-                                    $paraid = $row_date['para_id'];
-                                    $paratype = $row_date['para_type'];
-                                    $paraname = $row_date['para_name'];
-                                    $paracost = $row_date['para_cost'];
+                        if ($row_count == 0) {
+                            echo "<h2 class='bg-danger text-center mt-5'>Np user yet </h2>";
+                        } else {
+                            while ($row_date = mysqli_fetch_assoc($result)) {
+                                $paraid = $row_date['para_id'];
+                                $paratype = $row_date['para_type'];
+                                $paraname = $row_date['para_name'];
+                                $paracost = $row_date['para_cost'];
 
-                                    echo "<tr>
+                                echo "<tr>
                                 
                                 <td> $paraid </td>
                                 <td> $paratype </td>
@@ -167,12 +176,12 @@ if (isset($_GET['paraId'])) {
                                 </td>
                                 
                                 </tr>";
-                                }
                             }
-                            ?>
+                        }
+                        ?>
 
-                        </table>
-                    </div>
+                    </table>
+                </div>
 
             </main>
         </div>
