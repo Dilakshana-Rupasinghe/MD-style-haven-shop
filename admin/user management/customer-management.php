@@ -41,7 +41,7 @@ include('../../database/config.php');
             <main class="ms-4">
                 <!-- BACK button start -->
                 <div class="back-button-container mt-1">
-                    <a href="staff-management.php" class="back-button">Back</a>
+                    <a href="../home pages/admin-home.php" class="back-button">Back</a>
                 </div>
                 <!-- BACK button end -->
 
