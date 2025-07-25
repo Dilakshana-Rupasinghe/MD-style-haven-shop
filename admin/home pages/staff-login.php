@@ -26,6 +26,7 @@ if (isset($_POST['staff-login'])) {
 
                 // store staff id into session
                 $_SESSION['staffId'] = $row_data['staff_id'];
+                $_SESSION['staffTypeId'] = $row_data['fk_staff_type_id'];
                 $staff_type_id = ($row_data['fk_staff_type_id']);
 
                 // rederect to the user they relevent home page according to staff type id
@@ -36,16 +37,16 @@ if (isset($_POST['staff-login'])) {
                     header('location:../Inventory/inventory-management.php');
                     exit();
                 } elseif ($staff_type_id == 1003) {
-                    header('location:deliver-home.php');
+                    header('location:#');
                     exit();
                 } elseif ($staff_type_id == 1004) {
-                    header('location:accountant-home.php');
+                    header('location:../order-management/order-manage.php');
                     exit();
                 } elseif ($staff_type_id == 1005) {
-                    header('location:customerservice-home.php');
+                    header('location:../Inquary management/inquary-manage.php');
                     exit();
                 } elseif ($staff_type_id == 1006) {
-                    header('location:designer-home.php');
+                    header('location:../customization/customization-management.php');
                     exit();
                 }
             } else {
