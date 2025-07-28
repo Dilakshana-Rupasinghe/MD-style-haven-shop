@@ -30,6 +30,18 @@ if (isset($_POST['okaybtn'])) {
     $orderItemDetails = isset($_SESSION['checkout_items']) ?   $_SESSION['checkout_items']  : "no input";
     $item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
 
+    // if user pay with online loyalty point table update here //
+    //get user loyalty detail in checkout.php page 
+    $earnedPoints = isset($_SESSION['earnedPoints']) ? $_SESSION['earnedPoints'] : 0;
+    $currentPoint = isset($_SESSION['currentPoint']) ? $_SESSION['currentPoint'] : 0;
+    $UpdetNewPoint = isset($_SESSION['UpdetNewPoint']) ? $_SESSION['UpdetNewPoint'] : 0;
+
+    // check if user pay online and update the table
+    if ($paymentMethod == 'online') {
+        $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPoint WHERE fk_cust_id = $custId";
+        $result = mysqli_query($con, $pointUpdateQuary);
+    }
+
     // //send data to database table which is order table 
     $orderInsertQuary = "INSERT INTO `order` (order_date, order_details, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id, fk_item_id)
         VALUES (NOW(),'$orderItemDetails', '$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$paymentMethod', $custId, '$item_id' )";
