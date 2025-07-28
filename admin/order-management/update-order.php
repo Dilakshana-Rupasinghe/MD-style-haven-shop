@@ -31,6 +31,8 @@ WHERE order_id = $view_order"; //get category name from category table
             $fk_cust_id = $row_data['fk_cust_id'];
             $customer = $row_data['order_fname'] . ' ' . $row_data['order_lname'];
             $order_status = $row_data['order_status'];
+            $order_total = $row_data['order_total'];
+            $paymentMethod = $row_data['order_payment_option'];
         }
     }
 }
@@ -38,11 +40,36 @@ WHERE order_id = $view_order"; //get category name from category table
 $_SESSION['order_id'] =  $order_id;
 $_SESSION['order_details'] =  $order_details;
 $_SESSION['customer'] =  $customer;
+$_SESSION['fk_cust_id'] =  $fk_cust_id;
+$_SESSION['order_total'] =  $order_total;
+$_SESSION['paymentMethod'] =  $paymentMethod;
 
 $order_id = isset($_SESSION['order_id']) ?  $_SESSION['order_id']  : "N/A";
 $order_details = isset($_SESSION['order_details']) ?  $_SESSION['order_details']  : "N/A";
 $customer = isset($_SESSION['customer']) ?  $_SESSION['customer']  : "N/A";
+$fk_cust_id = isset($_SESSION['fk_cust_id']) ?  $_SESSION['fk_cust_id']  : "N/A";
+$order_total = isset($_SESSION['order_total']) ?  $_SESSION['order_total']  : 0;
+$paymentMethod = isset($_SESSION['paymentMethod']) ?  $_SESSION['paymentMethod']  : "error";
 
+// control user loyalty point if payment option COD
+
+//get user loyalty detail in checkout.php page 
+// Check if the customer already has a loyalty record and get current point value
+$pointSelectQuary = "SELECT points FROM user_loyalty WHERE fk_cust_id = '$fk_cust_id'";
+$pointsResult = mysqli_query($con, $pointSelectQuary);
+$rowdata = mysqli_fetch_assoc($pointsResult);
+
+//get current point value store in DB
+$currentPoint = $rowdata['points'];
+
+//calculate points using current purches total 
+$earnedPoint = (float)($order_total / 100); // e.g., Rs.100 = 1 point
+$UpdetNewPointS = $currentPoint + $earnedPoint;
+
+// store in session to pass the data 
+$_SESSION['currentPoint'] =  $currentPoint;
+$_SESSION['earnedPoint'] =  $earnedPoint;
+$_SESSION['UpdetNewPointS'] =  $UpdetNewPointS;
 
 if (isset($_POST['statusupdate'])) {
     $value = $_POST['status'];
@@ -60,10 +87,17 @@ if (isset($_POST['statusupdate'])) {
     } elseif ($value  == 3) {
         $updateQuary = "UPDATE `order` SET order_status = 'Complete' WHERE order_id= '$order_id'";
         $result = mysqli_query($con, $updateQuary);
+        // if paymet method COD then add new/update loylty point to table
+        if ($paymentMethod == 'cod') {
+            $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPointS WHERE fk_cust_id = '$fk_cust_id'";
+            $result = mysqli_query($con, $pointUpdateQuary);
+        }
+
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('order-manage.php', '_self');</script>";
     }
 }
+
 
 ?>
 
