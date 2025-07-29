@@ -60,11 +60,6 @@ $totalPrice = 0;
 $totalCost = 0;
 
 // Fetch data from the cart query
-// $getCartItemSelectQuiry = "SELECT item_name, item_sell_price, item_discount, item_qty FROM item
-// INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
-// INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
-// WHERE customer.cust_id = $custId ";
-
 $getCartItemSelectQuiry = "SELECT item_id, item_name, item_image1, item_sell_price, item_stock_qty, item_discount, cart_id, item_qty FROM item
 INNER JOIN cart_item ON item.item_id = cart_item.fk_item_id
 INNER JOIN customer ON cart_item.fk_cust_id = customer.cust_id
@@ -107,9 +102,10 @@ if (mysqli_num_rows($deliveryCostResult) > 0) {
 }
 
 // Calculate final total price
-$finalTotalPrice = $totalPrice + $deliveryCost;
+$loyaltyDiscount = isset($_SESSION['loyaltyDiscount']) ? $_SESSION['loyaltyDiscount']  : 0;
+$finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
 
-
+$item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
 // Store data in session
 $_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
 $_SESSION['checkout_total_price'] = $finalTotalPrice * 100; // Convert to cents
@@ -256,10 +252,6 @@ $_SESSION['item_id '] =  $item_id ;
                     </div>
 
                     <hr>
-                    <!-- <button type="submit" class="btn btn-success w-100">Place Order</button> -->
-                    <!-- <button type="button" class="btn btn-success w-100" onclick="handleOrder()">Place Order</button> -->
-
-                    <!-- <button type="button" name="placeorder" class="btn btn-success w-100" onclick="handleOrder();" disabled>Place Order</button> -->
                     <button type="submit" name="placeorder" class="btn btn-success w-100" onclick="handleOrder()" disabled>Place Order</button>
 
                 </form>
@@ -323,9 +315,41 @@ $_SESSION['item_id '] =  $item_id ;
                                     $deliveryCost = $deliveryCostData['amount'];
                                 }
 
-                                // Calculate final total price
-                                $finalTotalPrice = $totalPrice + $deliveryCost;
+                                // LOYALTY POINTS DISCOUNT CALCULATION  
 
+                                //get user loyalty detail in checkout.php page 
+                                $earnedPoints = isset($_SESSION['earnedPoints']) ? $_SESSION['earnedPoints'] : 0;
+                                $currentPoint = isset($_SESSION['currentPoint']) ? $_SESSION['currentPoint'] : 0;
+                                $UpdetNewPoint = isset($_SESSION['UpdetNewPoint']) ? $_SESSION['UpdetNewPoint'] : 0;
+                                $isEligible = isset($_SESSION['isEligible']) ? $_SESSION['isEligible'] : "error";
+                                $isChecked = isset($_SESSION['isChecked']) ? $_SESSION['isChecked'] : "error";
+
+                                $maxPoints = 100;
+                                $progress = min(100, ($currentPoint / $maxPoints) * 100);
+                                $isEligible = $currentPoint >= 100;
+                                $_SESSION['isEligible'] = $isEligible;
+                                $isChecked = false;
+                                $_SESSION['isChecked'] = $isChecked;
+
+                                $loyaltyDiscount = 0;
+                                if (isset($_POST['apply_loyalty'])) {
+                                    if ($isEligible) {
+                                        $loyaltyDiscount = $totalPrice * 0.10;
+                                        $_SESSION['loyalty_discount_used'] = true; //to update loyalty table and reduce used points
+                                    }
+                                }
+                                // Show checkbox as checked only for that one submission
+                                $isChecked = isset($_SESSION['loyalty_discount_used']) && $_SESSION['loyalty_discount_used'] === true;
+
+                                // Calculate final total price
+                                $finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
+                                $_SESSION['finalTotalPrices'] = $finalTotalPrice;
+                                $_SESSION['loyaltyDiscount'] = $loyaltyDiscount;
+
+                                // Unset the checkbox flag so it won't stay checked
+                                if ($isChecked) {
+                                    unset($_SESSION['loyalty_discount_used']);
+                                }
 
                             ?>
 
@@ -357,6 +381,7 @@ $_SESSION['item_id '] =  $item_id ;
 
                         </tbody>
                     </table>
+
                 <?php
                 } else {
                     echo "<h2 class='bg-danger text-center mt-5 '> Not added item in cart to checkout </h2>";
@@ -368,12 +393,92 @@ $_SESSION['item_id '] =  $item_id ;
                         <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($deliveryCost, 2) ?> </h7>
                     </div>
                     <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
+                        <h7 class="text mx-3" style="font-weight:700">LOYALTY DISCOUNT : </h7>
+                        <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($loyaltyDiscount, 2) ?> </h7>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center" style="text-align: right !important;">
                         <h7 class="text mx-3" style="font-weight:700">TOTAL PRICE: </h7>
                         <h7 class="price px-3" style="font-weight:700" name="totalPrice"> Rs.<?= number_format($finalTotalPrice, 2) ?> </h7>
+                    </div>
+
+                    <?php
+                    // Check if the customer already has a loyalty record
+                    $pointSelectQuary = "SELECT points FROM user_loyalty WHERE fk_cust_id = $custId";
+                    $pointsResult = mysqli_query($con, $pointSelectQuary);
+                    $rowdata = mysqli_fetch_assoc($pointsResult);
+
+                    $currentPoint = $rowdata['points'];
+                    // Assume session is already started, and customer ID is available
+                    $custId = $_SESSION['custId'];
+
+                    // Calculate new points based on purchase amount
+                    $earnedPoints = (float)($finalTotalPrice / 100); // e.g., Rs.100 = 1 point
+
+                    $UpdetNewPoint = 0;
+                    if ($earnedPoints > 0) {
+                        $UpdetNewPoint = $currentPoint + $earnedPoints;
+                    }
+
+                    echo number_format($earnedPoints, 2);
+                    echo '<br>';
+                    echo number_format($currentPoint, 2);
+                    echo '<br>';
+                    echo number_format($UpdetNewPoint, 2);
+                    echo '<br>';
+
+
+                    // Store in session to pass data to another page 
+                    $_SESSION['earnedPoints'] = $earnedPoints;
+                    $_SESSION['currentPoint'] = $currentPoint;
+                    $_SESSION['UpdetNewPoint'] = $UpdetNewPoint;
+                    $maxPoints = 100;
+                    $progress = min(100, ($currentPoint / $maxPoints) * 100);
+
+                    $isEligible = $currentPoint >= 100;
+                    $_SESSION['isEligible'] = $isEligible;
+                    $isChecked = false;
+                    $_SESSION['isChecked'] = $isChecked;
+                    ?>
+                    <hr>
+                    <!-- Display Loyalty Points to Customer -->
+                    <div class="loyalty-box mt-4" style="background: #ccccccff; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px;">
+                        <strong>Your Total Loyalty Points:</strong> <?= number_format($currentPoint, 2) ?> points<br>
+                        <small>Earn 1 point for every Rs.100 you spend!</small>
+
+                        <!-- Progress bar -->
+
+                        <div class="progress text-center mt-3" style="height: 20px; background-color: #fffafaff; border-radius: 10px;">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: <?= $progress ?>%; background-color: #198b1dff; color: #fff; border-radius: 10px;"
+                                aria-valuenow="<?= $progress ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?= number_format($progress, 0) ?>%
+                            </div>
+                        </div>
+
+                        <!-- Checkbox: only enabled if points >= 100 -->
+                        <form method="POST">
+                            <div class="form-check mt-3">
+                                <label class="form-check-label" for="checkOffers">
+                                    Check for available point offers
+                                </label>
+                                <input class="form-check-input" type="checkbox" name="apply_loyalty" value="" id="checkOffers"
+                                    <?= $isEligible ? '' : 'disabled' ?> onchange="this.form.submit()" <?= $isChecked ? 'checked' : '' ?>>
+                                <?php if (!$isEligible) { ?>
+                                    <div style="font-size: 12px; color: #888;">* Reach 100 points to unlock offers</div>
+                                <?php } else {  ?>
+                                    <!-- Hidden offer message -->
+                                    <div id="offerMessage" class="mt-2" style="color: #4caf50;">
+                                        <?= $isChecked ? '🎉 Reward applied using your loyalty points!' : '✅ You are eligible — click to apply your reward.' ?>
+                                    </div>
+                                <?php }; ?>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
 
