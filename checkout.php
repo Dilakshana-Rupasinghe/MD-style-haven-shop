@@ -428,14 +428,6 @@ $_SESSION['item_id '] =  $item_id;
                         $UpdetNewPoint = $currentPoint + $earnedPoints;
                     }
 
-                    echo number_format($earnedPoints, 2);
-                    echo '<br>';
-                    echo number_format($currentPoint, 2);
-                    echo '<br>';
-                    echo number_format($UpdetNewPoint, 2);
-                    echo '<br>';
-
-
                     // Store in session to pass data to another page 
                     $_SESSION['earnedPoints'] = $earnedPoints;
                     $_SESSION['currentPoint'] = $currentPoint;
