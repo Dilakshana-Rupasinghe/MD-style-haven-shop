@@ -41,11 +41,15 @@ if (isset($_POST['placeorder'])) {
     $_SESSION['secondaryPhone'] = $secondaryPhone;
     $_SESSION['paymentMethod'] = $paymentMethod;
 
+    // Include the database configuration file
+    include('database/config.php');
+
+
     // rederect page related to user choose payment systems 
     if ($paymentMethod === "online") {
-        header('Location: online-payment.php ');
+        echo "<script>window.open('online-payment.php', '_self');</script>";
     } else if ($paymentMethod === "cod") {
-        header('Location: order-success.php ');
+        echo "<script>window.open('order-success.php', '_self');</script>";
     }
 }
 
@@ -53,11 +57,11 @@ if (isset($_POST['placeorder'])) {
 include('database/config.php');
 
 
-
 // Add this where the total price and items are calculated:
 $itemDescriptions = []; // Array to hold item names
 $totalPrice = 0;
 $totalCost = 0;
+$item_id = '';
 
 // Fetch data from the cart query
 $getCartItemSelectQuiry = "SELECT item_id, item_name, item_image1, item_sell_price, item_stock_qty, item_discount, cart_id, item_qty FROM item
@@ -86,7 +90,7 @@ if (mysqli_num_rows($result) > 0) {
 
 
         // Add item name to descriptions
-        $itemDescriptions[] = $item_id . '-'. $item_name . '-'. " (Qty: $item_qty)";
+        $itemDescriptions[] = $item_id . '-' . $item_name . '-' . " (Qty: $item_qty)";
     }
 }
 
@@ -101,16 +105,15 @@ if (mysqli_num_rows($deliveryCostResult) > 0) {
     $deliveryCost = $deliveryCostData['amount'];
 }
 
-// Calculate final total price
+// Calculate final total price to send payment getway
 $loyaltyDiscount = isset($_SESSION['loyaltyDiscount']) ? $_SESSION['loyaltyDiscount']  : 0;
 $finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
 
-$item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
 // Store data in session
 $_SESSION['checkout_items'] = implode(", ", $itemDescriptions);
 $_SESSION['checkout_total_price'] = $finalTotalPrice * 100; // Convert to cents
-$_SESSION['Order_totle'] = $finalTotalPrice; 
-$_SESSION['item_id '] =  $item_id ; 
+$_SESSION['Order_totle'] = $finalTotalPrice;
+$_SESSION['item_id '] =  $item_id;
 
 
 ?>
@@ -330,21 +333,27 @@ $_SESSION['item_id '] =  $item_id ;
                                 $_SESSION['isEligible'] = $isEligible;
                                 $isChecked = false;
                                 $_SESSION['isChecked'] = $isChecked;
-
                                 $loyaltyDiscount = 0;
+
                                 if (isset($_POST['apply_loyalty'])) {
                                     if ($isEligible) {
                                         $loyaltyDiscount = $totalPrice * 0.10;
                                         $_SESSION['loyalty_discount_used'] = true; //to update loyalty table and reduce used points
+                                        $loyalty_discount_used = "UPDATE user_loyalty SET is_used = 1 WHERE fk_cust_id = $custId ";
+                                        mysqli_query($con, $loyalty_discount_used);
                                     }
                                 }
+
                                 // Show checkbox as checked only for that one submission
                                 $isChecked = isset($_SESSION['loyalty_discount_used']) && $_SESSION['loyalty_discount_used'] === true;
+                                $_SESSION['isChecked'] = $isChecked;
+
 
                                 // Calculate final total price
                                 $finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
                                 $_SESSION['finalTotalPrices'] = $finalTotalPrice;
                                 $_SESSION['loyaltyDiscount'] = $loyaltyDiscount;
+
 
                                 // Unset the checkbox flag so it won't stay checked
                                 if ($isChecked) {
@@ -436,8 +445,8 @@ $_SESSION['item_id '] =  $item_id ;
 
                     $isEligible = $currentPoint >= 100;
                     $_SESSION['isEligible'] = $isEligible;
-                    $isChecked = false;
-                    $_SESSION['isChecked'] = $isChecked;
+                    $isChecked = isset($_SESSION['isChecked']) ? $_SESSION['isChecked'] : "error";
+
                     ?>
                     <hr>
                     <!-- Display Loyalty Points to Customer -->
