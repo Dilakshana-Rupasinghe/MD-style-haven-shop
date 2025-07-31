@@ -30,16 +30,27 @@ if (isset($_POST['okaybtn'])) {
     $orderItemDetails = isset($_SESSION['checkout_items']) ?   $_SESSION['checkout_items']  : "no input";
     $item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
 
-    // if user pay with online loyalty point table update here //
+    // if user pay with online or cod loyalty point table update here 
     //get user loyalty detail in checkout.php page 
     $earnedPoints = isset($_SESSION['earnedPoints']) ? $_SESSION['earnedPoints'] : 0;
     $currentPoint = isset($_SESSION['currentPoint']) ? $_SESSION['currentPoint'] : 0;
     $UpdetNewPoint = isset($_SESSION['UpdetNewPoint']) ? $_SESSION['UpdetNewPoint'] : 0;
+    $loyalty_discount_used = isset($_SESSION['loyalty_used']) ? $_SESSION['loyalty_used'] : 0;
 
     // check if user pay online and update the table
-    if ($paymentMethod == 'online') {
+    if ($paymentMethod == 'online'||'cod') {
+        // Always update new earned points
         $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPoint WHERE fk_cust_id = $custId";
-        $result = mysqli_query($con, $pointUpdateQuary);
+        mysqli_query($con, $pointUpdateQuary);
+
+        // Only deduct 100 points if loyalty discount was applied
+        $getloyaltyDetails = "SELECT * FROM user_loyalty WHERE fk_cust_id = $custId";
+        $result = mysqli_query($con, $getloyaltyDetails);
+        $rowdata = mysqli_fetch_assoc($result);
+        if ($rowdata['is_used'] == 1) {
+            $deductQuery = "UPDATE user_loyalty SET points = ($earnedPoints + $currentPoint) - 100, is_used = 0 WHERE fk_cust_id = $custId";
+            mysqli_query($con, $deductQuery);
+        }
     }
 
     // //send data to database table which is order table 
@@ -85,7 +96,8 @@ if (isset($_POST['okaybtn'])) {
         if ($cartdltresult) {
         }
 
-        // echo "<script>alert('order successful! ');</script>";
+
+        echo "<script>alert('order successful! ');</script>";
         header('Location: index.php');
         exit();
     } else {
@@ -114,6 +126,41 @@ if (isset($_POST['okaybtn'])) {
 </head>
 
 <body class="d-flex align-items-center justify-content-center">
+    <?php
+    // $loyalty_discount_used = isset($_SESSION['loyalty_used']) ? $_SESSION['loyalty_used'] : 0;
+    // echo $loyalty_discount_used;
+    // $item_id = isset($_SESSION['item_id ']) ?   $_SESSION['item_id ']  : "no input";
+    // echo '<br>';
+    // echo $item_id;
+    // $UpdetNewPoint = isset($_SESSION['UpdetNewPoint']) ? $_SESSION['UpdetNewPoint'] : 0;
+
+    // echo '<br>';
+    // echo $UpdetNewPoint;
+
+    // $earnedPoints = isset($_SESSION['earnedPoints']) ? $_SESSION['earnedPoints'] : 0;
+    // $currentPoint = isset($_SESSION['currentPoint']) ? $_SESSION['currentPoint'] : 0;
+    // $UpdetNewPoint = isset($_SESSION['UpdetNewPoint']) ? $_SESSION['UpdetNewPoint'] : 0;
+    // $isChecked = isset($_SESSION['isChecked']) ? $_SESSION['isChecked'] : "error";
+    // // $loyalty_discount_used = isset($_SESSION['loyalty_used']) ? $_SESSION['loyalty_used'] : 0;
+    // $paymentMethod = isset($_SESSION['paymentMethod']) ? $_SESSION['paymentMethod'] : "error";
+    // $custId = isset($_SESSION['custId']) ?   $_SESSION['custId']  : "no input";
+
+
+    // // check if user pay online and update the table
+    // if ($paymentMethod == 'online') {
+    //     // Always update new earned points
+    //     $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPoint WHERE fk_cust_id = $custId";
+    //     mysqli_query($con, $pointUpdateQuary);
+
+    //     // Only deduct 100 points if loyalty discount was applied
+    //     if ($loyalty_discount_used == 1) {
+    //         $deductQuery = "UPDATE user_loyalty SET points = points - 100 WHERE fk_cust_id = $custId";
+    //         mysqli_query($con, $deductQuery);
+    //         // Optionally unset the session flag
+    //         unset($_SESSION['loyalty_discount_used']);
+    //     }
+    // }
+    ?>
     <form method="POST" action="" class="col-8">
         <div class="container text-center">
             <div class="card shadow-lg p-4">
