@@ -87,11 +87,6 @@ if (isset($_POST['statusupdate'])) {
     } elseif ($value  == 3) {
         $updateQuary = "UPDATE `order` SET order_status = 'Complete' WHERE order_id= '$order_id'";
         $result = mysqli_query($con, $updateQuary);
-        // if paymet method COD then add new/update loylty point to table
-        if ($paymentMethod == 'cod') {
-            $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPointS WHERE fk_cust_id = '$fk_cust_id'";
-            $result = mysqli_query($con, $pointUpdateQuary);
-        }
 
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('order-manage.php', '_self');</script>";
