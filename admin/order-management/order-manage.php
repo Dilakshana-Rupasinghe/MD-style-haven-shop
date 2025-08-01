@@ -165,11 +165,12 @@ $row_count = mysqli_num_rows($result);
                                 echo "<td>" . $row['order_status'] . "</td>";
 
                                 $invisible = ($row['order_status'] == 'Complete' || $row['order_status'] == 'Cancelled') ? 'invisible' : '';
+                                $invisiblecancle = ($row['order_status'] == 'Complete' || $row['order_status'] == 'Ready for Delivery' || $row['order_status'] == 'Cancelled') ? 'invisible' : '';
 
                                 echo "<td class='action-links'>
                             <a href='order-view.php?orderId=" . $row['order_id'] . "' class='view'>View</a>
                             <a href='update-order.php?orderId=" . $row['order_id'] . "' class='$invisible update'>Status</a>
-                            <a href='#' class='$invisible deactivate'>Cancel</a></td>";
+                            <a href='#' class='$invisiblecancle deactivate'>Cancel</a></td>";
                                 echo "</tr>";
                             }
                         }
