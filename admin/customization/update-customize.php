@@ -60,7 +60,7 @@ if (isset($_POST['statusupdate'])) {
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('customization-management.php', '_self');</script>";
     } elseif ($value == 2) {
-        $updateQuary = "UPDATE `customization` SET customize_status = 'Ready for Fiton' WHERE customization_id= '$customization_id'";
+        $updateQuary = "UPDATE `customization` SET customize_status = 'Ready for fits on' WHERE customization_id= '$customization_id'";
         $result = mysqli_query($con, $updateQuary);
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('customization-management.php', '_self');</script>";
