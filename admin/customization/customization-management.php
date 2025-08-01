@@ -184,11 +184,13 @@ if (!$result) {
                                 echo "<td>" . $row['customize_status'] . "</td>";
 
                                 $invisible = ($row['customize_status'] == 'Complete') ? 'invisible' : '';
+                                $invisiblecancle = ($row['customize_status'] == 'Complete' || $row['customize_status'] == 'Ready for Fiton' ) ? 'invisible' : '';
+
 
                                 echo "<td class='action-links'>
                             <a href='cutomize-view.php?customizationId=" . $row['customization_id'] . "' class='view'>View</a>
                             <a href='update-customize.php?customizationId=" . $row['customization_id'] . "' class='$invisible update'>Status</a>
-                            <a href='#' class='$invisible deactivate'>Cancel</a></td>";
+                            <a href='#' class='$invisiblecancle deactivate'>Cancel</a></td>";
                                 echo "</tr>";
                             }
                         }
