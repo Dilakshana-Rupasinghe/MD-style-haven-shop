@@ -34,6 +34,48 @@ if (!empty($status_filter) && !empty($search_customer)) {
 
 $result = mysqli_query($con, $get_itemDetails);
 $row_count = mysqli_num_rows($result);
+
+
+if (isset($_GET['canclellID'])) {
+    $order_id = $_GET['canclellID'];
+
+    $GetDetails = "SELECT * FROM `order` WHERE order_id = $order_id";
+    $result = mysqli_query($con, $GetDetails);
+    $row_data = mysqli_fetch_assoc($result);
+    $status = $row_data['order_status'];
+
+    // Correct conditional check
+    if ($status !== 'Complete' || $status !== 'Ready for Delivery' || $status !== 'Cancelled') {
+        $UpdateStatus = "UPDATE `order` SET order_status = 'Cancelled' WHERE order_id = $order_id";
+        mysqli_query($con, $UpdateStatus);
+
+        $updatePayment = "UPDATE payment SET payment_status = 'Cancelled' WHERE fk_order_id = $order_id";
+        mysqli_query($con, $updatePayment);
+
+        //  Restore stock for each item from order_item table
+        $getOrderItems = "SELECT fk_item_id, item_qty FROM order_item WHERE fk_order_id = $order_id";
+        $itemsResult = mysqli_query($con, $getOrderItems);
+
+        if ($itemsResult && mysqli_num_rows($itemsResult) > 0) {
+            while ($itemRow = mysqli_fetch_assoc($itemsResult)) {
+                $itemId = (int)$itemRow['fk_item_id'];
+                $qty = (int)$itemRow['item_qty'];
+
+                // Update only that item's stock
+                $updateStock = "UPDATE item SET item_stock_qty = item_stock_qty + $qty WHERE item_id = $itemId";
+                mysqli_query($con, $updateStock);
+                echo "<script>alert('Order cancelled successfully!');</script>";
+                echo "<script>window.open('order-manage.php', '_self');</script>";
+            }
+            // after canscle order delete order_item tabal details
+            $deleteOrderItems = "DELETE FROM order_item WHERE fk_order_id = $order_id";
+            mysqli_query($con, $deleteOrderItems);
+        } else {
+            echo "<script>alert('No items found in the order to restock.');</script>";
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +212,7 @@ $row_count = mysqli_num_rows($result);
                                 echo "<td class='action-links'>
                             <a href='order-view.php?orderId=" . $row['order_id'] . "' class='view'>View</a>
                             <a href='update-order.php?orderId=" . $row['order_id'] . "' class='$invisible update'>Status</a>
-                            <a href='#' class='$invisiblecancle deactivate'>Cancel</a></td>";
+                            <a href='order-manage.php?canclellID=" . $row['order_id'] . "' class='$invisiblecancle deactivate'>Cancel</a></td>";
                                 echo "</tr>";
                             }
                         }
