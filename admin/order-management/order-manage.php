@@ -100,6 +100,7 @@ $row_count = mysqli_num_rows($result);
                                 <option value="Processing" <?= $status_filter == 'Processing' ? 'selected' : '' ?>>Processing</option>
                                 <option value="Ready for Delivery" <?= $status_filter == 'Ready for Delivery' ? 'selected' : '' ?>>Ready for Delivery</option>
                                 <option value="Complete" <?= $status_filter == 'Complete' ? 'selected' : '' ?>>Complete</option>
+                                <option value="Cancelled" <?= $status_filter == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
                             </select>
                         </div>
 
@@ -163,7 +164,7 @@ $row_count = mysqli_num_rows($result);
                                 echo "<td>" . $row['order_payment_option'] . "</td>";
                                 echo "<td>" . $row['order_status'] . "</td>";
 
-                                $invisible = ($row['order_status'] == 'Complete') ? 'invisible' : '';
+                                $invisible = ($row['order_status'] == 'Complete' || $row['order_status'] == 'Cancelled') ? 'invisible' : '';
 
                                 echo "<td class='action-links'>
                             <a href='order-view.php?orderId=" . $row['order_id'] . "' class='view'>View</a>
