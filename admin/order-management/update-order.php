@@ -88,6 +88,10 @@ if (isset($_POST['statusupdate'])) {
         $updateQuary = "UPDATE `order` SET order_status = 'Complete' WHERE order_id= '$order_id'";
         $result = mysqli_query($con, $updateQuary);
 
+        // after complete order delete order_item tabal details
+        $deleteOrderItems = "DELETE FROM order_item WHERE fk_order_id = $order_id";
+        mysqli_query($con, $deleteOrderItems);
+
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('order-manage.php', '_self');</script>";
     }
