@@ -38,7 +38,7 @@ if (isset($_POST['okaybtn'])) {
     $loyalty_discount_used = isset($_SESSION['loyalty_used']) ? $_SESSION['loyalty_used'] : 0;
 
     // check if user pay online and update the table
-    if ($paymentMethod == 'online' || 'cod') {
+    if ($paymentMethod == 'online' || $paymentMethod == 'cod') {
         // Always update new earned points
         $pointUpdateQuary = "UPDATE user_loyalty SET points = $UpdetNewPoint WHERE fk_cust_id = $custId";
         mysqli_query($con, $pointUpdateQuary);
@@ -47,15 +47,20 @@ if (isset($_POST['okaybtn'])) {
         $getloyaltyDetails = "SELECT * FROM user_loyalty WHERE fk_cust_id = $custId";
         $result = mysqli_query($con, $getloyaltyDetails);
         $rowdata = mysqli_fetch_assoc($result);
+        $_SESSION['userusedloyal'] = false;
+
         if ($rowdata['is_used'] == 1) {
+            $_SESSION['userusedloyal'] = true;
             $deductQuery = "UPDATE user_loyalty SET points = ($earnedPoints + $currentPoint) - 100, is_used = 0 WHERE fk_cust_id = $custId";
             mysqli_query($con, $deductQuery);
         }
     }
 
+    $loyalstatus = isset($_SESSION['userusedloyal']) ? $_SESSION['userusedloyal'] : 0;
+
     // //send data to database table which is order table 
-    $orderInsertQuary = "INSERT INTO `order` (order_date, order_details, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, order_payment_option, fk_cust_id, fk_item_id)
-        VALUES (NOW(),'$orderItemDetails', '$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$paymentMethod', $custId, '$item_id' )";
+    $orderInsertQuary = "INSERT INTO `order` (order_date, order_details, order_total, order_fname, order_lname, order_email, discrict, order_address_line1, order_address_line2, order_address_line3, city, postal_code, order_contact1, order_contact2,order_status, is_loyalty_used, order_payment_option, fk_cust_id, fk_item_id)
+        VALUES (NOW(),'$orderItemDetails', '$Order_totle', '$firstName', '$lastName', '$email', '$district', '$addressline1', '$addressline2', '$addressline3', '$city', '$postalCode', '$phone', '$secondaryPhone','pending', '$loyalstatus', '$paymentMethod', $custId, '$item_id' )";
 
     $result = mysqli_query($con, $orderInsertQuary);
 
