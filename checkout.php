@@ -339,26 +339,22 @@ $_SESSION['item_id '] =  $item_id;
                                     if ($isEligible) {
                                         $loyaltyDiscount = $totalPrice * 0.10;
                                         $_SESSION['loyalty_discount_used'] = true; //to update loyalty table and reduce used points
+                                        $_SESSION['isChecked'] = true; //to update loyalty table and reduce used points
                                         $loyalty_discount_used = "UPDATE user_loyalty SET is_used = 1 WHERE fk_cust_id = $custId ";
                                         mysqli_query($con, $loyalty_discount_used);
                                     }
+                                } else {
+                                    unset($_SESSION['isChecked']);
                                 }
 
                                 // Show checkbox as checked only for that one submission
-                                $isChecked = isset($_SESSION['loyalty_discount_used']) && $_SESSION['loyalty_discount_used'] === true;
+                                $isChecked = isset($_SESSION['isChecked']) && $_SESSION['isChecked'] === true;
                                 $_SESSION['isChecked'] = $isChecked;
-
-
+                                                                
                                 // Calculate final total price
                                 $finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
                                 $_SESSION['finalTotalPrices'] = $finalTotalPrice;
                                 $_SESSION['loyaltyDiscount'] = $loyaltyDiscount;
-
-
-                                // Unset the checkbox flag so it won't stay checked
-                                if ($isChecked) {
-                                    unset($_SESSION['loyalty_discount_used']);
-                                }
 
                             ?>
 
