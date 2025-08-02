@@ -19,6 +19,8 @@ if (isset($_GET['canclell'])) {
     $result = mysqli_query($con, $GetDetails);
     $row_data = mysqli_fetch_assoc($result);
     $status = $row_data['order_status'];
+    $fk_cust_id = $row_data['fk_cust_id'];
+    $order_total = $row_data['order_total'];
 
     // Correct conditional check
     if ($status !== 'Complete' || $status !== 'Ready for Delivery' || $status !== 'Cancelled') {
@@ -50,6 +52,37 @@ if (isset($_GET['canclell'])) {
             echo "<script>alert('No items found in the order to restock.');</script>";
             echo "<script>window.open('profile.php', '_self');</script>";
         }
+    }
+
+    // Check if the customer already has a loyalty record
+    $pointSelectQuary = "SELECT points FROM user_loyalty WHERE fk_cust_id = $fk_cust_id";
+    $pointsResult = mysqli_query($con, $pointSelectQuary);
+    $rowdata = mysqli_fetch_assoc($pointsResult);
+
+    $currentPoint = $rowdata['points'];
+
+    // Calculate new points based on purchase amount
+    $earnedPoints = (float)($order_total / 100); // e.g., Rs.100 = 1 point
+
+    $getOrderDetails = "SELECT * FROM `order` WHERE order_id = $order_id";
+    $result = mysqli_query($con, $getOrderDetails);
+    $rowdata = mysqli_fetch_assoc($result);
+
+    $is_loyalty_used = $rowdata['is_loyalty_used'];
+
+    if ($is_loyalty_used == 1) {
+        $refundQuery = "UPDATE user_loyalty SET points = points + 100 WHERE fk_cust_id = $custId";
+        mysqli_query($con, $refundQuery);
+        $updateIsloyalsyStatus = "UPDATE `order` SET is_loyalty_used = 0 WHERE  order_id = $order_id";
+        mysqli_query($con, $updateIsloyalsyStatus);
+    }
+
+    $UpdetNewPoint = 0;
+    if ($earnedPoints > 0) {
+        $UpdetNewPoint = $currentPoint - $earnedPoints;
+        // Deduct earned points
+        $updatePoints = "UPDATE user_loyalty SET points = points - $UpdetNewPoint WHERE fk_cust_id = $fk_cust_id";
+        mysqli_query($con, $updatePoints);
     }
 }
 
