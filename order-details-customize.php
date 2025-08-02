@@ -12,6 +12,26 @@ if (!isset($_SESSION['custId'])) {
 
 $custId = $_SESSION['custId'];
 
+if (isset($_GET['canclellID'])) {
+    $customization_id = $_GET['canclellID'];
+
+    $GetDetails = "SELECT * FROM customization WHERE customization_id = $customization_id";
+    $result = mysqli_query($con, $GetDetails);
+    $row_data = mysqli_fetch_assoc($result);
+    $status = $row_data['customize_status'];
+
+    // Correct conditional check
+    if ($status !== 'Complete' || $status !== 'Ready for fits on' || $status !== 'Cancelled') {
+        $UpdateStatus = "UPDATE customization SET customize_status = 'Cancelled' WHERE customization_id = $customization_id";
+        mysqli_query($con, $UpdateStatus);
+
+        $updatePayment = "UPDATE payment SET payment_status = 'Cancelled Downpayment' WHERE fk_customization_id = $customization_id";
+        mysqli_query($con, $updatePayment);
+
+        echo "<script>alert('Order cancelled successfully!');</script>";
+        echo "<script>window.open('customize-cloth-history.php', '_self');</script>";
+    }
+}
 
 ?>
 
@@ -32,6 +52,26 @@ $custId = $_SESSION['custId'];
     <link rel="stylesheet" href="css/home-all-style.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/back-style.css">
+
+    <style>
+        .deactivate {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: flow-root;
+            font-size: 19px;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+
+        .deactivate {
+            background-color: #DC3545;
+        }
+    </style>
 
 </head>
 
@@ -171,6 +211,22 @@ $custId = $_SESSION['custId'];
 
         ?>
     </table>
+
+    <div class="d-flex justify-content-center">
+        <div class="mb-5 col-4" >
+            <?php
+            $GetDetails = "SELECT * FROM customization WHERE customization_id = $customization_id";
+            $result = mysqli_query($con, $GetDetails);
+            $row_data = mysqli_fetch_assoc($result);
+            $status = $row_data['customize_status'];
+            $invisible = ($status == 'Cancelled' || $status == 'Complete' || $status == 'Ready for fits on') ? 'invisible' : '';
+
+            echo  "<a href='order-details-customize.php?canclellID=$customization_id' class='$invisible deactivate'>Cancel order</a>";
+            ?>
+        </div>
+
+
+    </div>
 
     <!-- footer section -->
     <?php
