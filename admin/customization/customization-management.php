@@ -45,6 +45,32 @@ $row_count = mysqli_num_rows($result);
 if (!$result) {
     die("Query Error: " . mysqli_error($con));
 }
+
+
+if (isset($_GET['canclellID'])) {
+    $customization_id = $_GET['canclellID'];
+
+    $GetDetails = "SELECT * FROM customization WHERE customization_id = $customization_id";
+    $result = mysqli_query($con, $GetDetails);
+    $row_data = mysqli_fetch_assoc($result);
+    $status = $row_data['customize_status'];
+
+    // Correct conditional check
+    if ($status !== 'Complete' || $status !== 'Ready for fits on' || $status !== 'Cancelled') {
+        $UpdateStatus = "UPDATE customization SET customize_status = 'Cancelled' WHERE customization_id = $customization_id";
+        mysqli_query($con, $UpdateStatus);
+
+        $updatePayment = "UPDATE payment SET payment_status = 'Cancelled Downpayment' WHERE fk_customization_id = $customization_id";
+        mysqli_query($con, $updatePayment);
+
+        echo "<script>alert('Order cancelled successfully!');</script>";
+        echo "<script>window.open('customization-management.php', '_self');</script>";
+    } 
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -113,8 +139,9 @@ if (!$result) {
                                 <option value="">All Orders</option>
                                 <option value="Pending" <?= $status_filter == 'Pending' ? 'selected' : '' ?>>Pending</option>
                                 <option value="Processing" <?= $status_filter == 'Processing' ? 'selected' : '' ?>>Processing</option>
-                                <option value="Ready for Fiton" <?= $status_filter == 'Ready for Fiton' ? 'selected' : '' ?>>Ready for Fiton</option>
+                                <option value="Ready for fits on" <?= $status_filter == 'Ready for fits on' ? 'selected' : '' ?>>Ready for fits on</option>
                                 <option value="Complete" <?= $status_filter == 'Complete' ? 'selected' : '' ?>>Complete</option>
+                                <option value="Cancelled" <?= $status_filter == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
                             </select>
                         </div>
 
@@ -183,14 +210,14 @@ if (!$result) {
                                 echo "<td>" . $row['pickup_date'] . "</td>";
                                 echo "<td>" . $row['customize_status'] . "</td>";
 
-                                $invisible = ($row['customize_status'] == 'Complete') ? 'invisible' : '';
-                                $invisiblecancle = ($row['customize_status'] == 'Complete' || $row['customize_status'] == 'Ready for Fiton' ) ? 'invisible' : '';
+                                $invisible = ($row['customize_status'] == 'Complete' || $row['customize_status'] == 'Cancelled') ? 'invisible' : '';
+                                $invisiblecancle = ($row['customize_status'] == 'Complete' || $row['customize_status'] == 'Ready for fits on'|| $row['customize_status'] == 'Cancelled') ? 'invisible' : '';
 
 
                                 echo "<td class='action-links'>
                             <a href='cutomize-view.php?customizationId=" . $row['customization_id'] . "' class='view'>View</a>
                             <a href='update-customize.php?customizationId=" . $row['customization_id'] . "' class='$invisible update'>Status</a>
-                            <a href='#' class='$invisiblecancle deactivate'>Cancel</a></td>";
+                            <a href='customization-management.php?canclellID=" . $row['customization_id'] . "'' class='$invisiblecancle deactivate'>Cancel</a></td>";
                                 echo "</tr>";
                             }
                         }
