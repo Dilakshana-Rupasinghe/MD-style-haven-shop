@@ -144,7 +144,7 @@ include('../../database/config.php');
         var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
         var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
     </script>
-    <script src="../../script/stockcount.js"></script>
+    <script src="../../script/stockChart.js"></script>
 
 
     <!--Bootstrap JS link -->
