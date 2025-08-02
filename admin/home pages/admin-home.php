@@ -131,7 +131,7 @@ include('../../database/config.php');
             <h1 class="mt-5 ms-3">Dashboard</h1>
             <!-- BACK & Register button start -->
             <div class="back-button-container mt-0">
-               
+
             </div>
         </div>
 
@@ -176,7 +176,7 @@ include('../../database/config.php');
             </div>
             <div class="card" style="background-color:rgb(243, 230, 255)">
                 <?php
-                $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization";
+                $sqlclothCustCount = "SELECT COUNT(customization_id) AS customization_count FROM customization WHERE customize_status = 'Pending'";
                 $resulCustCount = mysqli_query($con, $sqlclothCustCount);
                 $rowShoeCustCount = mysqli_fetch_assoc($resulCustCount);
                 $clothCustomizationCount = $rowShoeCustCount['customization_count'];
@@ -221,6 +221,40 @@ include('../../database/config.php');
 
             <main class="mx-2" style="height: fit-content;">
 
+                <div class="chart m-3">
+                    <!-- <div class="d-flex"> -->
+                    <div class="edit " style="margin-top: 1rem;">
+                        <div class="change  " style="height: fit-content; width: 60rem">
+                            <!-- <div class="chart" style="width: 90%;"> -->
+
+                            <?php
+                            // Get monthly income data
+
+                            $sqlIncome = "SELECT 
+                MONTH(payment_date) AS month, SUM(payment_amount) AS total 
+              FROM payment WHERE payment_status = 'Success' || 'Downpayment_success' || 'Full Payment Success' 
+              AND YEAR(payment_date) = YEAR(CURDATE())
+              GROUP BY MONTH(payment_date) ORDER BY MONTH(payment_date)";
+
+                            $resultIncome = mysqli_query($con, $sqlIncome);
+
+                            $monthNames = [1 => 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                            $monthly_income = [];
+                            $monthly_labels = [];
+
+                            while ($row = mysqli_fetch_assoc($resultIncome)) {
+                                $monthly_labels[] = $monthNames[(int)$row['month']];
+                                $monthly_income[] = $row['total'];
+                            }
+                            ?>
+
+                            <h3 class="mt-5">Seals Income</h3>
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div class="chart m-3">
                     <!-- <div class="d-flex"> -->
@@ -274,7 +308,7 @@ include('../../database/config.php');
 
                     <div class="chart m-3 text-center" id="pie-cahrt" style="width: 29rem; height:31rem">
                         <h3>Employes</h3>
-                        <canvas id="pieChart"></canvas>
+                        <canvas id="staffChart"></canvas>
 
                     </div>
 
@@ -297,7 +331,7 @@ include('../../database/config.php');
 
                     <div class="chart m-3 mt-5 text-center " id="line-chart" style="width: 36rem; height: 26rem;">
                         <h3>Payments</h3>
-                        <canvas id="lineChart" class="mt-5"></canvas>
+                        <canvas id="paymentTypeBarchart" class="mt-5"></canvas>
 
                     </div>
 
@@ -347,17 +381,25 @@ include('../../database/config.php');
     <!-- Chart JS link -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Data from PHP to JavaScript
+        var incomeLabels = <?php echo json_encode($monthly_labels); ?>;
+        var incomeData = <?php echo json_encode($monthly_income); ?>;
+    </script>
+    <script src="../../script/income.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
         var item_labels = <?php echo json_encode($item_labels); ?>; //convert array (staff_type_name) to json
         var item_data = <?php echo json_encode($item_data); ?>; //convert array (staff_count) to json
     </script>
-    <script src="../../script/stockcount.js"></script>
+    <script src="../../script/stockChart.js"></script>
 
 
     <script>
         var staffLabels = <?php echo json_encode($staff_labels); ?>; //convert array (staff_type_name) to json
         var staffData = <?php echo json_encode($staff_data); ?>; //convert array (staff_count) to json
     </script>
-    <script src="../../script/staffchart.js"></script>
+    <script src="../../script/staffcountchart.js"></script>
 
 
 
@@ -366,7 +408,7 @@ include('../../database/config.php');
         var Payment_Type_labels = <?php echo json_encode($payment_type_labels); ?>; //convert array (staff_type_name) to json
         var Payment_Type_data = <?php echo json_encode($payment_type_data); ?>; //convert array (staff_count) to json
     </script>
-    <script src="../../script/PaymentTypeLineChart.JS"></script>
+    <script src="../../script/paymetType.JS"></script>
 
     <!--Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
