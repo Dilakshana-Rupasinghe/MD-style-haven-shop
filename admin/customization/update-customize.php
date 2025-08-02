@@ -27,7 +27,7 @@ WHERE customization_id = $view_order"; //get category name from category table
         while ($row_data = mysqli_fetch_assoc($result)) {
 
             $customization_id = $row_data['customization_id'];
-            $order_details = $row_data['Cloth_type'].' ' .$row_data['fabric'].' Qty-'.$row_data['cust_qty'];
+            $order_details = $row_data['Cloth_type'] . ' ' . $row_data['fabric'] . ' Qty-' . $row_data['cust_qty'];
             $fk_cust_id = $row_data['fk_cust_id'];
             $order_status = $row_data['customize_status'];
             $fk_cust_id = $row_data['fk_cust_id'];
@@ -37,7 +37,7 @@ WHERE customization_id = $view_order"; //get category name from category table
             $row_count = mysqli_num_rows($customerResult);
             $row_data = mysqli_fetch_assoc($customerResult);
 
-            $customer = $row_data['cust_fname']. ' '. $row_data['cust_lname'];
+            $customer = $row_data['cust_fname'] . ' ' . $row_data['cust_lname'];
         }
     }
 }
@@ -67,6 +67,26 @@ if (isset($_POST['statusupdate'])) {
     } elseif ($value  == 3) {
         $updateQuary = "UPDATE `customization` SET customize_status = 'Complete' WHERE customization_id= '$customization_id'";
         $result = mysqli_query($con, $updateQuary);
+
+
+        $getpayment = "SELECT * FROM customization WHERE customization_id= '$customization_id'";
+        $result = mysqli_query($con, $getpayment);
+        $row_data = mysqli_fetch_assoc($result);
+        $total_price = $row_data['total_price'];
+        $advance_pay_amount = $row_data['advance_pay_amount'];
+        $balance = $row_data['balance'];
+
+        $getpayment = "SELECT * FROM payment WHERE fk_customization_id= '$customization_id'";
+        $result = mysqli_query($con, $getpayment);
+        $row_data = mysqli_fetch_assoc($result);
+        $currentamount = $row_data['payment_amount'];
+        $newAmount = 0;
+
+        $newAmount = $advance_pay_amount + $balance;
+
+        $updatepaymentQuary = "UPDATE payment SET payment_amount = $newAmount, payment_status = 'Full Payment Success' WHERE fk_customization_id= '$customization_id'";
+        mysqli_query($con, $updatepaymentQuary);
+
         echo "<script>alert('Status update success!');</script>";
         echo "<script>window.open('customization-management.php', '_self');</script>";
     }
