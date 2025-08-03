@@ -40,7 +40,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         <td>$order_details</td>
                         <td>$order_name</td>
                         <td>$order_total</td>
-                        <td>$order_status</td>
+                        <td class='text-success'>$order_status</td>
                       </tr>";
     }
 
