@@ -79,7 +79,7 @@ if (isset($_POST['staffLogout'])) {
         } elseif($_SESSION['fk_staff_type_id'] == 1002) {
             echo '<a href="inventory/inventory-management.php" class="back-button">Back</a>';
         } elseif($_SESSION['fk_staff_type_id'] == 1003) {
-            echo '<a href="#" class="' . $invisible . ' back-button disabled" style="pointer-events: none; opacity: 0.5;">Back</a>';
+            echo '<a href="Delivery/delivery-manage.php" class="back-button">Back</a>';
         } elseif($_SESSION['fk_staff_type_id'] == 1004) {
             echo '<a href="order-management/order-manage.php" class="back-button">Back</a>';
         } elseif($_SESSION['fk_staff_type_id'] == 1005) {
