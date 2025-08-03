@@ -230,11 +230,12 @@ include('../../database/config.php');
                             <?php
                             // Get monthly income data
 
-                            $sqlIncome = "SELECT 
-                MONTH(payment_date) AS month, SUM(payment_amount) AS total 
-              FROM payment WHERE payment_status = 'Success' || 'Downpayment_success' || 'Full Payment Success' 
+                            $sqlIncome = "SELECT MONTH(payment_date) AS month, SUM(payment_amount) AS total 
+              FROM payment 
+              WHERE payment_status IN ('Success', 'Downpayment_success', 'Full Payment Success')
               AND YEAR(payment_date) = YEAR(CURDATE())
-              GROUP BY MONTH(payment_date) ORDER BY MONTH(payment_date)";
+              GROUP BY MONTH(payment_date) 
+              ORDER BY MONTH(payment_date)";
 
                             $resultIncome = mysqli_query($con, $sqlIncome);
 
