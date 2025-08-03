@@ -60,7 +60,7 @@ if (isset($_POST['custome_confirm'])) {
     // $fabricColor = $_POST['fabricColor'];
     $neckType = $_POST['neckType'];
     $sleeveLength = $_POST['sleeveLength'];
-    // $fitStyle = $_POST['fitStyle'];
+    $fitStyle = $_POST['fitStyle'];
     $quantity = $_POST['Quntity'];
     $logo =  $_POST['logo'];
     $image =  $_POST['image'];
@@ -157,7 +157,7 @@ if (isset($_POST['custome_confirm'])) {
     // customization type store session data 
     $_SESSION['sizeOption'] = $sizeOption;
     $_SESSION['fabricTypename'] = $fabric;
-    // $_SESSION['fitStyle'] = $fitStyle;
+    $_SESSION['fitStyle'] = $fitStyle;
     $_SESSION['quantity'] = $quantity;
     $_SESSION['logo'] = $logo;
     $_SESSION['image'] = $image;
@@ -397,7 +397,10 @@ if(isset($_POST['history'])){
                         ?>
                     </select>
                 </div>
-               
+                <div class="col-md-6 py-2">
+                    <label for="fabricColor" class="form-label">Fabric Color:</label>
+                    <input type="color" id="fabricColor" name="fabricColor" class="form-control form-control-color">
+                </div>
 
                 <!-- Neck Type, Sleeve Length, Fit Style -->
                 <div class="py-2" style="display: flex;">
@@ -451,7 +454,15 @@ if(isset($_POST['history'])){
                             ?>
                         </select>
                     </div>
-                    
+                    <div class="col-md-4 px-2">
+                        <label for="fitStyle" class="form-label">Fit Style:</label>
+                        <select id="fitStyle" name="fitStyle" class="form-select">
+                            <option value="">Select Fit Style</option>
+                            <option value="slim">Slim Fit</option>
+                            <option value="regular">Regular Fit</option>
+                            <option value="loose">Loose Fit</option>
+                        </select>
+                    </div>
                 </div>
 
             </div>

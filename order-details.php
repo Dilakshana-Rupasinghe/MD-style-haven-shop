@@ -71,7 +71,7 @@ if (isset($_GET['canclell'])) {
     $is_loyalty_used = $rowdata['is_loyalty_used'];
 
     if ($is_loyalty_used == 1) {
-        $refundQuery = "UPDATE user_loyalty SET points = points + 100 WHERE fk_cust_id = $custId";
+        $refundQuery = "UPDATE user_loyalty SET points = points + 100 WHERE fk_cust_id = $fk_cust_id";
         mysqli_query($con, $refundQuery);
         $updateIsloyalsyStatus = "UPDATE `order` SET is_loyalty_used = 0 WHERE  order_id = $order_id";
         mysqli_query($con, $updateIsloyalsyStatus);
