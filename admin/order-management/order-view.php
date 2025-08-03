@@ -58,7 +58,7 @@ include('../../database/config.php');
                 <!--  BACK & Register button end -->
                 <h1 class="mt-2">Order management</h1>
 
-                <table >
+                <table>
                     <?php
                     //get value from item table using item id
                     if (isset($_GET['orderId'])) {
@@ -81,14 +81,16 @@ include('../../database/config.php');
                                 $order_details = $row_data['order_details'];
                                 $order_total = $row_data['order_total'];
                                 $fk_cust_id = $row_data['fk_cust_id'];
-                                $customer = $row_data['order_fname']. ' '. $row_data['order_lname'];
+                                $customer = $row_data['order_fname'] . ' ' . $row_data['order_lname'];
                                 $order_email = $row_data['order_email'];
                                 $discrict = $row_data['discrict'];
-                                $address = $row_data['order_address_line1'] . ' '. $row_data['order_address_line2']. ' '. $row_data['order_address_line3']. ' '. $row_data['city'];
+                                $address = $row_data['order_address_line1'] . ' ' . $row_data['order_address_line2'] . ' ' . $row_data['order_address_line3'] . ' ' . $row_data['city'];
                                 $postal_code = $row_data['postal_code'];
-                                $contact = $row_data['order_contact1']. ' '. $row_data['order_contact2'];
+                                $contact = $row_data['order_contact1'] . ' ' . $row_data['order_contact2'];
                                 $order_status = $row_data['order_status'];
                                 $order_payment_option = $row_data['order_payment_option'];
+                                $Deliver_date = $row_data['order_deliver_date'];
+
 
                                 echo
                                 " <tr>
@@ -156,6 +158,12 @@ include('../../database/config.php');
 
 
                     </tr>
+                   <tr>
+                        <th>Order Delivery Date</th>
+                        <td> $Deliver_date </td>
+
+
+                    </tr>
                    ";
                             }
                         }
@@ -164,7 +172,7 @@ include('../../database/config.php');
 
 
                 </table>
-                </main>
+            </main>
         </div>
     </div>
 
