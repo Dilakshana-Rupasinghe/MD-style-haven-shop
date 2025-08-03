@@ -67,6 +67,8 @@ if (!isset($_SESSION['staffId'])) {
                             <option value="6">Pending Orders Reports</option>
                             <option value="7">Deavtive Staff Reports</option>
                             <option value="8">Complete Order report</option>
+                            <option value="9">Monthly Sales Income Report </option>
+                            <option value="10">This Month cancel Orders Report </option>
                         </select>
                         <input type="submit" name="submit" value="Generate Report" class="deactivate bg-warning text-dark">
                     </form>
@@ -113,6 +115,10 @@ if (!isset($_SESSION['staffId'])) {
                         include('deactive-staff-report.php');
                     } elseif ($value == 8) {
                         include('order-complete-report.php');
+                    } elseif ($value == 9) {
+                        include('seals-report.php');
+                    } elseif ($value == 10) {
+                        include('cancel-report.php');
                     }
                 }
                 ?>
