@@ -94,6 +94,14 @@ $_SESSION ['fk_staff_type_id'] = $logged_in_staff_type_id;
 </div>
 <?php endif; ?>
 
+<?php if (in_array($logged_in_staff_type_id, [1001, 1003])): ?>
+<!-- Feedback -->
+<div class="menu <?php echo ($current_page == 'delivery-manage.php') ? 'bg-body-secondary' : ''; ?>">
+    <span class="material-symbols-outlined">delivery_truck_speed</span>
+    <a href="../Delivery/delivery-manage.php"> Delivery </a>
+</div>
+<?php endif; ?>
+
 <?php if ($logged_in_staff_type_id == 1001): ?>
 <!-- Staff -->
 <div class="menu <?php echo ($current_page == 'staff-management.php') ? 'bg-body-secondary' : ''; ?>">
