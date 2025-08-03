@@ -250,7 +250,6 @@ include('../../database/config.php');
                             }
                             ?>
 
-                            <h3 class="mt-5">Seals Income</h3>
                             <canvas id="incomeChart"></canvas>
                         </div>
                     </div>
