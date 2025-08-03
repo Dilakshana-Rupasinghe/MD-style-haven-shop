@@ -350,7 +350,7 @@ $_SESSION['item_id '] =  $item_id;
                                 // Show checkbox as checked only for that one submission
                                 $isChecked = isset($_SESSION['isChecked']) && $_SESSION['isChecked'] === true;
                                 $_SESSION['isChecked'] = $isChecked;
-                                                                
+
                                 // Calculate final total price
                                 $finalTotalPrice = $totalPrice + $deliveryCost - $loyaltyDiscount;
                                 $_SESSION['finalTotalPrices'] = $finalTotalPrice;
@@ -407,12 +407,22 @@ $_SESSION['item_id '] =  $item_id;
                     </div>
 
                     <?php
-                    // Check if the customer already has a loyalty record
                     $pointSelectQuary = "SELECT points FROM user_loyalty WHERE fk_cust_id = $custId";
                     $pointsResult = mysqli_query($con, $pointSelectQuary);
-                    $rowdata = mysqli_fetch_assoc($pointsResult);
 
-                    $currentPoint = $rowdata['points'];
+                    // Initialize current points
+                    $currentPoint = 0;
+
+                    if ($pointsResult && mysqli_num_rows($pointsResult) > 0) {
+                        $rowdata = mysqli_fetch_assoc($pointsResult); // fetch only once
+                        $currentPoint = $rowdata['points'];
+                    } else {
+                        // Optional: Insert loyalty record if not found
+                        $insertLoyalty = "INSERT INTO user_loyalty (fk_cust_id, points) VALUES ($custId, 0)";
+                        mysqli_query($con, $insertLoyalty);
+                        $currentPoint = 0;
+                    }
+
                     // Assume session is already started, and customer ID is available
                     $custId = $_SESSION['custId'];
 
