@@ -37,7 +37,7 @@ if (isset($_POST['staff-login'])) {
                     header('location:../Inventory/inventory-management.php');
                     exit();
                 } elseif ($staff_type_id == 1003) {
-                    header('location:#');
+                    header('location:../Delivery/delivery-manage.php');
                     exit();
                 } elseif ($staff_type_id == 1004) {
                     header('location:../order-management/order-manage.php');
